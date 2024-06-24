@@ -8,20 +8,24 @@ const Homepage = () => {
   const [works, setWorks] = useState([]);
 
   useEffect(() => {
-    // This is a placeholder function. You'll need to implement the actual logic to fetch the images.
     const fetchWorks = async () => {
-      // Simulate fetching works from the 'works' folder
-      const worksData = [
-        { id: 1, image: '/works/folder1/image1.jpg' },
-        { id: 2, image: '/works/folder2/image1.jpg' },
-        { id: 3, image: '/works/folder3/image1.jpg' },
-        // Add more items as needed
-      ];
-      setWorks(worksData);
+      try {
+        const response = await fetch('/api/works');
+        if (!response.ok) {
+          throw new Error('Failed to fetch works');
+        }
+        const data = await response.json();
+        console.log('Fetched works:', data);  // Add this line
+        setWorks(data);
+      } catch (error) {
+        console.error('Error fetching works:', error);
+      }
     };
 
     fetchWorks();
   }, []);
+
+  console.log('Rendering works:', works);  // Add this line
 
   return (
     <div className="homepage">
