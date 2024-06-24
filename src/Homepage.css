@@ -57,5 +57,22 @@
     .content h1 {
       font-size: 48px;
     }
+
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+    
+    /* Remove or adjust these styles as they might interfere with the grid layout */
+    .content h1 {
+        font-size: 36px;
+        color: black;
+    }
+    
+    @media (min-width: 768px) {
+        .content h1 {
+        font-size: 48px;
+        }
+    }
   }
   
