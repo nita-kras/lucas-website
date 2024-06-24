@@ -5,10 +5,9 @@ import './Homepage.css';
 const Homepage = () => {
   return (
     <div className="homepage">
-      <div className="sidebar">
-        <button className="sidebar-button">Homepage</button>
-        <button className="sidebar-button">Info</button>
-        <button className="sidebar-button">Bumhole</button>
+      <div className="topbar">
+        <button className="topbar-button">Home</button>
+        <button className="topbar-button">Info</button>
       </div>
       <div className="content">
         <h1>HELLO WORLD</h1>
