@@ -9,23 +9,20 @@ const Homepage = () => {
 
   useEffect(() => {
     const fetchWorks = async () => {
-      try {
-        const response = await fetch('/api/works');
-        if (!response.ok) {
-          throw new Error('Failed to fetch works');
-        }
-        const data = await response.json();
-        console.log('Fetched works:', data);  // Add this line
-        setWorks(data);
-      } catch (error) {
-        console.error('Error fetching works:', error);
-      }
+      // Manually maintain the list of folder names
+      const folderNames = ['folder1', 'folder2', 'folder3'];
+
+      // Construct the works data
+      const worksData = folderNames.map((folder, index) => ({
+        id: index + 1,
+        image: `${process.env.PUBLIC_URL}/works/${folder}/image1.png`, // Adjust the extension to .png
+      }));
+
+      setWorks(worksData);
     };
 
     fetchWorks();
   }, []);
-
-  console.log('Rendering works:', works);  // Add this line
 
   return (
     <div className="homepage">

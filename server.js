@@ -1,16 +1,18 @@
-// server.js
 const express = require('express');
+const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/works', express.static(path.join(__dirname, 'works')));
 
 app.get('/api/works', async (req, res) => {
   try {
-    const worksDir = path.join(__dirname, 'public', 'works');
+    const worksDir = path.join(__dirname, 'works');
     const folders = await fs.readdir(worksDir);
     
     const works = await Promise.all(folders.map(async (folder, index) => {
