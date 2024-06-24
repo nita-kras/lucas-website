@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/lucas-website/static/css/main.04dd5da2.css",
-    "main.js": "/lucas-website/static/js/main.0eb6be1b.js",
+    "main.js": "/lucas-website/static/js/main.c04fb6d0.js",
     "index.html": "/lucas-website/index.html",
     "main.04dd5da2.css.map": "/lucas-website/static/css/main.04dd5da2.css.map",
-    "main.0eb6be1b.js.map": "/lucas-website/static/js/main.0eb6be1b.js.map"
+    "main.c04fb6d0.js.map": "/lucas-website/static/js/main.c04fb6d0.js.map"
   },
   "entrypoints": [
     "static/css/main.04dd5da2.css",
-    "static/js/main.0eb6be1b.js"
+    "static/js/main.c04fb6d0.js"
   ]
 }
