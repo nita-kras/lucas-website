@@ -50,7 +50,7 @@
   
     .sidebar {
       flex-direction: column;
-      width: 200px;
+      width: 15%;
       border-bottom: none;
       border-right: 1px solid #ccc;
       height: 100%;
@@ -60,6 +60,11 @@
     .sidebar-button {
       text-align: left;
       width: 100%;
+      font-size: 14px;
+    }
+  
+    .content {
+      width: 85%;
     }
   
     .content h1 {
