@@ -1,0 +1,21 @@
+/* src/Info.css */
+.info-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+  }
+  
+  .info-content h1 {
+    font-size: 36px;
+    color: black;
+  }
+  
+  @media (min-width: 768px) {
+    .info-content h1 {
+      font-size: 48px;
+    }
+  }
+  
