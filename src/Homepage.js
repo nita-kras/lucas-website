@@ -1,4 +1,4 @@
-// src/Homepage.js
+// src/Homepage.js and src/Info.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
