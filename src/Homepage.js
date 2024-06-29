@@ -11,7 +11,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchWorks = async () => {
       // Manually maintain the list of folder names
-      const folderNames = ['bracket', 'mother_and_child', 'acceleration'];
+      const folderNames = ['acceleration','ball_and_socket_joint','bracket','crash_landed','flag','haunted_house','insert_me_a_perfect_coupling', 'lets_fuck', 'mother_and_child', 'synthesis_installation', 'twighlight_drawing','twighlight_monitor'];
 
       // Construct the works data
       const worksData = folderNames.map((folder, index) => ({
