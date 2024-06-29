@@ -1,28 +1,36 @@
 // src/Homepage.js
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Grid, Box, Card, CardMedia, CardActionArea } from '@mui/material';
 import './Homepage.css';
 
 const Homepage = () => {
   const [works, setWorks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWorks = async () => {
       // Manually maintain the list of folder names
-      const folderNames = ['folder1', 'folder2', 'folder3'];
+      const folderNames = ['bracket', 'mother_and_child', 'acceleration'];
 
       // Construct the works data
       const worksData = folderNames.map((folder, index) => ({
         id: index + 1,
+        folder,
         image: `${process.env.PUBLIC_URL}/works/${folder}/image1.png`, // Adjust the extension to .png
       }));
 
+      console.log('Works data:', worksData); // Debugging log
       setWorks(worksData);
     };
 
     fetchWorks();
   }, []);
+
+  const handleCardClick = (folder) => {
+    console.log('Navigating to folder:', folder); // Debugging log
+    navigate(`/folder/${folder}`);
+  };
 
   return (
     <div className="homepage">
@@ -35,7 +43,7 @@ const Homepage = () => {
           {works.map((work) => (
             <Grid item xs={12} sm={6} md={4} key={work.id}>
               <Card>
-                <CardActionArea>
+                <CardActionArea onClick={() => handleCardClick(work.folder)}>
                   <CardMedia
                     component="img"
                     height="200"
