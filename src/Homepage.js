@@ -46,7 +46,7 @@ const Homepage = () => {
                 <CardActionArea onClick={() => handleCardClick(work.folder)}>
                   <CardMedia
                     component="img"
-                    height="200"
+                    height="350"
                     image={work.image}
                     alt={`Work ${work.id}`}
                   />
