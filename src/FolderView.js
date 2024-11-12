@@ -1,28 +1,54 @@
-// src/FolderView.js
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid, Box, Card, CardMedia, CardActionArea } from '@mui/material';
+import { Grid, Box, Card, CardMedia, CardActionArea, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';  // For close icon on the modal
 import './FolderView.css';
 
 const FolderView = () => {
   const { folderName } = useParams();
   const [images, setImages] = useState([]);
+  const [openModal, setOpenModal] = useState(false);  // State to control modal visibility
+  const [selectedImage, setSelectedImage] = useState(''); // State to store the selected image
 
   useEffect(() => {
     const fetchImages = async () => {
-      // Assume the folder contains image1.png, image2.png, image3.png, etc.
-      const imageCount = 5; // Adjust this number based on your needs
-      const imagesData = Array.from({ length: imageCount }, (_, index) => ({
-        id: index + 1,
-        image: `${process.env.PUBLIC_URL}/works/${folderName}/image${index + 1}.png`,
-      }));
+      try {
+        // Fetch the images.json file
+        const response = await fetch(`${process.env.PUBLIC_URL}/works/${folderName}/images.json`);
+        
+        if (!response.ok) {
+          throw new Error('Could not fetch image data');
+        }
 
-      console.log('Images data:', imagesData); // Debugging log
-      setImages(imagesData);
+        // Parse the JSON data
+        const imagesData = await response.json();
+
+        // Format the images to build the correct image URL
+        const formattedImages = imagesData.map(img => ({
+          id: img.id,
+          image: `${process.env.PUBLIC_URL}/works/${folderName}/${img[folderName]}`
+        }));
+
+        setImages(formattedImages);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
     };
 
     fetchImages();
   }, [folderName]);
+
+  // Function to open the modal with the selected image
+  const handleImageClick = (image) => {
+    setSelectedImage(image); // Set the selected image
+    setOpenModal(true); // Open the modal
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedImage(''); // Clear the selected image when modal is closed
+  };
 
   return (
     <div className="folder-view">
@@ -31,7 +57,7 @@ const FolderView = () => {
           {images.map((img) => (
             <Grid item xs={12} sm={6} md={4} key={img.id}>
               <Card>
-                <CardActionArea>
+                <CardActionArea onClick={() => handleImageClick(img.image)}>
                   <CardMedia
                     component="img"
                     height="200"
@@ -44,6 +70,30 @@ const FolderView = () => {
           ))}
         </Grid>
       </Box>
+
+      {/* Modal to display enlarged image */}
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>
+          <IconButton edge="end" color="inherit" onClick={handleCloseModal} aria-label="close" sx={{ position: 'absolute', right: 8, top: 8 }}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <img
+            src={selectedImage}
+            alt="Selected"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <button onClick={handleCloseModal}>Close</button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
