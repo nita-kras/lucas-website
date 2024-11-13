@@ -35,21 +35,21 @@ const GalleryPage = () => {
         <Grid container spacing={2}>
           {works.map((work) => (
             <Grid item xs={12} sm={6} md={4} key={work.id}>
-              <Card>
-                <CardActionArea onClick={() => handleCardClick(work.folder)}>
-                  <div className="card-container">
-                    <img
-                      src={work.thumbnail}
-                      alt={`Work ${work.id}`}
-                      className="card-image"
-                    />
-                    <div className="card-overlay">
-                      {work.formattedFolderName} {/* Display name on hover */}
-                    </div>
+            <Card sx={{ boxShadow: 'none', borderRadius: 0 }}>
+              <CardActionArea onClick={() => handleCardClick(work.folder)}>
+                <div className="card-container">
+                  <img
+                    src={work.thumbnail}
+                    alt={`Work ${work.id}`}
+                    className="card-image"
+                  />
+                  <div className="card-overlay">
+                    {work.formattedFolderName} {/* Display name on hover */}
                   </div>
-                </CardActionArea>
-              </Card>
-            </Grid>
+                </div>
+              </CardActionArea>
+            </Card>
+          </Grid>          
           ))}
         </Grid>
       </Box>

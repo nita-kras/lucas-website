@@ -47,8 +47,8 @@
 .card-container {
     position: relative;
     overflow: hidden;
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: 0; /* Ensure the container has sharp edges */
+    box-shadow: none; /* Ensure there's no shadow */
 }
 
 /* Card image styling */
@@ -59,7 +59,7 @@
     display: block;
     object-fit: cover;
     aspect-ratio: 3/2;
-    border-radius: 0;
+    border-radius: 0; /* Ensure the image has sharp edges */
 }
 
 /* Overlay on hover */

@@ -42,56 +42,80 @@
 .folder-view {
   display: flex;
   margin-top: 20px;
-  padding: 20px;
+  padding: 0; /* Remove unnecessary padding */
   align-items: flex-start;
-  gap: 10px; /* Reduced gap between sections */
+  gap: 0px; /* Remove gap between sections */
+  width: 100%;
 }
 
-/* Left section for the contents list (reduced width) */
+/* Left section for the contents list */
 .left-section {
-  flex: 0.3; /* Reduced width for contents list */
+  flex: 0; /* This doesn't take up space next to carousel */
   display: flex;
   flex-direction: column;
-  padding-right: 10px; /* Narrower padding */
+  position: absolute; /* Remove from the document flow */
+  padding-left: 20px; /* Add padding on the left side */
+  z-index: 1; /* Ensure it stays above carousel */
+  margin-left: 20px; /* Offset from the left side */
+  max-width: 200px; /* Set maximum width for contents list */
 }
 
 /* Remove bullet points from folder list */
 .folder-list ul {
-  list-style-type: none; /* Remove bullets */
+  list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
 .folder-link {
-  font-size: 0.7rem; /* Reduced font size */
+  font-size: 0.5rem; /* Adjusted font size */
   text-decoration: none;
   color: #333;
   transition: color 0.3s ease;
+  white-space: nowrap; /* Prevent links from wrapping */
+  overflow: hidden; /* Ensure text doesn't overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
 }
 
 .folder-link:hover {
   color: #007bff;
 }
 
-/* Center section for carousel and description (increased width) */
+/* Center section for carousel and description */
 .center-section {
-  flex: 1.7; /* Takes more width */
+  flex: 1; /* This section will take up the remaining space */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1100px; /* Max width of the carousel and description */
+  margin: 0 auto; /* Center the section */
 }
 
-/* Carousel container (increased max width) */
+/* Carousel container */
 .carousel-container {
   width: 100%;
-  max-width: 1100px; /* Increased max width */
+  max-width: 1100px; /* Max width of the carousel */
+  display: flex;
+  justify-content: center; /* Center carousel image horizontally */
 }
 
 /* Image description below carousel */
 .image-description {
   width: 100%;
+  max-width: 1100px; /* Make sure description stays the same width as the carousel */
   margin-top: 20px;
   text-align: left;
+  padding: 0 20px; /* Add padding to the left and right */
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+
+/* Title should be on one line */
+.image-description h2 {
+  white-space: nowrap; /* Prevent the title from wrapping */
+  overflow: hidden; /* Ensure the text doesn't overflow */
+  text-overflow: ellipsis; /* Add ellipsis if the title is too long */
 }
 
 /* Carousel image and arrows */
@@ -105,7 +129,7 @@
 .carousel-image {
   width: 100%;
   height: auto;
-  max-height: 85vh; /* Slightly increased height */
+  max-height: 60vh; /* Reduce the height of the carousel */
 }
 
 .arrow {
@@ -135,26 +159,27 @@
   opacity: 1;
 }
 
-/* Thumbnail Styling (Reduced to 1/5 of the previous size) */
+/* Thumbnail Styling */
 .thumbnails-container {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-  overflow-x: auto; /* To allow horizontal scrolling if needed */
+  overflow-x: auto;
 }
 
 .thumbnail {
-  width: 80px !important; /* Force the width to 10px (1/5th of the original size) */
-  height: auto !important; /* Ensure the height adjusts automatically to maintain aspect ratio */
+  width: 80px;
+  height: auto;
   cursor: pointer;
-  margin: 5px; /* Space between thumbnails */
+  margin: 5px;
   border: 2px solid transparent;
   transition: border 0.3s ease;
 }
 
 .thumbnail.selected {
-  border: 2px solid #007bff; /* Highlight the selected thumbnail */
+  border: 2px solid #007bff;
 }
+
 /* Full Width for the large images in large image view */
 .large-image-container {
   display: flex;
@@ -177,4 +202,3 @@
   flex-direction: column;
   align-items: center;
 }
-

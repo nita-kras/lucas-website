@@ -45,13 +45,16 @@ const FolderView = () => {
 
   return (
     <div className="folder-view-page">
-      <div className="topbar">
-        <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
-        <div className="button-group">
-          <Link to="/info" className="topbar-button">Info</Link>
-          <Link to="/gallery" className="topbar-button">Gallery</Link>
+      {/* Conditionally render the top bar */}
+      {!isLargeImageView && (
+        <div className="topbar">
+          <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
+          <div className="button-group">
+            <Link to="/info" className="topbar-button">Info</Link>
+            <Link to="/gallery" className="topbar-button">Gallery</Link>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="folder-view">
         {isLargeImageView ? (
