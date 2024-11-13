@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { useParams, Link } from 'react-router-dom';
 import './FolderView.css';
 
 const FolderView = () => {
@@ -11,10 +10,9 @@ const FolderView = () => {
   const [zoomX, setZoomX] = useState('50%');
   const [zoomY, setZoomY] = useState('50%');
 
-  // Format folder name for display
   const formattedFolderName = folderName
-    .replace(/_/g, ' ') // Replace underscores with spaces
-    .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize each word
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -26,7 +24,7 @@ const FolderView = () => {
           id: img.id,
           image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`,
           thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${img[folderName]}`,
-          description: img.description || "No description available", // Add description field
+          description: img.description || "No description available",
         }));
         setImages(formattedImages);
       } catch (error) {
@@ -51,12 +49,26 @@ const FolderView = () => {
     setZoomed((prevZoomed) => !prevZoomed);
   };
 
+  const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
+
   return (
     <div className="folder-view">
-      {images.length === 0 ? (
-        <div>Loading images...</div>
-      ) : (
-        <div className="carousel-container">
+      <div className="folder-list">
+        <ul>
+          {folderNames.map((folder) => (
+            <li key={folder}>
+              <Link to={`/folder/${folder}`} className="folder-link">
+                {folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="carousel-container">
+        {images.length === 0 ? (
+          <div>Loading images...</div>
+        ) : (
           <div className="carousel-content">
             {/* Carousel Image */}
             <div className="carousel-image-wrapper">
@@ -70,36 +82,34 @@ const FolderView = () => {
                   transform: zoomed ? 'scale(2)' : 'scale(1)',
                 }}
               />
+
+              {/* Navigation Arrows */}
+              <div className="arrow arrow-left" onClick={handlePreviousImage}></div>
+              <div className="arrow arrow-right" onClick={handleNextImage}></div>
             </div>
 
             {/* Description with folder name */}
             <div className="image-description">
-              <h2>{formattedFolderName}</h2> {/* Display formatted folder name */}
+              <h2>{formattedFolderName}</h2>
               <p>{images[currentIndex]?.description}</p>
             </div>
           </div>
+        )}
 
-          {/* Navigation Buttons */}
-          <div className="carousel-navigation">
-            <Button onClick={handlePreviousImage} variant="contained">Previous</Button>
-            <Button onClick={handleNextImage} variant="contained">Next</Button>
-          </div>
-
-          {/* Thumbnails */}
-          <div className="thumbnails-container">
-            {images.map((img, index) => (
-              <img
-                key={img.id}
-                src={img.thumbnail}
-                alt={`Thumbnail ${index}`}
-                onClick={() => handleThumbnailClick(index)}
-                className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-                style={{ width: '20%', height: 'auto', cursor: 'pointer', margin: '5px' }}
-              />
-            ))}
-          </div>
+        {/* Thumbnails */}
+        <div className="thumbnails-container">
+          {images.map((img, index) => (
+            <img
+              key={img.id}
+              src={img.thumbnail}
+              alt={`Thumbnail ${index}`}
+              onClick={() => handleThumbnailClick(index)}
+              className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+              style={{ width: '20%', height: 'auto', cursor: 'pointer', margin: '5px' }}
+            />
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };

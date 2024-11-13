@@ -13,7 +13,7 @@ const GalleryPage = () => {
       id: index + 1,
       folder,
       thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folder}/image1.jpg`,
-      folderName: folder,
+      formattedFolderName: folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()),
     }));
     setWorks(worksData);
   }, []);
@@ -33,7 +33,7 @@ const GalleryPage = () => {
           {works.map((work) => (
             <Grid item xs={12} sm={6} md={4} key={work.id}>
               <Card>
-                <CardActionArea onClick={() => handleCardClick(work.folderName)}>
+                <CardActionArea onClick={() => handleCardClick(work.folder)}>
                   <div className="card-container">
                     <img
                       src={work.thumbnail}
@@ -41,7 +41,7 @@ const GalleryPage = () => {
                       className="card-image"
                     />
                     <div className="card-overlay">
-                      {work.folderName.replace(/_/g, ' ')} {/* Display name on hover */}
+                      {work.formattedFolderName} {/* Display name on hover */}
                     </div>
                   </div>
                 </CardActionArea>

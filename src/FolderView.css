@@ -1,78 +1,79 @@
 .folder-view {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-top: 20px;
+  padding: 20px;
 }
+
+.folder-list {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.folder-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.folder-list li {
+  margin: 10px 0;
+}
+
+.folder-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem; /* Smaller font size */
+  font-weight: normal; /* Remove bold */
+  transition: color 0.3s ease;
+}
+
+.folder-link:hover {
+  color: #007bff;
+}
+
 
 .carousel-container {
+  flex: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 900px;
-}
-
-/* New container to arrange image and description side by side */
-.carousel-content {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
 }
 
 .carousel-image-wrapper {
-  display: flex;
-  justify-content: center;
-  width: 70%; /* Adjust as needed */
-  max-height: 800px;
-  overflow: hidden; /* Hide overflow for zoomed image */
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  overflow: hidden;
 }
 
 .carousel-image {
-  max-width: 100%;
-  max-height: 800px;
-  transition: transform 0.3s ease;
-  cursor: default; /* Remove zoom cursor */
-}
-
-.image-description {
-  width: 30%; /* Adjust as needed */
-  padding: 10px;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.image-description h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.carousel-navigation {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
   width: 100%;
-  max-width: 800px;
+  height: auto;
 }
 
-.thumbnails-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-}
-
-.thumbnail {
-  margin: 5px;
+.arrow {
+  position: absolute;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-style: solid;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.5;
+  transform: translateY(-50%);
   transition: opacity 0.3s ease;
 }
 
-.thumbnail.selected {
+.arrow:hover {
   opacity: 1;
 }
 
-.thumbnail:hover {
-  opacity: 1;
+.arrow-left {
+  left: 10px;
+  border-width: 15px 20px 15px 0;
+  border-color: transparent #ffffff transparent transparent;
+}
+
+.arrow-right {
+  right: 10px;
+  border-width: 15px 0 15px 20px;
+  border-color: transparent transparent transparent #ffffff;
 }
