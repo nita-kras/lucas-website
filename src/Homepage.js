@@ -14,7 +14,7 @@ const Homepage = () => {
     <div className="homepage">
       <div className="content">
         <img
-          src={`${process.env.PUBLIC_URL}/logo512.png`} // Path to the image you want to show
+          src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} // Path to the image you want to show
           alt="Click to Enter Gallery"
           onClick={handleImageClick}
           style={{ cursor: 'pointer', width: '100%', maxWidth: '600px', height: 'auto' }}
