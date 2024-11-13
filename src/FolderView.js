@@ -1,99 +1,105 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid, Box, Card, CardMedia, CardActionArea, Dialog, DialogActions, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';  // For close icon on the modal
+import { Button } from '@mui/material';
 import './FolderView.css';
 
 const FolderView = () => {
   const { folderName } = useParams();
   const [images, setImages] = useState([]);
-  const [openModal, setOpenModal] = useState(false);  // State to control modal visibility
-  const [selectedImage, setSelectedImage] = useState(''); // State to store the selected image
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [zoomed, setZoomed] = useState(false);
+  const [zoomX, setZoomX] = useState('50%');
+  const [zoomY, setZoomY] = useState('50%');
+
+  // Format folder name for display
+  const formattedFolderName = folderName
+    .replace(/_/g, ' ') // Replace underscores with spaces
+    .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize each word
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        // Fetch the images.json file from the folder
         const response = await fetch(`${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/images.json`);
-        
-        if (!response.ok) {
-          throw new Error('Could not fetch image data');
-        }
-
-        // Parse the JSON data
+        if (!response.ok) return;
         const imagesData = await response.json();
-
-        // Format the images to build the correct image URL for worksLarge
-        const formattedImages = imagesData.map(img => ({
+        const formattedImages = imagesData.map((img) => ({
           id: img.id,
-          image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`
+          image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`,
+          thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${img[folderName]}`,
+          description: img.description || "No description available", // Add description field
         }));
-
         setImages(formattedImages);
       } catch (error) {
         console.error('Error fetching images:', error);
       }
     };
-
     fetchImages();
   }, [folderName]);
 
-  // Function to open the modal with the selected image
-  const handleImageClick = (image) => {
-    setSelectedImage(image); // Set the selected image
-    setOpenModal(true); // Open the modal
-  };
+  const handleNextImage = () => setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  const handlePreviousImage = () => setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  const handleThumbnailClick = (index) => setCurrentIndex(index);
 
-  // Function to close the modal
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setSelectedImage(''); // Clear the selected image when modal is closed
+  const handleZoomToggle = (e) => {
+    if (!zoomed) {
+      const rect = e.target.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      setZoomX(`${x}%`);
+      setZoomY(`${y}%`);
+    }
+    setZoomed((prevZoomed) => !prevZoomed);
   };
 
   return (
     <div className="folder-view">
-      <Box sx={{ flexGrow: 1, padding: 2 }}>
-        <Grid container spacing={2}>
-          {images.map((img) => (
-            <Grid item xs={12} sm={6} md={4} key={img.id}>
-              <Card>
-                <CardActionArea onClick={() => handleImageClick(img.image)}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={img.image}
-                    alt={`Image ${img.id}`}
-                  />
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      {images.length === 0 ? (
+        <div>Loading images...</div>
+      ) : (
+        <div className="carousel-container">
+          <div className="carousel-content">
+            {/* Carousel Image */}
+            <div className="carousel-image-wrapper">
+              <img
+                src={images[currentIndex]?.image}
+                alt="Selected"
+                className={`carousel-image ${zoomed ? 'zoomed-image' : 'non-zoomed-image'}`}
+                onClick={handleZoomToggle}
+                style={{
+                  transformOrigin: `${zoomX} ${zoomY}`,
+                  transform: zoomed ? 'scale(2)' : 'scale(1)',
+                }}
+              />
+            </div>
 
-      {/* Modal to display enlarged image */}
-      <Dialog
-        open={openModal}
-        onClose={handleCloseModal}
-        maxWidth="md"
-        fullWidth
-      >
-        <DialogTitle>
-          <IconButton edge="end" color="inherit" onClick={handleCloseModal} aria-label="close" sx={{ position: 'absolute', right: 8, top: 8 }}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          <img
-            src={selectedImage}
-            alt="Selected"
-            style={{ width: '100%', height: 'auto' }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <button onClick={handleCloseModal}>Close</button>
-        </DialogActions>
-      </Dialog>
+            {/* Description with folder name */}
+            <div className="image-description">
+              <h2>{formattedFolderName}</h2> {/* Display formatted folder name */}
+              <p>{images[currentIndex]?.description}</p>
+            </div>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="carousel-navigation">
+            <Button onClick={handlePreviousImage} variant="contained">Previous</Button>
+            <Button onClick={handleNextImage} variant="contained">Next</Button>
+          </div>
+
+          {/* Thumbnails */}
+          <div className="thumbnails-container">
+            {images.map((img, index) => (
+              <img
+                key={img.id}
+                src={img.thumbnail}
+                alt={`Thumbnail ${index}`}
+                onClick={() => handleThumbnailClick(index)}
+                className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+                style={{ width: '20%', height: 'auto', cursor: 'pointer', margin: '5px' }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

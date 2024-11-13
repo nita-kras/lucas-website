@@ -34,18 +34,31 @@
 .card-container {
     position: relative;
     overflow: hidden;
+    border-radius: 0;  /* Ensures sharp edges, no rounding */
+    box-shadow: none; /* Removes any shadow */
 }
 
 /* Card image styling with a smooth transition */
-.card-image {
+/* src/GalleryPage.css */
+/* src/GalleryPage.css */
+/* src/GalleryPage.css */
+.MuiCard-root {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  .card-image {
     width: 100%;
     height: auto;
-    transition: transform 0.3s ease;
+    transition: none; /* Remove the transition for transform */
     display: block; /* Ensure images occupy the grid area fully */
-}
-
-/* Overlay that appears on hover */
-.card-overlay {
+    object-fit: cover; /* Ensures the image covers the space, preserving its aspect ratio */
+    aspect-ratio: 3/2; /* Force a 3:2 aspect ratio on the images */
+    border-radius: 0; /* Ensures no rounded corners for the image */
+  }
+  
+  /* Overlay that appears on hover */
+  .card-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -61,18 +74,18 @@
     font-weight: bold;
     transition: opacity 0.3s ease;
     pointer-events: none; /* Ensures click goes through to the container */
-}
-
-/* Hover effects for card */
-.card-container:hover .card-image {
-    transform: scale(1.05); /* Slight zoom on image */
-}
-
-.card-container:hover .card-overlay {
+  }
+  
+  /* Hover effects for card */
+  .card-container:hover .card-image {
+    transform: none; /* Remove the scale transformation on hover */
+  }
+  
+  .card-container:hover .card-overlay {
     opacity: 1; /* Show overlay on hover */
-}
-
-/* Optional: Adjusting grid spacing */
-.grid-container {
+  }
+  
+  /* Optional: Adjusting grid spacing */
+  .grid-container {
     padding: 20px;
-}
+  }

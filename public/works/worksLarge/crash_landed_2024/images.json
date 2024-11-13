@@ -1,7 +1,7 @@
 [
-    { "id": 1, "crash_landed_2024": "image1.jpg" },
-    { "id": 2, "crash_landed_2024": "image2.jpg" },
-    { "id": 3, "crash_landed_2024": "image3.jpg" },
-    { "id": 4, "crash_landed_2024": "image4.jpg" }
+    { "id": 1, "crash_landed_2024": "image1.jpg", "description": "geykyume" },
+    { "id": 2, "crash_landed_2024": "image2.jpg", "description": "geykyume" },
+    { "id": 3, "crash_landed_2024": "image3.jpg", "description": "geykyume" },
+    { "id": 4, "crash_landed_2024": "image4.jpg", "description": "geykyume" }
 ]
   
