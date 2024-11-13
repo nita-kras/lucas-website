@@ -15,6 +15,7 @@ const App = () => {
           <Route path="/gallery" element={<GalleryPage />} /> {/* The gallery page */}
           <Route path="/info" element={<Info />} />
           <Route path="/folder/:folderName" element={<FolderView />} />
+          <Route path="*" element={<NotFoundPage />} /> {/* Catch-all for 404 */}
         </Routes>
       </div>
     </Router>
