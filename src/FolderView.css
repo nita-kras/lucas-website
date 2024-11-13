@@ -2,11 +2,19 @@
   display: flex;
   margin-top: 20px;
   padding: 20px;
+  align-items: flex-start; /* Ensure everything aligns at the top */
+}
+
+.left-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding-right: 20px;
 }
 
 .folder-list {
-  flex: 1;
-  padding-right: 20px;
+  width: 100%;
 }
 
 .folder-list ul {
@@ -21,8 +29,8 @@
 .folder-link {
   text-decoration: none;
   color: #333;
-  font-size: 0.9rem; /* Smaller font size */
-  font-weight: normal; /* Remove bold */
+  font-size: 0.9rem;
+  font-weight: normal;
   transition: color 0.3s ease;
 }
 
@@ -30,18 +38,31 @@
   color: #007bff;
 }
 
-
-.carousel-container {
-  flex: 3;
+.center-section {
+  flex: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.carousel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .carousel-image-wrapper {
   position: relative;
   width: 100%;
-  max-width: 900px;
   overflow: hidden;
 }
 
@@ -76,4 +97,35 @@
   right: 10px;
   border-width: 15px 0 15px 20px;
   border-color: transparent transparent transparent #ffffff;
+}
+
+.thumbnails-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.thumbnail.selected {
+  border: 2px solid #007bff;
+}
+
+/* Adjusting the right-section */
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: flex-start; /* Aligns content at the top */
+  padding-left: 20px;
+}
+
+.image-description {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 0; /* Ensure description is towards the top */
 }
