@@ -13,8 +13,8 @@ const FolderView = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        // Fetch the images.json file
-        const response = await fetch(`${process.env.PUBLIC_URL}/works/${folderName}/images.json`);
+        // Fetch the images.json file from the folder
+        const response = await fetch(`${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/images.json`);
         
         if (!response.ok) {
           throw new Error('Could not fetch image data');
@@ -23,10 +23,10 @@ const FolderView = () => {
         // Parse the JSON data
         const imagesData = await response.json();
 
-        // Format the images to build the correct image URL
+        // Format the images to build the correct image URL for worksLarge
         const formattedImages = imagesData.map(img => ({
           id: img.id,
-          image: `${process.env.PUBLIC_URL}/works/${folderName}/${img[folderName]}`
+          image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`
         }));
 
         setImages(formattedImages);

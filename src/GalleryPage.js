@@ -8,17 +8,14 @@ const GalleryPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchWorks = async () => {
-      const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
-      const worksData = folderNames.map((folder, index) => ({
-        id: index + 1,
-        folder,
-        image: `${process.env.PUBLIC_URL}/works/${folder}/image1.jpg`,
-      }));
-      setWorks(worksData);
-    };
-
-    fetchWorks();
+    const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
+    const worksData = folderNames.map((folder, index) => ({
+      id: index + 1,
+      folder,
+      thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folder}/image1.jpg`,
+      folderName: folder,
+    }));
+    setWorks(worksData);
   }, []);
 
   const handleCardClick = (folder) => {
@@ -36,15 +33,15 @@ const GalleryPage = () => {
           {works.map((work) => (
             <Grid item xs={12} sm={6} md={4} key={work.id}>
               <Card>
-                <CardActionArea onClick={() => handleCardClick(work.folder)}>
+                <CardActionArea onClick={() => handleCardClick(work.folderName)}>
                   <div className="card-container">
                     <img
-                      src={work.image}
+                      src={work.thumbnail}
                       alt={`Work ${work.id}`}
                       className="card-image"
                     />
                     <div className="card-overlay">
-                      {work.folder.replace(/_/g, ' ')} {/* Display name on hover */}
+                      {work.folderName.replace(/_/g, ' ')} {/* Display name on hover */}
                     </div>
                   </div>
                 </CardActionArea>
