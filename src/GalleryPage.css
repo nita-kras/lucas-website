@@ -1,4 +1,3 @@
-/* src/GalleryPage.css */
 .homepage {
     display: flex;
     flex-direction: column;
@@ -8,11 +7,20 @@
 
 .topbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
     background-color: #f8f8f8;
     border-bottom: 1px solid #ccc;
+    position: relative; /* Allow absolute positioning of the image */
+}
+
+.topbar-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; /* Adjust this size as needed */
+    height: auto;
 }
 
 .topbar-button {
@@ -30,41 +38,38 @@
     background-color: #e0e0e0;
 }
 
+/* Rightmost positioning for the Info button */
+.info-button {
+    margin-left: auto;
+}
+
 /* Container for each card to enable relative positioning */
 .card-container {
     position: relative;
     overflow: hidden;
-    border-radius: 0;  /* Ensures sharp edges, no rounding */
-    box-shadow: none; /* Removes any shadow */
+    border-radius: 0;
+    box-shadow: none;
 }
 
-/* Card image styling with a smooth transition */
-/* src/GalleryPage.css */
-/* src/GalleryPage.css */
-/* src/GalleryPage.css */
-.MuiCard-root {
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
-  
-  .card-image {
+/* Card image styling */
+.card-image {
     width: 100%;
     height: auto;
-    transition: none; /* Remove the transition for transform */
-    display: block; /* Ensure images occupy the grid area fully */
-    object-fit: cover; /* Ensures the image covers the space, preserving its aspect ratio */
-    aspect-ratio: 3/2; /* Force a 3:2 aspect ratio on the images */
-    border-radius: 0; /* Ensures no rounded corners for the image */
-  }
-  
-  /* Overlay that appears on hover */
-  .card-overlay {
+    transition: none;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 3/2;
+    border-radius: 0;
+}
+
+/* Overlay on hover */
+.card-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Transparent grey */
+    background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     display: flex;
     justify-content: center;
@@ -73,19 +78,14 @@
     font-size: 20px;
     font-weight: bold;
     transition: opacity 0.3s ease;
-    pointer-events: none; /* Ensures click goes through to the container */
-  }
-  
-  /* Hover effects for card */
-  .card-container:hover .card-image {
-    transform: none; /* Remove the scale transformation on hover */
-  }
-  
-  .card-container:hover .card-overlay {
-    opacity: 1; /* Show overlay on hover */
-  }
-  
-  /* Optional: Adjusting grid spacing */
-  .grid-container {
+    pointer-events: none;
+}
+
+.card-container:hover .card-overlay {
+    opacity: 1;
+}
+
+/* Optional: Adjusting grid spacing */
+.grid-container {
     padding: 20px;
-  }
+}

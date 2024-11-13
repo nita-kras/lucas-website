@@ -25,8 +25,11 @@ const GalleryPage = () => {
   return (
     <div className="homepage">
       <div className="topbar">
-        <Link to="/" className="topbar-button">Home</Link>
-        <Link to="/info" className="topbar-button">Info</Link>
+        {/* Centered image in the top bar */}
+        <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
+        
+        {/* Info button on the rightmost side */}
+        <Link to="/info" className="topbar-button info-button">Info</Link>
       </div>
       <Box className="grid-container" sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>

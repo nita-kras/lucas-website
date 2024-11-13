@@ -1,21 +1,77 @@
-/* src/Info.css */
+.info-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: white;
+}
+
+.topbar {
+  display: flex;
+  justify-content: center; /* Keep the content centered */
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+  position: relative; /* For absolute positioning of the logo */
+  width: 100%;
+}
+
+.topbar-logo {
+  position: absolute; /* Keep the logo centered */
+  left: 50%;
+  transform: translateX(-50%); /* Center logo horizontally */
+  width: 50px; /* Adjust this size as needed */
+  height: auto;
+}
+
+.topbar-button {
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.topbar-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* To align both Info and Gallery buttons to the right */
+.topbar {
+  display: flex;
+  justify-content: flex-end; /* Align the buttons to the right */
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.gallery-button {
+  margin-left: 10px; /* Add spacing between the buttons */
+}
+
+.info-button {
+  margin-left: 10px; /* Add spacing between the buttons */
+}
+
+/* Info Content Styling */
 .info-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: white;
-  }
-  
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+}
+
+.info-content h1 {
+  font-size: 36px;
+  color: black;
+}
+
+@media (min-width: 768px) {
   .info-content h1 {
-    font-size: 36px;
-    color: black;
+    font-size: 48px;
   }
-  
-  @media (min-width: 768px) {
-    .info-content h1 {
-      font-size: 48px;
-    }
-  }
-  
+}
