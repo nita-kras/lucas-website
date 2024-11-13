@@ -1,12 +1,3 @@
-/* FolderView.css */
-.folder-view-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: white;
-}
-
-/* Topbar styling */
 .topbar {
   display: flex;
   align-items: center;
@@ -17,7 +8,6 @@
   border-bottom: 1px solid #ccc;
 }
 
-/* Centered logo */
 .topbar-logo {
   position: absolute;
   left: 50%;
@@ -26,7 +16,6 @@
   height: auto;
 }
 
-/* Right-aligned buttons */
 .button-group {
   margin-left: auto;
   display: flex;
@@ -49,29 +38,34 @@
   background-color: #e0e0e0;
 }
 
+/* Main container for the folder view */
 .folder-view {
   display: flex;
   margin-top: 20px;
   padding: 20px;
   align-items: flex-start;
+  gap: 10px; /* Reduced gap between sections */
 }
 
+/* Left section for the contents list (reduced width) */
 .left-section {
-  flex: 1;
+  flex: 0.3; /* Reduced width for contents list */
   display: flex;
   flex-direction: column;
-  padding-right: 20px;
+  padding-right: 10px; /* Narrower padding */
 }
 
+/* Remove bullet points from folder list */
 .folder-list ul {
-  list-style-type: none;
+  list-style-type: none; /* Remove bullets */
   padding: 0;
+  margin: 0;
 }
 
 .folder-link {
+  font-size: 0.7rem; /* Reduced font size */
   text-decoration: none;
   color: #333;
-  font-size: 0.9rem;
   transition: color 0.3s ease;
 }
 
@@ -79,80 +73,108 @@
   color: #007bff;
 }
 
+/* Center section for carousel and description (increased width) */
 .center-section {
-  flex: 2;
+  flex: 1.7; /* Takes more width */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Carousel container (increased max width) */
 .carousel-container {
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px; /* Increased max width */
 }
 
+/* Image description below carousel */
+.image-description {
+  width: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* Carousel image and arrows */
 .carousel-image-wrapper {
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .carousel-image {
   width: 100%;
   height: auto;
+  max-height: 85vh; /* Slightly increased height */
 }
-
-.zoomed {
-  cursor: zoom-in;
-}
-
 
 .arrow {
   position: absolute;
   top: 50%;
-  width: 0;
-  height: 0;
-  border-style: solid;
   cursor: pointer;
-  opacity: 0.6; /* Initial transparency */
+  opacity: 0.8;
   transform: translateY(-50%);
   transition: opacity 0.3s ease;
 }
 
-/* Left arrow - pale, semi-transparent white triangle pointing left */
 .arrow-left {
   left: 10px;
+  border-style: solid;
   border-width: 15px 20px 15px 0;
-  border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent; /* Pale white */
+  border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
 }
 
-/* Right arrow - pale, semi-transparent white triangle pointing right */
 .arrow-right {
   right: 10px;
+  border-style: solid;
   border-width: 15px 0 15px 20px;
-  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8); /* Pale white */
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
 }
 
-/* Increase opacity on hover for visibility */
 .arrow:hover {
-  opacity: 0.9;
+  opacity: 1;
 }
 
-
+/* Thumbnail Styling (Reduced to 1/5 of the previous size) */
 .thumbnails-container {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  overflow-x: auto; /* To allow horizontal scrolling if needed */
+}
+
+.thumbnail {
+  width: 80px !important; /* Force the width to 10px (1/5th of the original size) */
+  height: auto !important; /* Ensure the height adjusts automatically to maintain aspect ratio */
+  cursor: pointer;
+  margin: 5px; /* Space between thumbnails */
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
 }
 
 .thumbnail.selected {
-  border: 2px solid #007bff;
+  border: 2px solid #007bff; /* Highlight the selected thumbnail */
+}
+/* Full Width for the large images in large image view */
+.large-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.right-section {
-  flex: 1;
-  padding-left: 20px;
+.large-image {
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+  cursor: pointer;
 }
 
-.image-description {
-  margin-top: 0;
+/* Override the center section's width when in large image view */
+.center-section.full-width {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+

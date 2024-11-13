@@ -6,9 +6,7 @@ const FolderView = () => {
   const { folderName } = useParams();
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [zoomed, setZoomed] = useState(false);
-  const [zoomX, setZoomX] = useState('50%');
-  const [zoomY, setZoomY] = useState('50%');
+  const [isLargeImageView, setIsLargeImageView] = useState(false); // New state to toggle between views
 
   const formattedFolderName = folderName
     .replace(/_/g, ' ')
@@ -39,15 +37,8 @@ const FolderView = () => {
   const handlePreviousImage = () => setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   const handleThumbnailClick = (index) => setCurrentIndex(index);
 
-  const handleZoomToggle = (e) => {
-    if (!zoomed) {
-      const rect = e.target.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      setZoomX(`${x}%`);
-      setZoomY(`${y}%`);
-    }
-    setZoomed((prevZoomed) => !prevZoomed);
+  const handleImageClick = () => {
+    setIsLargeImageView((prev) => !prev); // Toggle between views on large image click
   };
 
   const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
@@ -63,64 +54,75 @@ const FolderView = () => {
       </div>
 
       <div className="folder-view">
-        <div className="left-section">
-          <div className="folder-list">
-            <ul>
-              {folderNames.map((folder) => (
-                <li key={folder}>
-                  <Link to={`/folder/${folder}`} className="folder-link">
-                    {folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())}
-                  </Link>
-                </li>
+        {isLargeImageView ? (
+          // Large Image View: Hide left section and show all images vertically
+          <div className="center-section full-width">
+            <div className="large-image-container">
+              {images.map((img) => (
+                <img
+                  key={img.id}
+                  src={img.image}
+                  alt={`Large view of ${img.id}`}
+                  className="large-image"
+                  onClick={handleImageClick}
+                />
               ))}
-            </ul>
+            </div>
           </div>
-        </div>
-
-        <div className="center-section">
-          <div className="carousel-container">
-            {images.length === 0 ? (
-              <div>Loading images...</div>
-            ) : (
-              <div className="carousel-content">
-                <div className="carousel-image-wrapper">
-                  <img
-                    src={images[currentIndex]?.image}
-                    alt="Selected"
-                    className={`carousel-image ${zoomed ? 'zoomed-image' : 'non-zoomed-image'}`}
-                    onClick={handleZoomToggle}
-                    style={{
-                      transformOrigin: `${zoomX} ${zoomY}`,
-                      transform: zoomed ? 'scale(2)' : 'scale(1)',
-                    }}
-                  />
-                  <div className="arrow arrow-left" onClick={handlePreviousImage}></div>
-                  <div className="arrow arrow-right" onClick={handleNextImage}></div>
-                </div>
-
-                <div className="thumbnails-container">
-                  {images.map((img, index) => (
-                    <img
-                      key={img.id}
-                      src={img.thumbnail}
-                      alt={`Thumbnail ${index}`}
-                      onClick={() => handleThumbnailClick(index)}
-                      className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-                      style={{ width: '20%', height: 'auto', cursor: 'pointer', margin: '5px' }}
-                    />
+        ) : (
+          // Carousel View: Show left section and carousel
+          <>
+            <div className="left-section">
+              <div className="folder-list">
+                <ul>
+                  {folderNames.map((folder) => (
+                    <li key={folder}>
+                      <Link to={`/folder/${folder}`} className="folder-link">
+                        {folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())}
+                      </Link>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        <div className="right-section">
-          <div className="image-description">
-            <h2>{formattedFolderName}</h2>
-            <p>{images[currentIndex]?.description}</p>
-          </div>
-        </div>
+            <div className="center-section">
+              <div className="carousel-container">
+                {images.length === 0 ? (
+                  <div>Loading images...</div>
+                ) : (
+                  <div className="carousel-content">
+                    <div className="carousel-image-wrapper">
+                      <img
+                        src={images[currentIndex]?.image}
+                        alt="Selected"
+                        className="carousel-image"
+                        onClick={handleImageClick} // Toggle on image click
+                      />
+                      <div className="arrow arrow-left" onClick={handlePreviousImage}></div>
+                      <div className="arrow arrow-right" onClick={handleNextImage}></div>
+                    </div>
+                    <div className="thumbnails-container">
+                      {images.map((img, index) => (
+                        <img
+                          key={img.id}
+                          src={img.thumbnail}
+                          alt={`Thumbnail ${index}`}
+                          onClick={() => handleThumbnailClick(index)}
+                          className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className="image-description">
+                <h2>{formattedFolderName}</h2>
+                <p>{images[currentIndex]?.description}</p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
