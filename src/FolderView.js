@@ -24,7 +24,6 @@ const FolderView = () => {
     fetchTitleMapping();
   }, []);
 
-  // Retrieve the folder title from the title mapping or fall back to the folder name (formatted)
   const formattedFolderName = titleMapping[folderName] || folderName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
   const workDate = folderName.split('_').pop();
 
@@ -39,6 +38,7 @@ const FolderView = () => {
           image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`,
           thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${img[folderName]}`,
           description: img.description || "No description available",
+          materials: img.materials || "No materials listed", // Add materials
         }));
         setImages(formattedImages);
         setCurrentIndex(0);
@@ -57,13 +57,10 @@ const FolderView = () => {
     setIsLargeImageView((prev) => !prev); 
   };
 
-  // Define folder names without the year suffix
   const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
 
-  // Format folder names for the folder list
   const formattedFolderNames = folderNames.map((folder) => {
-    // Strip the date from the folder name and map it to the title
-    const folderBaseName = folder.split('_')[0]; // get the part before the date
+    const folderBaseName = folder.split('_')[0];
     return titleMapping[folderBaseName] || folderBaseName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
   });
 
@@ -81,7 +78,6 @@ const FolderView = () => {
     }
   };
 
-  // Function to format description with line breaks
   const formatDescription = (description) => {
     if (!description) {
       return <p>No description available</p>;
@@ -159,9 +155,9 @@ const FolderView = () => {
                 )}
               </div>
               <div className="image-description">
-                <h2>
-                  {formattedFolderName} <span className="work-date">({workDate})</span>
-                </h2>
+                <h2>{formattedFolderName}</h2>
+                <p className="work-date">{workDate}</p>
+                <p className="material-info">{images[currentIndex]?.materials}</p>
                 <div>{formatDescription(images[currentIndex]?.description)}</div>
               </div>
             </div>

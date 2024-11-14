@@ -1,7 +1,7 @@
 [
-    { "id": 1, "crash_landed_2024": "image1.jpg", "description": "geykyume" },
-    { "id": 2, "crash_landed_2024": "image2.jpg", "description": "geykyume" },
-    { "id": 3, "crash_landed_2024": "image3.jpg", "description": "geykyume" },
-    { "id": 4, "crash_landed_2024": "image4.jpg", "description": "geykyume" }
+    { "id": 1, "crash_landed_2024": "image1.jpg","materials" : "", "description": "-Exhibited at the 2024 HFBK show\n-Super scary and creepy\n-why the fuck would anyone get on a plane that is called icarus airlines\n-Don’t drink the oil\n" },
+    { "id": 2, "crash_landed_2024": "image2.jpg","materials" : "", "description": "-Exhibited at the 2024 HFBK show\n-Super scary and creepy\n-why the fuck would anyone get on a plane that is called icarus airlines\n-Don’t drink the oil\n" },
+    { "id": 3, "crash_landed_2024": "image3.jpg", "materials" : "","description": "-Exhibited at the 2024 HFBK show\n-Super scary and creepy\n-why the fuck would anyone get on a plane that is called icarus airlines\n-Don’t drink the oil\n" },
+    { "id": 4, "crash_landed_2024": "image4.jpg", "materials" : "", "description": "-Exhibited at the 2024 HFBK show\n-Super scary and creepy\n-why the fuck would anyone get on a plane that is called icarus airlines\n-Don’t drink the oil\n" }
 ]
   
