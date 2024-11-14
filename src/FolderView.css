@@ -154,14 +154,15 @@ html, body {
 }
 
 .folder-link {
-  font-size: 0.5rem;
+  font-size: 0.8rem; /* Adjust font size to ensure space for the full name */
   text-decoration: none;
   color: #333;
   transition: color 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal; /* Allow the text to wrap to the next line */
+  overflow: visible; /* Ensure overflow is visible */
+  word-wrap: break-word; /* Allows the text to break when it reaches the boundary */
 }
+
 
 .folder-link:hover {
   color: #007bff;

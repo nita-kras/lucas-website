@@ -57,12 +57,14 @@ const FolderView = () => {
     setIsLargeImageView((prev) => !prev); 
   };
 
-  const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
+  const folderNames = ['mother_and_child_2024', 'lets_fuck_2024', 'crash_landed_2024', 'light_the_way_2024', 'unfinished_crash_2024', 'warhammer_2024', 'the_mystery_of_the_blood-bath_bath_house_2024', 'name_2023', 'acceleration_2023', 'your_mood_swings_are_giving_me_whiplash_2023', 'ball_and_socket_2023', '100_2023', 'you_&_i_2023', 'ive_lived_2022', 'the_sentient_oil_spoke_2022', 'perfect_synthesis_2022', 'synthesis_2022', 'insert_me,_a_perfect_coupling_2022', 'fever_2022'];
 
-  const formattedFolderNames = folderNames.map((folder) => {
-    const folderBaseName = folder.split('_')[0];
-    return titleMapping[folderBaseName] || folderBaseName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
-  });
+// Update formattedFolderNames to use the full folder name as the key for titleMapping lookup.
+const formattedFolderNames = folderNames.map((folder) => {
+  // Use the full folder name as the key to look up the title in titleMapping.
+  return titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+});
+
 
   const handleNextWork = () => {
     const currentFolderIndex = folderNames.indexOf(folderName);
@@ -119,15 +121,16 @@ const FolderView = () => {
           <>
             <div className="left-section">
               <div className="folder-list">
-                <ul>
-                  {formattedFolderNames.map((folder, index) => (
-                    <li key={index}>
-                      <Link to={`/folder/${folderNames[index]}`} className="folder-link">
-                        {folder}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <ul>
+  {formattedFolderNames.map((folderTitle, index) => (
+    <li key={index}>
+      <Link to={`/folder/${folderNames[index]}`} className="folder-link">
+        {folderTitle}
+      </Link>
+    </li>
+  ))}
+</ul>
+
               </div>
               <div className="folder-navigation-buttons">
                 <button className="folder-nav-button prev-work" onClick={handlePrevWork} disabled={folderNames.indexOf(folderName) === 0}>Prev Work</button>
