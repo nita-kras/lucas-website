@@ -284,3 +284,9 @@ html, body {
   flex-direction: column;
   align-items: center;
 }
+
+.work-date {
+  font-size: 1.2em;
+  color: #555;
+  margin-left: 10px;
+}

@@ -5,7 +5,23 @@ import './GalleryPage.css';
 
 const GalleryPage = () => {
   const [works, setWorks] = useState([]);
+  const [titleMapping, setTitleMapping] = useState({}); // State for title mappings
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch title mapping file
+    const fetchTitleMapping = async () => {
+      try {
+        const response = await fetch(`${process.env.PUBLIC_URL}/workTitles.json`);
+        const data = await response.json();
+        setTitleMapping(data);
+      } catch (error) {
+        console.error("Error loading title mappings:", error);
+      }
+    };
+
+    fetchTitleMapping();
+  }, []);
 
   useEffect(() => {
     const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
@@ -13,10 +29,10 @@ const GalleryPage = () => {
       id: index + 1,
       folder,
       thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folder}/image1.jpg`,
-      formattedFolderName: folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()),
+      formattedFolderName: titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()),
     }));
     setWorks(worksData);
-  }, []);
+  }, [titleMapping]); // Ensure this useEffect runs after titleMapping is set
 
   const handleCardClick = (folder) => {
     navigate(`/folder/${folder}`);
@@ -25,31 +41,28 @@ const GalleryPage = () => {
   return (
     <div className="homepage">
       <div className="topbar">
-        {/* Centered image in the top bar */}
         <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
-        
-        {/* Info button on the rightmost side */}
         <Link to="/info" className="topbar-button info-button">Info</Link>
       </div>
       <Box className="grid-container" sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {works.map((work) => (
             <Grid item xs={12} sm={6} md={4} key={work.id}>
-            <Card sx={{ boxShadow: 'none', borderRadius: 0 }}>
-              <CardActionArea onClick={() => handleCardClick(work.folder)}>
-                <div className="card-container">
-                  <img
-                    src={work.thumbnail}
-                    alt={`Work ${work.id}`}
-                    className="card-image"
-                  />
-                  <div className="card-overlay">
-                    {work.formattedFolderName} {/* Display name on hover */}
+              <Card sx={{ boxShadow: 'none', borderRadius: 0 }}>
+                <CardActionArea onClick={() => handleCardClick(work.folder)}>
+                  <div className="card-container">
+                    <img
+                      src={work.thumbnail}
+                      alt={`Work ${work.id}`}
+                      className="card-image"
+                    />
+                    <div className="card-overlay">
+                      {work.formattedFolderName} {/* Display name on hover */}
+                    </div>
                   </div>
-                </div>
-              </CardActionArea>
-            </Card>
-          </Grid>          
+                </CardActionArea>
+              </Card>
+            </Grid>
           ))}
         </Grid>
       </Box>

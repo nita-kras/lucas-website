@@ -6,13 +6,30 @@ const FolderView = () => {
   const { folderName } = useParams();
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLargeImageView, setIsLargeImageView] = useState(false); // New state to toggle between views
+  const [isLargeImageView, setIsLargeImageView] = useState(false);
+  const [titleMapping, setTitleMapping] = useState({}); // State for title mappings
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
-  const formattedFolderName = folderName
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+  useEffect(() => {
+    // Fetch title mapping file
+    const fetchTitleMapping = async () => {
+      try {
+        const response = await fetch(`${process.env.PUBLIC_URL}/workTitles.json`);
+        const data = await response.json();
+        setTitleMapping(data);
+      } catch (error) {
+        console.error("Error loading title mappings:", error);
+      }
+    };
+
+    fetchTitleMapping();
+  }, []);
+
+  const formattedFolderName = titleMapping[folderName] || folderName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+
+  // Extract date from the folder name (string after the last underscore)
+  const workDate = folderName.split('_').pop(); // Extract the last part after "_"
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -161,7 +178,9 @@ const FolderView = () => {
                 )}
               </div>
               <div className="image-description">
-                <h2>{formattedFolderName}</h2>
+                <h2>
+                  {formattedFolderName} <span className="work-date">({workDate})</span>
+                </h2>
                 <p>{images[currentIndex]?.description}</p>
               </div>
             </div>
