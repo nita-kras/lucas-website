@@ -7,12 +7,11 @@ const FolderView = () => {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLargeImageView, setIsLargeImageView] = useState(false);
-  const [titleMapping, setTitleMapping] = useState({}); // State for title mappings
+  const [titleMapping, setTitleMapping] = useState({});
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch title mapping file
     const fetchTitleMapping = async () => {
       try {
         const response = await fetch(`${process.env.PUBLIC_URL}/workTitles.json`);
@@ -22,14 +21,12 @@ const FolderView = () => {
         console.error("Error loading title mappings:", error);
       }
     };
-
     fetchTitleMapping();
   }, []);
 
+  // Retrieve the folder title from the title mapping or fall back to the folder name (formatted)
   const formattedFolderName = titleMapping[folderName] || folderName.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
-
-  // Extract date from the folder name (string after the last underscore)
-  const workDate = folderName.split('_').pop(); // Extract the last part after "_"
+  const workDate = folderName.split('_').pop();
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -57,10 +54,18 @@ const FolderView = () => {
   const handleThumbnailClick = (index) => setCurrentIndex(index);
 
   const handleImageClick = () => {
-    setIsLargeImageView((prev) => !prev); // Toggle between views on large image click
+    setIsLargeImageView((prev) => !prev); 
   };
 
+  // Define folder names without the year suffix
   const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
+
+  // Format folder names for the folder list
+  const formattedFolderNames = folderNames.map((folder) => {
+    // Strip the date from the folder name and map it to the title
+    const folderBaseName = folder.split('_')[0]; // get the part before the date
+    return titleMapping[folderBaseName] || folderBaseName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+  });
 
   const handleNextWork = () => {
     const currentFolderIndex = folderNames.indexOf(folderName);
@@ -76,9 +81,19 @@ const FolderView = () => {
     }
   };
 
+  // Function to format description with line breaks
+  const formatDescription = (description) => {
+    if (!description) {
+      return <p>No description available</p>;
+    }
+
+    return description.split("\n").map((str, index) => (
+      <p key={index}>{str}</p>
+    ));
+  };
+
   return (
     <div className="folder-view-page">
-      {/* Conditionally render the top bar */}
       {!isLargeImageView && (
         <div className="topbar">
           <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
@@ -91,7 +106,6 @@ const FolderView = () => {
 
       <div className="folder-view">
         {isLargeImageView ? (
-          // Large Image View: Hide left section and show all images vertically
           <div className="center-section full-width">
             <div className="large-image-container">
               {images.map((img) => (
@@ -106,37 +120,22 @@ const FolderView = () => {
             </div>
           </div>
         ) : (
-          // Carousel View: Show left section and carousel
           <>
             <div className="left-section">
               <div className="folder-list">
                 <ul>
-                  {folderNames.map((folder) => (
-                    <li key={folder}>
-                      <Link to={`/folder/${folder}`} className="folder-link">
-                        {folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())}
+                  {formattedFolderNames.map((folder, index) => (
+                    <li key={index}>
+                      <Link to={`/folder/${folderNames[index]}`} className="folder-link">
+                        {folder}
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
-
-              {/* Next/Previous buttons */}
               <div className="folder-navigation-buttons">
-                <button 
-                  className="folder-nav-button prev-work" 
-                  onClick={handlePrevWork}
-                  disabled={folderNames.indexOf(folderName) === 0} // Disable if on the first work
-                >
-                  Prev Work
-                </button>
-                <button 
-                  className="folder-nav-button next-work" 
-                  onClick={handleNextWork}
-                  disabled={folderNames.indexOf(folderName) === folderNames.length - 1} // Disable if on the last work
-                >
-                  Next Work
-                </button>
+                <button className="folder-nav-button prev-work" onClick={handlePrevWork} disabled={folderNames.indexOf(folderName) === 0}>Prev Work</button>
+                <button className="folder-nav-button next-work" onClick={handleNextWork} disabled={folderNames.indexOf(folderName) === folderNames.length - 1}>Next Work</button>
               </div>
             </div>
 
@@ -147,31 +146,13 @@ const FolderView = () => {
                 ) : (
                   <div className="carousel-content">
                     <div className="carousel-image-wrapper">
-                      {/* Add left and right arrow divs */}
-                      <div
-                        className="arrow arrow-left"
-                        onClick={handlePreviousImage} // Click to go to previous image
-                      />
-                      <img
-                        src={images[currentIndex]?.image}
-                        alt="Selected"
-                        className="carousel-image"
-                        onClick={handleImageClick} // Toggle on image click
-                      />
-                      <div
-                        className="arrow arrow-right"
-                        onClick={handleNextImage} // Click to go to next image
-                      />
+                      <div className="arrow arrow-left" onClick={handlePreviousImage} />
+                      <img src={images[currentIndex]?.image} alt="Selected" className="carousel-image" onClick={handleImageClick} />
+                      <div className="arrow arrow-right" onClick={handleNextImage} />
                     </div>
                     <div className="thumbnails-container">
                       {images.map((img, index) => (
-                        <img
-                          key={img.id}
-                          src={img.thumbnail}
-                          alt={`Thumbnail ${index}`}
-                          onClick={() => handleThumbnailClick(index)}
-                          className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-                        />
+                        <img key={img.id} src={img.thumbnail} alt={`Thumbnail ${index}`} onClick={() => handleThumbnailClick(index)} className={`thumbnail ${index === currentIndex ? 'selected' : ''}`} />
                       ))}
                     </div>
                   </div>
@@ -181,7 +162,7 @@ const FolderView = () => {
                 <h2>
                   {formattedFolderName} <span className="work-date">({workDate})</span>
                 </h2>
-                <p>{images[currentIndex]?.description}</p>
+                <div>{formatDescription(images[currentIndex]?.description)}</div>
               </div>
             </div>
           </>
