@@ -8,6 +8,7 @@ const FolderView = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLargeImageView, setIsLargeImageView] = useState(false);
   const [titleMapping, setTitleMapping] = useState({});
+  const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0);
 
   const navigate = useNavigate();
 
@@ -38,10 +39,11 @@ const FolderView = () => {
           image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`,
           thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${img[folderName]}`,
           description: img.description || "No description available",
-          materials: img.materials || "No materials listed", // Add materials
+          materials: img.materials || "No materials listed",
         }));
         setImages(formattedImages);
         setCurrentIndex(0);
+        setThumbnailStartIndex(0);
       } catch (error) {
         console.error('Error fetching images:', error);
       }
@@ -49,22 +51,37 @@ const FolderView = () => {
     fetchImages();
   }, [folderName]);
 
-  const handleNextImage = () => setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  const handlePreviousImage = () => setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  const handleThumbnailClick = (index) => setCurrentIndex(index);
+  const handleNextImage = () => {
+    setCurrentIndex((prevIndex) => {
+      const newIndex = (prevIndex + 1) % images.length;
+      if (newIndex >= thumbnailStartIndex + 3) setThumbnailStartIndex(newIndex - 2); // Shift right
+      return newIndex;
+    });
+  };
+
+  const handlePreviousImage = () => {
+    setCurrentIndex((prevIndex) => {
+      const newIndex = (prevIndex - 1 + images.length) % images.length;
+      if (newIndex <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(newIndex - 1, 0)); // Shift left
+      return newIndex;
+    });
+  };
+
+  const handleThumbnailClick = (index) => {
+    setCurrentIndex(index);
+    if (index >= thumbnailStartIndex + 3) {
+      setThumbnailStartIndex(index - 2); // Adjust start if clicking far right thumbnail
+    } else if (index <= thumbnailStartIndex) {
+      setThumbnailStartIndex(Math.max(index - 1, 0)); // Adjust start if clicking far left thumbnail
+    }
+  };
 
   const handleImageClick = () => {
     setIsLargeImageView((prev) => !prev); 
   };
 
   const folderNames = ['mother_and_child_2024', 'lets_fuck_2024', 'crash_landed_2024', 'light_the_way_2024', 'unfinished_crash_2024', 'warhammer_2024', 'the_mystery_of_the_blood-bath_bath_house_2024', 'name_2023', 'acceleration_2023', 'your_mood_swings_are_giving_me_whiplash_2023', 'ball_and_socket_2023', '100_2023', 'you_&_i_2023', 'ive_lived_2022', 'the_sentient_oil_spoke_2022', 'perfect_synthesis_2022', 'synthesis_2022', 'insert_me,_a_perfect_coupling_2022', 'fever_2022'];
-
-// Update formattedFolderNames to use the full folder name as the key for titleMapping lookup.
-const formattedFolderNames = folderNames.map((folder) => {
-  // Use the full folder name as the key to look up the title in titleMapping.
-  return titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
-});
-
+  const formattedFolderNames = folderNames.map((folder) => titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()));
 
   const handleNextWork = () => {
     const currentFolderIndex = folderNames.indexOf(folderName);
@@ -121,16 +138,15 @@ const formattedFolderNames = folderNames.map((folder) => {
           <>
             <div className="left-section">
               <div className="folder-list">
-              <ul>
-  {formattedFolderNames.map((folderTitle, index) => (
-    <li key={index}>
-      <Link to={`/folder/${folderNames[index]}`} className="folder-link">
-        {folderTitle}
-      </Link>
-    </li>
-  ))}
-</ul>
-
+                <ul>
+                  {formattedFolderNames.map((folderTitle, index) => (
+                    <li key={index}>
+                      <Link to={`/folder/${folderNames[index]}`} className="folder-link">
+                        {folderTitle}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
               <div className="folder-navigation-buttons">
                 <button className="folder-nav-button prev-work" onClick={handlePrevWork} disabled={folderNames.indexOf(folderName) === 0}>Prev Work</button>
@@ -150,8 +166,8 @@ const formattedFolderNames = folderNames.map((folder) => {
                       <div className="arrow arrow-right" onClick={handleNextImage} />
                     </div>
                     <div className="thumbnails-container">
-                      {images.map((img, index) => (
-                        <img key={img.id} src={img.thumbnail} alt={`Thumbnail ${index}`} onClick={() => handleThumbnailClick(index)} className={`thumbnail ${index === currentIndex ? 'selected' : ''}`} />
+                      {images.slice(thumbnailStartIndex, thumbnailStartIndex + 4).map((img, index) => (
+                        <img key={img.id} src={img.thumbnail} alt={`Thumbnail ${thumbnailStartIndex + index}`} onClick={() => handleThumbnailClick(thumbnailStartIndex + index)} className={`thumbnail ${thumbnailStartIndex + index === currentIndex ? 'selected' : ''}`} />
                       ))}
                     </div>
                   </div>
