@@ -1,10 +1,13 @@
+/* General homepage container */
 .homepage {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     background-color: white;
+    height: 100%; /* Allow for full height of content */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
+/* Topbar styling */
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -12,9 +15,11 @@
     padding: 10px;
     background-color: #f8f8f8;
     border-bottom: 1px solid #ccc;
-    position: relative; /* Allow absolute positioning of the image */
+    position: relative; /* Keep the original positioning for the logo */
+    z-index: 10; /* Ensure the topbar stays above the content */
 }
 
+/* Topbar logo styling */
 .topbar-logo {
     position: absolute;
     left: 50%;
@@ -23,6 +28,7 @@
     height: auto;
 }
 
+/* Info button and other topbar button styling */
 .topbar-button {
     background-color: transparent;
     border: none;
@@ -38,31 +44,29 @@
     background-color: #e0e0e0;
 }
 
-/* Rightmost positioning for the Info button */
+/* Info button positioned on the right */
 .info-button {
     margin-left: auto;
 }
 
-/* Container for each card to enable relative positioning */
+/* Card container for each item */
 .card-container {
     position: relative;
     overflow: hidden;
-    border-radius: 0; /* Ensure the container has sharp edges */
-    box-shadow: none; /* Ensure there's no shadow */
+    border-radius: 0; /* Keep sharp edges */
+    box-shadow: none; /* Ensure no shadow */
 }
 
 /* Card image styling */
 .card-image {
     width: 100%;
     height: auto;
-    transition: none;
-    display: block;
     object-fit: cover;
     aspect-ratio: 3/2;
-    border-radius: 0; /* Ensure the image has sharp edges */
+    border-radius: 0; /* Keep sharp edges */
 }
 
-/* Overlay on hover */
+/* Overlay that appears when hovering over the card */
 .card-overlay {
     position: absolute;
     top: 0;
@@ -85,7 +89,33 @@
     opacity: 1;
 }
 
-/* Optional: Adjusting grid spacing */
+/* Container for the grid of cards */
 .grid-container {
-    padding: 20px;
+    padding: 10px;
+    flex-grow: 1; /* Allow the grid to take up the remaining space */
+    margin-top: 0px; /* Ensure it doesn't overlap with the topbar */
+}
+
+/* Ensure scrolling is possible on smaller screens */
+@media (max-width: 600px) {
+    .homepage {
+        height: auto; /* Allow for automatic height on small screens */
+    }
+
+    /* Ensure the grid fits nicely on smaller screens */
+    .grid-container {
+        padding: 10px;
+        flex-grow: 1; /* Allow the grid to take up the remaining space */
+        margin-top: 0
+    }
+
+    /* Resize the logo on smaller screens */
+    .topbar-logo {
+        width: 40px; /* Smaller logo size */
+    }
+
+    /* Adjust card image aspect ratio for better mobile layout */
+    .card-image {
+        aspect-ratio: 3/2; /* Use square images for a better fit */
+    }
 }

@@ -58,7 +58,7 @@ const Homepage = () => {
             alt="Click to Enter Gallery"
             onClick={handleImageClick}
             className="logo-image"
-            style={{ width: '100%', maxWidth: '800px', height: 'auto', cursor: 'pointer' }}  // Apply directly here
+            style={{ width: '100%', maxWidth: '500px', height: 'auto', cursor: 'pointer' }}  // Apply directly here
           />
 
         </div>
