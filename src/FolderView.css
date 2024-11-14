@@ -8,6 +8,95 @@
   border-bottom: 1px solid #ccc;
 }
 
+/* Prevent horizontal scrolling on the entire page */
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  /* Hide the left section */
+  .left-section {
+    display: none !important;
+    position: absolute;
+    top: -9999px;
+  }
+
+  /* Full-width carousel and description */
+  .center-section {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .carousel-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .carousel-image-wrapper {
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Updated carousel image styles for mobile */
+  .carousel-image {
+    max-width: calc(100% - 40px); /* Account for arrow space */
+    width: auto;
+    height: auto;
+    max-height: 70vh;
+    object-fit: scale-down; /* Change to scale-down to ensure image fits */
+    margin: 0 auto;
+  }
+
+  /* Center align title and description */
+  .image-description {
+    text-align: center;
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .topbar-logo {
+    position: absolute;
+    left: 10% !important;
+    transform: translateX(-50%);
+    width: 50px;
+    height: auto;
+  }
+
+  /* Adjust arrows position */
+  .arrow {
+    z-index: 2;
+  }
+
+  .arrow-left {
+    left: 5px;
+  }
+
+  .arrow-right {
+    right: 5px;
+  }
+}
+
+/* Rest of the CSS remains the same */
+.carousel-image-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .topbar-logo {
   position: absolute;
   left: 50%;
@@ -38,29 +127,26 @@
   background-color: #e0e0e0;
 }
 
-/* Main container for the folder view */
 .folder-view {
   display: flex;
   margin-top: 20px;
-  padding: 0; /* Remove unnecessary padding */
+  padding: 0;
   align-items: flex-start;
-  gap: 0px; /* Remove gap between sections */
+  gap: 0px;
   width: 100%;
 }
 
-/* Left section for the contents list */
 .left-section {
-  flex: 0; /* This doesn't take up space next to carousel */
+  flex: 0;
   display: flex;
   flex-direction: column;
-  position: absolute; /* Remove from the document flow */
-  padding-left: 20px; /* Add padding on the left side */
-  z-index: 1; /* Ensure it stays above carousel */
-  margin-left: 20px; /* Offset from the left side */
-  max-width: 200px; /* Set maximum width for contents list */
+  position: absolute;
+  padding-left: 20px;
+  z-index: 1;
+  margin-left: 20px;
+  max-width: 200px;
 }
 
-/* Remove bullet points from folder list */
 .folder-list ul {
   list-style-type: none;
   padding: 0;
@@ -68,57 +154,52 @@
 }
 
 .folder-link {
-  font-size: 0.5rem; /* Adjusted font size */
+  font-size: 0.5rem;
   text-decoration: none;
   color: #333;
   transition: color 0.3s ease;
-  white-space: nowrap; /* Prevent links from wrapping */
-  overflow: hidden; /* Ensure text doesn't overflow */
-  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .folder-link:hover {
   color: #007bff;
 }
 
-/* Center section for carousel and description */
 .center-section {
-  flex: 1; /* This section will take up the remaining space */
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 1100px; /* Max width of the carousel and description */
-  margin: 0 auto; /* Center the section */
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Carousel container */
 .carousel-container {
   width: 100%;
-  max-width: 1100px; /* Max width of the carousel */
+  max-width: 1100px;
   display: flex;
-  justify-content: center; /* Center carousel image horizontally */
+  justify-content: center;
 }
 
-/* Image description below carousel */
 .image-description {
   width: 100%;
-  max-width: 1100px; /* Make sure description stays the same width as the carousel */
+  max-width: 1100px;
   margin-top: 20px;
   text-align: left;
-  padding: 0 20px; /* Add padding to the left and right */
-  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
-/* Title should be on one line */
 .image-description h2 {
-  white-space: nowrap; /* Prevent the title from wrapping */
-  overflow: hidden; /* Ensure the text doesn't overflow */
-  text-overflow: ellipsis; /* Add ellipsis if the title is too long */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Carousel image and arrows */
 .carousel-image-wrapper {
   position: relative;
   width: 100%;
@@ -127,11 +208,11 @@
 }
 
 .carousel-image {
-  width: auto; /* Do not stretch width to 100% */
+  width: auto;
   height: auto;
-  max-height: 60vh; /* Limit height to avoid stretching */
-  object-fit: contain; /* Maintain aspect ratio */
-  margin: 0 auto; /* Center image horizontally */
+  max-height: 60vh;
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 .arrow {
@@ -161,7 +242,6 @@
   opacity: 1;
 }
 
-/* Thumbnail Styling */
 .thumbnails-container {
   display: flex;
   justify-content: center;
@@ -182,7 +262,6 @@
   border: 2px solid #007bff;
 }
 
-/* Full Width for the large images in large image view */
 .large-image-container {
   display: flex;
   flex-direction: column;
@@ -191,17 +270,14 @@
 }
 
 .large-image {
-  width: auto; /* Prevent stretching */
+  width: auto;
   height: auto;
-  max-width: 100%; /* Make sure image does not overflow container */
-  object-fit: contain; /* Maintain aspect ratio */
+  max-width: 100%;
+  object-fit: contain;
   margin: 10px 0;
   cursor: pointer;
 }
 
-/* Override the center section's width when in large image view */
-
-/* Full Width for the large images in large image view */
 .center-section.full-width {
   width: 100%;
   display: flex;
