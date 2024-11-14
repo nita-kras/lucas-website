@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import './FolderView.css';
 
 const FolderView = () => {
@@ -7,6 +7,8 @@ const FolderView = () => {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLargeImageView, setIsLargeImageView] = useState(false); // New state to toggle between views
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const formattedFolderName = folderName
     .replace(/_/g, ' ')
@@ -43,6 +45,20 @@ const FolderView = () => {
 
   const folderNames = ['acceleration_2023', 'ball_and_socket_2023', '100_2023', 'crash_landed_2024'];
 
+  const handleNextWork = () => {
+    const currentFolderIndex = folderNames.indexOf(folderName);
+    if (currentFolderIndex < folderNames.length - 1) {
+      navigate(`/folder/${folderNames[currentFolderIndex + 1]}`);
+    }
+  };
+
+  const handlePrevWork = () => {
+    const currentFolderIndex = folderNames.indexOf(folderName);
+    if (currentFolderIndex > 0) {
+      navigate(`/folder/${folderNames[currentFolderIndex - 1]}`);
+    }
+  };
+
   return (
     <div className="folder-view-page">
       {/* Conditionally render the top bar */}
@@ -50,8 +66,8 @@ const FolderView = () => {
         <div className="topbar">
           <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
           <div className="button-group">
+            <Link to="/gallery" className="topbar-button">Works</Link>
             <Link to="/info" className="topbar-button">Info</Link>
-            <Link to="/gallery" className="topbar-button">Gallery</Link>
           </div>
         </div>
       )}
@@ -87,6 +103,24 @@ const FolderView = () => {
                   ))}
                 </ul>
               </div>
+
+              {/* Next/Previous buttons */}
+              <div className="folder-navigation-buttons">
+                <button 
+                  className="folder-nav-button prev-work" 
+                  onClick={handlePrevWork}
+                  disabled={folderNames.indexOf(folderName) === 0} // Disable if on the first work
+                >
+                  Prev Work
+                </button>
+                <button 
+                  className="folder-nav-button next-work" 
+                  onClick={handleNextWork}
+                  disabled={folderNames.indexOf(folderName) === folderNames.length - 1} // Disable if on the last work
+                >
+                  Next Work
+                </button>
+              </div>
             </div>
 
             <div className="center-section">
@@ -96,14 +130,21 @@ const FolderView = () => {
                 ) : (
                   <div className="carousel-content">
                     <div className="carousel-image-wrapper">
+                      {/* Add left and right arrow divs */}
+                      <div
+                        className="arrow arrow-left"
+                        onClick={handlePreviousImage} // Click to go to previous image
+                      />
                       <img
                         src={images[currentIndex]?.image}
                         alt="Selected"
                         className="carousel-image"
                         onClick={handleImageClick} // Toggle on image click
                       />
-                      <div className="arrow arrow-left" onClick={handlePreviousImage}></div>
-                      <div className="arrow arrow-right" onClick={handleNextImage}></div>
+                      <div
+                        className="arrow arrow-right"
+                        onClick={handleNextImage} // Click to go to next image
+                      />
                     </div>
                     <div className="thumbnails-container">
                       {images.map((img, index) => (

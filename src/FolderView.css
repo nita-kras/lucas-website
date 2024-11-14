@@ -127,9 +127,11 @@
 }
 
 .carousel-image {
-  width: 100%;
+  width: auto; /* Do not stretch width to 100% */
   height: auto;
-  max-height: 60vh; /* Reduce the height of the carousel */
+  max-height: 60vh; /* Limit height to avoid stretching */
+  object-fit: contain; /* Maintain aspect ratio */
+  margin: 0 auto; /* Center image horizontally */
 }
 
 .arrow {
@@ -189,13 +191,17 @@
 }
 
 .large-image {
-  width: 100%;
+  width: auto; /* Prevent stretching */
   height: auto;
+  max-width: 100%; /* Make sure image does not overflow container */
+  object-fit: contain; /* Maintain aspect ratio */
   margin: 10px 0;
   cursor: pointer;
 }
 
 /* Override the center section's width when in large image view */
+
+/* Full Width for the large images in large image view */
 .center-section.full-width {
   width: 100%;
   display: flex;

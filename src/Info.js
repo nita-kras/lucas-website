@@ -13,7 +13,7 @@ const Info = () => {
           className="topbar-logo" 
         />
         <Link to="/gallery" className="topbar-button gallery-button">
-          Gallery
+          Works
         </Link>
       </div>
       <div className="info-content">
