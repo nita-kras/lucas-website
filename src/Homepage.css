@@ -16,17 +16,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;                  /* Take all available space in the container */
-  width: 100%;              /* Ensure it takes full width */
+  height: 100vh; /* Full viewport height */
+  width: 100vw;  /* Full viewport width */
+  overflow: hidden; /* Prevent any overflow */
+  background-color: white; /* Optional background color */
 }
 
 /* Logo Image */
 .logo-image {
-  width: 100%;
-  max-width: 500px !important;  /* Force the max-width to 500px */
-  height: auto !important;      /* Ensure height adjusts proportionally */
+  max-width: 100vw; /* Restrict image width to viewport width */
+  max-height: 100vh; /* Restrict image height to viewport height */
+  width: auto;       /* Maintain aspect ratio */
+  height: auto;      /* Maintain aspect ratio */
   cursor: pointer;
 }
+
+
 
 /* Mobile Specific Adjustments */
 @media (max-width: 600px) {
