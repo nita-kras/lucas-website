@@ -166,10 +166,17 @@ const FolderView = () => {
                       <div className="arrow arrow-right" onClick={handleNextImage} />
                     </div>
                     <div className="thumbnails-container">
-                      {images.slice(thumbnailStartIndex, thumbnailStartIndex + 4).map((img, index) => (
-                        <img key={img.id} src={img.thumbnail} alt={`Thumbnail ${thumbnailStartIndex + index}`} onClick={() => handleThumbnailClick(thumbnailStartIndex + index)} className={`thumbnail ${thumbnailStartIndex + index === currentIndex ? 'selected' : ''}`} />
+                      {images.map((img, index) => (
+                        <img
+                          key={img.id}
+                          src={img.thumbnail}
+                          alt={`Thumbnail ${index}`}
+                          onClick={() => handleThumbnailClick(index)}
+                          className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+                        />
                       ))}
                     </div>
+
                   </div>
                 )}
               </div>

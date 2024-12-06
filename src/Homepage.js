@@ -54,7 +54,7 @@ const Homepage = () => {
         // Show the logo initially
         <div className="content">
           <img
-            src={`${process.env.PUBLIC_URL}/gif_compressed_1.gif`}
+            src={`${process.env.PUBLIC_URL}/gif_uncompressed.gif`}
             alt="Click to Enter Gallery"
             onClick={handleImageClick}
             className="logo-image"
