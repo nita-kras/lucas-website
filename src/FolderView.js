@@ -113,7 +113,7 @@ const FolderView = () => {
         <div className="topbar">
           <div></div> {/* Add this empty div to create space on the left */}
           <img 
-            src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} 
+            src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
             alt="Logo" 
             className="topbar-logo" 
             onClick={() => navigate('/gallery')}
@@ -162,31 +162,38 @@ const FolderView = () => {
             </div>
 
             <div className="center-section">
-              <div className="carousel-container">
-                {images.length === 0 ? (
-                  <div>Loading images...</div>
-                ) : (
-                  <div className="carousel-content">
-                    <div className="carousel-image-wrapper">
-                      <div className="arrow arrow-left" onClick={handlePreviousImage} />
-                      <img src={images[currentIndex]?.image} alt="Selected" className="carousel-image" onClick={handleImageClick} />
-                      <div className="arrow arrow-right" onClick={handleNextImage} />
-                    </div>
-                    <div className="thumbnails-container">
-                      {images.map((img, index) => (
-                        <img
-                          key={img.id}
-                          src={img.thumbnail}
-                          alt={`Thumbnail ${index}`}
-                          onClick={() => handleThumbnailClick(index)}
-                          className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-                        />
-                      ))}
-                    </div>
+            <div className="carousel-container">
+  {images.length === 0 ? (
+    <div>Loading images...</div>
+  ) : (
+    <div className="carousel-content">
+      <div className="carousel-image-wrapper">
+        <div className="arrow arrow-left" onClick={handlePreviousImage} />
+        <img
+          src={images[currentIndex]?.image}
+          alt="Selected"
+          className="carousel-image"
+          onClick={handleImageClick}
+        />
+        <div className="arrow arrow-right" onClick={handleNextImage} />
+      </div>
+      <p className="click-to-enlarge">Click to expand</p>
 
-                  </div>
-                )}
-              </div>
+      <div className="thumbnails-container">
+        {images.slice(thumbnailStartIndex, thumbnailStartIndex + 3).map((img, index) => (
+          <img
+            key={img.id}
+            src={img.thumbnail}
+            alt={`Thumbnail ${index}`}
+            onClick={() => handleThumbnailClick(index + thumbnailStartIndex)}
+            className={`thumbnail ${index + thumbnailStartIndex === currentIndex ? 'selected' : ''}`}
+          />
+        ))}
+      </div>
+    </div>
+  )}
+</div>
+
               <div className="image-description">
                 <h2>{formattedFolderName}</h2>
                 <p className="work-date">{workDate}</p>

@@ -64,7 +64,7 @@ const Homepage = () => {
         // Show the gallery after clicking the logo
         <div className="gallery-page">
           <div className="topbar">
-            <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
+            <img src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} alt="Logo" className="topbar-logo" />
             <button className="topbar-button info-button" onClick={() => navigate('/info')}>Info</button>
           </div>
           <Box className="grid-container" sx={{ flexGrow: 1 }}>

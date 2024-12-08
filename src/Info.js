@@ -11,7 +11,7 @@ const Info = () => {
       <div className="topbar">
   <div></div> {/* Add this empty div to create space on the left */}
   <img 
-    src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} 
+    src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
     alt="Logo" 
     className="topbar-logo" 
     onClick={() => navigate('/gallery')}
