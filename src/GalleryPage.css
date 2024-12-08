@@ -1,4 +1,10 @@
 /* General homepage container */
+html, body, .topbar, .folder-link, .image-description, .work-date, .material-info {
+    font-family: Arial, sans-serif;
+    color: black;
+    text-transform: uppercase;
+  }
+
 .homepage {
     display: flex;
     flex-direction: column;
@@ -68,19 +74,20 @@
 
 /* Overlay that appears when hovering over the card */
 .card-overlay {
+    text-transform: uppercase;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     opacity: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: normal;
     transition: opacity 0.3s ease;
     pointer-events: none;
 }

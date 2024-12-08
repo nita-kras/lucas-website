@@ -1,3 +1,9 @@
+html, body, .topbar, .folder-link, .image-description, .work-date, .material-info {
+  font-family: Arial, sans-serif;
+  color: black;
+  text-transform: uppercase;
+}
+
 .info-page {
   display: flex;
   flex-direction: column;
@@ -48,11 +54,11 @@
 }
 
 .gallery-button {
-  margin-left: 10px; /* Add spacing between the buttons */
+  margin-left: 1px; /* Add spacing between the buttons */
 }
 
 .info-button {
-  margin-left: 10px; /* Add spacing between the buttons */
+  margin-left: 1px; /* Add spacing between the buttons */
 }
 
 /* Info Content Styling */

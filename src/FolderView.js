@@ -111,7 +111,14 @@ const FolderView = () => {
     <div className="folder-view-page">
       {!isLargeImageView && (
         <div className="topbar">
-          <img src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} alt="Logo" className="topbar-logo" />
+          <div></div> {/* Add this empty div to create space on the left */}
+          <img 
+            src={`${process.env.PUBLIC_URL}/markyMarkIcon.png`} 
+            alt="Logo" 
+            className="topbar-logo" 
+            onClick={() => navigate('/gallery')}
+            style={{ cursor: 'pointer' }} 
+          />
           <div className="button-group">
             <Link to="/gallery" className="topbar-button">Works</Link>
             <Link to="/info" className="topbar-button">Info</Link>
