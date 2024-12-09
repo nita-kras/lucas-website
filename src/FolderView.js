@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useGesture } from 'react-use-gesture';
 import './FolderView.css';
+
 
 const FolderView = () => {
   const { folderName } = useParams();
@@ -50,6 +52,26 @@ const FolderView = () => {
     };
     fetchImages();
   }, [folderName]);
+
+  const carouselGesture = useGesture({
+    onDrag: ({ movement: [mx], direction: [xDir], cancel }) => {
+      // Horizontal drag with minimum threshold
+      if (Math.abs(mx) > 50) {
+        if (xDir > 0) {
+          // Swipe left (previous image)
+          handlePreviousImage();
+        } else {
+          // Swipe right (next image)
+          handleNextImage();
+        }
+        cancel(); // Prevent multiple swipes
+      }
+    },
+    config: {
+      axis: 'x', // Restrict to horizontal movement
+      drag: { preventDefault: true } // Prevent default scrolling
+    }
+  });
 
   const handleNextImage = () => {
     setCurrentIndex((prevIndex) => {
@@ -162,37 +184,40 @@ const FolderView = () => {
             </div>
 
             <div className="center-section">
-            <div className="carousel-container">
-  {images.length === 0 ? (
-    <div>Loading images...</div>
-  ) : (
-    <div className="carousel-content">
-      <div className="carousel-image-wrapper">
-        <div className="arrow arrow-left" onClick={handlePreviousImage} />
-        <img
-          src={images[currentIndex]?.image}
-          alt="Selected"
-          className="carousel-image"
-          onClick={handleImageClick}
-        />
-        <div className="arrow arrow-right" onClick={handleNextImage} />
-      </div>
-      <p className="click-to-enlarge">Click to expand</p>
+              <div className="carousel-container">
+                {images.length === 0 ? (
+                  <div>Loading images...</div>
+                ) : (
+                  <div className="carousel-content">
+                    <div 
+                      className="carousel-image-wrapper" 
+                      {...carouselGesture()}
+                    >
+                      <div className="arrow arrow-left" onClick={handlePreviousImage} />
+                      <img
+                        src={images[currentIndex]?.image}
+                        alt="Selected"
+                        className="carousel-image"
+                        onClick={handleImageClick}
+                      />
+                      <div className="arrow arrow-right" onClick={handleNextImage} />
+                    </div>
+                    <p className="click-to-enlarge">Click to expand</p>
 
-      <div className="thumbnails-container">
-        {images.slice(thumbnailStartIndex, thumbnailStartIndex + 3).map((img, index) => (
-          <img
-            key={img.id}
-            src={img.thumbnail}
-            alt={`Thumbnail ${index}`}
-            onClick={() => handleThumbnailClick(index + thumbnailStartIndex)}
-            className={`thumbnail ${index + thumbnailStartIndex === currentIndex ? 'selected' : ''}`}
-          />
-        ))}
-      </div>
-    </div>
-  )}
-</div>
+                    <div className="thumbnails-container">
+                      {images.slice(thumbnailStartIndex, thumbnailStartIndex + 3).map((img, index) => (
+                        <img
+                          key={img.id}
+                          src={img.thumbnail}
+                          alt={`Thumbnail ${index}`}
+                          onClick={() => handleThumbnailClick(index + thumbnailStartIndex)}
+                          className={`thumbnail ${index + thumbnailStartIndex === currentIndex ? 'selected' : ''}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <div className="image-description">
                 <h2>{formattedFolderName}</h2>
