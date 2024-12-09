@@ -131,106 +131,135 @@ const FolderView = () => {
 
   return (
     <div className="folder-view-page">
-      {!isLargeImageView && (
-        <div className="topbar">
-          <div></div> {/* Add this empty div to create space on the left */}
-          <img 
-            src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
-            alt="Logo" 
-            className="topbar-logo" 
-            onClick={() => navigate('/gallery')}
-            style={{ cursor: 'pointer' }} 
-          />
-          <div className="button-group">
-            <Link to="/gallery" className="topbar-button">Works</Link>
-            <Link to="/info" className="topbar-button">Info</Link>
+    {!isLargeImageView && (
+      <div className="topbar">
+        <div></div>
+        <img 
+          src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
+          alt="Logo" 
+          className="topbar-logo" 
+          onClick={() => navigate('/gallery')}
+          style={{ cursor: 'pointer' }} 
+        />
+        <div className="button-group">
+          <Link to="/gallery" className="topbar-button">Works</Link>
+          <Link to="/info" className="topbar-button">Info</Link>
+        </div>
+      </div>
+    )}
+
+    <div className="folder-view">
+      {isLargeImageView ? (
+        <div className="center-section full-width">
+          <div className="large-image-container">
+            {images.map((img) => (
+              <img
+                key={img.id}
+                src={img.image}
+                alt={`Large view of ${img.id}`}
+                className="large-image"
+                onClick={handleImageClick}
+              />
+            ))}
           </div>
         </div>
-      )}
-
-      <div className="folder-view">
-        {isLargeImageView ? (
-          <div className="center-section full-width">
-            <div className="large-image-container">
-              {images.map((img) => (
-                <img
-                  key={img.id}
-                  src={img.image}
-                  alt={`Large view of ${img.id}`}
-                  className="large-image"
-                  onClick={handleImageClick}
-                />
-              ))}
+      ) : (
+        <>
+          <div className="left-section">
+            <div className="folder-list">
+              <ul>
+                {formattedFolderNames.map((folderTitle, index) => (
+                  <li key={index}>
+                    <Link to={`/folder/${folderNames[index]}`} className="folder-link">
+                      {folderTitle}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="folder-navigation-buttons">
+              <button 
+                className="folder-nav-button prev-work" 
+                onClick={handlePrevWork} 
+                disabled={folderNames.indexOf(folderName) === 0}
+              >
+                Prev Work
+              </button>
+              <button 
+                className="folder-nav-button next-work" 
+                onClick={handleNextWork} 
+                disabled={folderNames.indexOf(folderName) === folderNames.length - 1}
+              >
+                Next Work
+              </button>
             </div>
           </div>
-        ) : (
-          <>
-            <div className="left-section">
-              <div className="folder-list">
-                <ul>
-                  {formattedFolderNames.map((folderTitle, index) => (
-                    <li key={index}>
-                      <Link to={`/folder/${folderNames[index]}`} className="folder-link">
-                        {folderTitle}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="folder-navigation-buttons">
-                <button className="folder-nav-button prev-work" onClick={handlePrevWork} disabled={folderNames.indexOf(folderName) === 0}>Prev Work</button>
-                <button className="folder-nav-button next-work" onClick={handleNextWork} disabled={folderNames.indexOf(folderName) === folderNames.length - 1}>Next Work</button>
-              </div>
-            </div>
 
-            <div className="center-section">
-              <div className="carousel-container">
-                {images.length === 0 ? (
-                  <div>Loading images...</div>
-                ) : (
-                  <div className="carousel-content">
-                    <div 
-                      className="carousel-image-wrapper" 
-                      {...carouselGesture()}
-                    >
-                      <div className="arrow arrow-left" onClick={handlePreviousImage} />
-                      <img
-                        src={images[currentIndex]?.image}
-                        alt="Selected"
-                        className="carousel-image"
-                        onClick={handleImageClick}
-                      />
-                      <div className="arrow arrow-right" onClick={handleNextImage} />
-                    </div>
-                    <p className="click-to-enlarge">Click to expand</p>
-
-                    <div className="thumbnails-container">
-                      {images.slice(thumbnailStartIndex, thumbnailStartIndex + 3).map((img, index) => (
-                        <img
-                          key={img.id}
-                          src={img.thumbnail}
-                          alt={`Thumbnail ${index}`}
-                          onClick={() => handleThumbnailClick(index + thumbnailStartIndex)}
-                          className={`thumbnail ${index + thumbnailStartIndex === currentIndex ? 'selected' : ''}`}
-                        />
-                      ))}
-                    </div>
+          <div className="center-section">
+            <div className="carousel-container">
+              {images.length === 0 ? (
+                <div>Loading images...</div>
+              ) : (
+                <div className="carousel-content">
+                  <div 
+                    className="carousel-image-wrapper" 
+                    {...carouselGesture()}
+                  >
+                    <div className="arrow arrow-left" onClick={handlePreviousImage} />
+                    <img
+                      src={images[currentIndex]?.image}
+                      alt="Selected"
+                      className="carousel-image"
+                      onClick={handleImageClick}
+                    />
+                    <div className="arrow arrow-right" onClick={handleNextImage} />
                   </div>
-                )}
-              </div>
+                  <p className="click-to-enlarge">Click to expand</p>
 
-              <div className="image-description">
-                <h2>{formattedFolderName}</h2>
-                <p className="work-date">{workDate}</p>
-                <p className="material-info">{images[currentIndex]?.materials}</p>
-                <div>{formatDescription(images[currentIndex]?.description)}</div>
-              </div>
+                  <div className="thumbnails-container">
+                    {images.slice(thumbnailStartIndex, thumbnailStartIndex + 3).map((img, index) => (
+                      <img
+                        key={img.id}
+                        src={img.thumbnail}
+                        alt={`Thumbnail ${index}`}
+                        onClick={() => handleThumbnailClick(index + thumbnailStartIndex)}
+                        className={`thumbnail ${index + thumbnailStartIndex === currentIndex ? 'selected' : ''}`}
+                      />
+                    ))}
+                  </div>
+                  {/* Navigation buttons now have the same styling as in the left section */}
+                  <div className="folder-navigation-buttons">
+                    <button 
+                      className="folder-nav-button prev-work" 
+                      onClick={handlePrevWork} 
+                      disabled={folderNames.indexOf(folderName) === 0}
+                    >
+                      Prev Work
+                    </button>
+                    <button 
+                      className="folder-nav-button next-work" 
+                      onClick={handleNextWork} 
+                      disabled={folderNames.indexOf(folderName) === folderNames.length - 1}
+                    >
+                      Next Work
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-          </>
-        )}
-      </div>
+
+            <div className="image-description">
+              <h2>{formattedFolderName}</h2>
+              <p className="work-date">{workDate}</p>
+              <p className="material-info">{images[currentIndex]?.materials}</p>
+              <div>{formatDescription(images[currentIndex]?.description)}</div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
-  );
+  </div>
+);
 };
 
 export default FolderView;

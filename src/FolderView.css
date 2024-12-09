@@ -15,6 +15,10 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 @media (min-width: 1100px) {
+  .center-section .folder-navigation-buttons {
+    display: none !important;
+  }
+
   .carousel-content .click-to-enlarge {
     font-size: calc(8px + 0.5vw);
     text-align: right;
@@ -26,28 +30,27 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   }
 
   .material-info {
-    color: gray !important; /* Set default color to gray */
+    color: gray !important;
     font-size: 1rem;
     margin-top: 10px;
   }
 
-  /* Ensure image descriptions align left on larger screens */
   .image-description {
     width: 100%;
     max-width: 1100px;
     margin-top: 20px;
-    text-align: left;  /* Ensure left-alignment on large screens */
+    text-align: left;
     padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 10px; /* Ensure padding for left alignment */
+    padding-left: 10px;
   }
 
   .image-description .title-and-date {
     display: block;
-    margin-bottom: 10px; /* Space below the title */
+    margin-bottom: 10px;
     text-align: left;
   }
 
@@ -69,7 +72,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     margin-top: 10px;
   }
 
-  /* Override gray color with black or preferred color */
   @media (max-width: 1100px) {
     html body, .material-info {
       color: gray !important;
@@ -78,87 +80,42 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 @media (max-width: 1100px) {
-  /* Hide the left section */
+  .left-section .folder-navigation-buttons {
+    display: none !important;
+  }
+
   .left-section {
     display: none !important;
     position: absolute;
     top: -9999px;
   }
 
-  /* Full-width carousel and description */
-  .center-section {
+  .folder-navigation-buttons {
     width: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    max-width: 100%;
-    text-align: left;
-    float: left;
-  }
-
-  .carousel-content .click-to-enlarge {
-    font-size: 10px !important;
-    text-align: right !important;
-    margin-top: 2px !important;
-    margin-right: 10px !important;
-    color: gray !important;
-    cursor: default !important;
-    display: block !important;
-  }
-
-  /* Align text to the left */
-  .image-description {
-    width: 100%;
-    max-width: 1100px;
-    margin-top: 20px;
-    text-align: left;  /* Ensure the text is aligned to the left */
-    padding: 0;
-    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 10px; /* Adjusted padding */
-  }
-
-  .image-description .title-and-date {
-    display: block;
-    margin-bottom: 10px; /* Space below the title */
-    text-align: left;
-  }
-
-  .image-description h2 {
-    font-weight: bold;
-    margin: 0;
-    text-align: left;
-  }
-
-  .work-date {
-    font-weight: normal;
-    margin-top: 5px;
-    text-align: left;
-  }
-
-  html body .material-info {
-    color: gray;
-    font-size: 1rem;
-    margin-top: 10px;
-  }
-
-  /* Override gray color with black or preferred color */
-  @media (max-width: 1100px) {
-    html body, .material-info {
-      color: gray !important;
-    }
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
   }
 }
 
+
+
+.prev-work {
+  margin-right: auto;
+}
+
+.next-work {
+  margin-left: auto;
+}
+
+/* Rest of the previous CSS remains the same */
 .carousel-container {
   display: flex;
   justify-content: flex-start;
-  transition: transform 0.3s ease; /* Smooth horizontal movement */
+  transition: transform 0.3s ease;
 }
 
-/* Optionally adjust the arrows if needed */
 .arrow-left, .arrow-right {
   z-index: 2;
 }
@@ -181,7 +138,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   border: none;
   font-size: 16px;
   cursor: pointer;
-  padding: 0 5px; /* Add minimal horizontal padding between buttons */
+  padding: 0 5px;
   margin: 0;
   border-radius: 0px;
   transition: background-color 0.3s;
@@ -220,13 +177,13 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .folder-link {
-  font-size: 0.8rem; /* Adjust font size to ensure space for the full name */
+  font-size: 0.8rem;
   text-decoration: none;
   color: #333;
   transition: color 0.3s ease;
-  white-space: normal; /* Allow the text to wrap to the next line */
-  overflow: visible; /* Ensure overflow is visible */
-  word-wrap: break-word; /* Allows the text to break when it reaches the boundary */
+  white-space: normal;
+  overflow: visible;
+  word-wrap: break-word;
 }
 
 .folder-link:hover {
@@ -251,13 +208,12 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   justify-content: center;
 }
 
-/* Updated carousel image styles for mobile */
 .carousel-image {
-  max-width: calc(100% - 40px); /* Account for arrow space */
+  max-width: calc(100% - 40px);
   width: auto;
   height: auto;
   max-height: 70vh;
-  object-fit: scale-down; /* Change to scale-down to ensure image fits */
+  object-fit: scale-down;
   margin: 0 auto;
 }
 
@@ -296,14 +252,13 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   opacity: 1;
 }
 
-/* For the thumbnails container and the thumbnail image size */
 .thumbnails-container {
   display: flex;
-  flex-wrap: wrap; /* Allow wrapping to multiple rows */
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px; /* Optional: Adds spacing between thumbnails */
+  gap: 10px;
   margin-top: 10px;
-  width: 100%; /* Ensure it spans the container */
+  width: 100%;
 }
 
 .thumbnail {
@@ -318,7 +273,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   border-color: #007bff;
 }
 
-/* Update the media queries to handle smaller screens for better thumbnail sizes */
 @media (max-width: 768px) {
   .thumbnail {
     width: 80px;
@@ -327,8 +281,8 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 
 @media (max-width: 480px) {
   .thumbnail {
-    width: 100%; /* One thumbnail per row */
-    max-width: 70px; /* Even smaller thumbnails on very small screens */
+    width: 100%;
+    max-width: 70px;
   }
 }
 
@@ -375,30 +329,31 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-top: 8px solid transparent; /* Smaller triangle size */
-  border-bottom: 8px solid transparent; /* Smaller triangle size */
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
   cursor: pointer;
   z-index: 10;
 }
 
 .arrow-left {
-  left: 20px; /* Move the left arrow closer in */
-  border-right: 8px solid white;  /* Outward triangle pointing left */
+  left: 20px;
+  border-right: 8px solid white;
 }
 
 .arrow-right {
-  right: 20px; /* Move the right arrow closer in */
-  border-left: 8px solid white;  /* Outward triangle pointing right */
+  right: 20px;
+  border-left: 8px solid white;
 }
 
 .arrow:hover {
   opacity: 0.7;
 }
+
 .click-to-enlarge {
   text-align: center;
   color: white;
   font-size: 14px;
-  margin-top: 10px; /* Adds some space between the image and the text */
+  margin-top: 10px;
   opacity: 0.8;
   cursor: pointer;
 }
@@ -406,4 +361,3 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 .click-to-enlarge:hover {
   opacity: 1;
 }
-
