@@ -53,25 +53,24 @@ const FolderView = () => {
     fetchImages();
   }, [folderName]);
 
-  const carouselGesture = useGesture({
-    onDrag: ({ movement: [mx], direction: [xDir], cancel }) => {
-      // Horizontal drag with minimum threshold
-      if (Math.abs(mx) > 50) {
-        if (xDir > 0) {
-          // Swipe left (previous image)
-          handlePreviousImage();
-        } else {
-          // Swipe right (next image)
-          handleNextImage();
-        }
-        cancel(); // Prevent multiple swipes
-      }
+  const carouselGesture = useGesture(
+    {
+        onDrag: ({ movement: [mx], direction: [xDir], cancel }) => {
+            if (Math.abs(mx) > 50) {
+                xDir > 0 ? handlePreviousImage() : handleNextImage();
+                cancel();
+            }
+        },
     },
-    config: {
-      axis: 'x', // Restrict to horizontal movement
-      drag: { preventDefault: true } // Prevent default scrolling
+    {
+        drag: {
+            axis: 'x',
+            threshold: 20, // Reducing threshold for faster swipe recognition
+            preventDefault: true,
+        },
     }
-  });
+);
+
 
   const handleNextImage = () => {
     setCurrentIndex((prevIndex) => {
@@ -217,16 +216,17 @@ const FolderView = () => {
                   <p className="click-to-enlarge">Click to expand</p>
 
                   <div className="thumbnails-container">
-                    {images.slice(thumbnailStartIndex, thumbnailStartIndex + 3).map((img, index) => (
-                      <img
-                        key={img.id}
-                        src={img.thumbnail}
-                        alt={`Thumbnail ${index}`}
-                        onClick={() => handleThumbnailClick(index + thumbnailStartIndex)}
-                        className={`thumbnail ${index + thumbnailStartIndex === currentIndex ? 'selected' : ''}`}
-                      />
-                    ))}
-                  </div>
+  {images.map((img, index) => (
+    <img
+      key={img.id}
+      src={img.thumbnail}
+      alt={`Thumbnail ${index}`}
+      onClick={() => handleThumbnailClick(index)}
+      className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+    />
+  ))}
+</div>
+
                   {/* Navigation buttons now have the same styling as in the left section */}
                   <div className="folder-navigation-buttons">
                     <button 

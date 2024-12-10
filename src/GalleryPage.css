@@ -90,6 +90,8 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
     font-weight: normal;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    font-weight: bold;
+    color: black;
 }
 
 .card-container:hover .card-overlay {

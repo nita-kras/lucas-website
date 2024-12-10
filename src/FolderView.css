@@ -14,74 +14,95 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   border-bottom: 1px solid #ccc;
 }
 
+/* Unified approach for image description responsiveness */
+.image-description {
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px; /* Added right padding for balance */
+  text-align: left;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: auto;
+  margin-right: auto; /* Center the container */
+}
+
+.image-description h2 {
+  font-weight: bold;
+  margin: 0;
+  padding-left: 0; /* Remove extra left padding */
+  text-align: left;
+  width: 100%; /* Ensure full width */
+}
+
+.work-date {
+  font-weight: normal;
+  margin-top: 5px;
+  padding-left: 0; /* Consistent alignment */
+  text-align: left;
+  width: 100%; /* Ensure full width */
+}
+
+.material-info {
+  font-size: 1rem;
+  color: gray;
+  margin-top: 10px;
+  padding-left: 0; /* Maintain alignment */
+  width: 100%; /* Ensure full width */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .image-description {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-description {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-description {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+  
+
 @media (min-width: 1100px) {
-  .center-section .folder-navigation-buttons {
+  .folder-navigation-buttons {
     display: none !important;
   }
 
-  .carousel-content .click-to-enlarge {
-    font-size: calc(8px + 0.5vw);
-    text-align: right;
-    margin-top: 2px;
-    margin-right: 10px;
-    color: gray;
-    cursor: default;
-    display: block;
+  .left-section .folder-navigation-buttons {
+    display: flex !important;
+    position: static;
   }
 
-  .material-info {
-    color: gray !important;
-    font-size: 1rem;
-    margin-top: 10px;
-  }
-
-  .image-description {
-    width: 100%;
-    max-width: 1100px;
-    margin-top: 20px;
-    text-align: left;
-    padding: 0;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 10px;
-  }
-
-  .image-description .title-and-date {
-    display: block;
-    margin-bottom: 10px;
-    text-align: left;
-  }
-
-  .image-description h2 {
-    font-weight: bold;
-    margin: 0;
-    text-align: left;
-  }
-
-  .work-date {
-    font-weight: normal;
-    margin-top: 5px;
-    text-align: left;
-  }
-
-  html body .material-info {
-    color: gray;
-    font-size: 1rem;
-    margin-top: 10px;
-  }
-
-  @media (max-width: 1100px) {
-    html body, .material-info {
-      color: gray !important;
-    }
+  .left-section {
+    display: flex !important;
+    position: relative;
   }
 }
 
 @media (max-width: 1100px) {
   .left-section .folder-navigation-buttons {
     display: none !important;
+    position: absolute;
+    top: -9999px;
   }
 
   .left-section {
@@ -98,8 +119,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     box-sizing: border-box;
   }
 }
-
-
 
 .prev-work {
   margin-right: auto;
@@ -253,19 +272,19 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .thumbnails-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 0fr));
   gap: 10px;
   margin-top: 10px;
   width: 100%;
+  justify-items: center;
 }
 
 .thumbnail {
-  width: 100px;
+  width: 80px;
   height: auto;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 0.1px solid transparent;
   transition: border 0.3s;
 }
 
@@ -284,10 +303,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     width: 100%;
     max-width: 70px;
   }
-}
-
-.thumbnail.selected {
-  border: 2px solid #007bff;
 }
 
 .large-image-container {
