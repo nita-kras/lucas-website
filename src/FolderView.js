@@ -134,12 +134,13 @@ const FolderView = () => {
       <div className="topbar">
         <div></div>
         <img 
-          src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
-          alt="Logo" 
-          className="topbar-logo" 
-          onClick={() => navigate('/gallery')}
-          style={{ cursor: 'pointer' }} 
-        />
+  src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
+  alt="Logo" 
+  className="topbar-logo" 
+  onClick={() => navigate('/gallery')}
+  style={{ cursor: 'pointer' }} 
+/>
+
         <div className="button-group">
           <Link to="/gallery" className="topbar-button">Works</Link>
           <Link to="/info" className="topbar-button">Info</Link>

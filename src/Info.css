@@ -44,7 +44,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   background-color: #e0e0e0;
 }
 
-/* To align both Info and Gallery buttons to the right */
 .topbar {
   display: flex;
   justify-content: flex-end; /* Align the buttons to the right */
@@ -65,19 +64,76 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 .info-content {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: flex-start; /* Align content to the top */
   padding: 20px;
   background-color: white;
+  margin-top: 20px; /* Adds space below the topbar */
 }
 
-.info-content h1 {
-  font-size: 36px;
+.info-text p {
+  font-size: 16px;
+  margin: 5px 0; /* Reduce space between each line */
+}
+
+/* Titles for Education and Past Employment (not indented) */
+.info-text p strong {
+  font-size: 18px; /* Slightly larger font for titles */
+  margin-bottom: 10px; /* Adds space below the titles */
+}
+
+/* Indentation for the rows under Education and Past Employment */
+.info-text p:nth-of-type(2), 
+.info-text p:nth-of-type(3),
+.employment-list li {
+  margin-left: 100px; /* Add indentation to the education and employment rows */
+}
+
+.employment-list {
+  list-style-type: none; /* Remove bullets */
+  padding-left: 0; /* Remove default padding */
+}
+
+.employment-list li {
+  font-size: 14px; /* Normal small text */
+  margin-bottom: 5px; /* Space between each item */
+}
+
+.employment-list a {
+  text-decoration: none; /* Remove underline */
+  color: blue; /* Link color */
+}
+
+.employment-list a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Space between Education and Past Employment sections */
+.space-between {
+  margin-top: 20px; /* Space between Education and Past Employment */
+}
+
+/* Email Styling */
+.email-link {
   color: black;
+  text-decoration: none; /* Remove underline */
 }
 
+.email-link:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive adjustments */
 @media (min-width: 768px) {
-  .info-content h1 {
-    font-size: 48px;
+  .info-text p {
+    font-size: 18px; /* Slightly larger text for bigger screens */
+  }
+
+  .employment-list li {
+    font-size: 16px; /* Slightly larger text for bigger screens */
+  }
+
+  .employment-list {
+    margin-left: 130px; /* Increase indentation on larger screens */
   }
 }

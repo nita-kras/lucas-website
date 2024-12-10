@@ -68,7 +68,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
     width: 100%;
     height: auto;
     object-fit: cover;
-    aspect-ratio: 3/2;
+    aspect-ratio: 3/2; /* Maintain 2:3 aspect ratio */
     border-radius: 0; /* Keep sharp edges */
 }
 
@@ -102,7 +102,18 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 .grid-container {
     padding: 10px;
     flex-grow: 1; /* Allow the grid to take up the remaining space */
-    margin-top: 0px; /* Ensure it doesn't overlap with the topbar */
+    margin: 0 auto; /* Center the grid on larger screens */
+    max-width: 1200px; /* Set a maximum width for larger screens */
+}
+
+/* Ensure scrolling is possible on smaller screens */
+@media (max-width: 600px) {
+    .grid-container {
+        padding: 10px;
+        flex-grow: 1; /* Allow the grid to take up the remaining space */
+        margin: 0; /* Remove side margins on smaller screens */
+        max-width: none; /* Allow full width */
+    }
 }
 
 /* Ensure scrolling is possible on smaller screens */
