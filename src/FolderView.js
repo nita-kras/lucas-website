@@ -56,18 +56,26 @@ const FolderView = () => {
 
   const carouselGesture = useGesture(
     {
-        onDrag: ({ movement: [mx], direction: [xDir], cancel }) => {
-            if (Math.abs(mx) > 50) {
+        onDragStart: () => {
+            // Optional: Add visual feedback when drag starts
+        },
+        onDrag: ({ movement: [mx], direction: [xDir], cancel, intentional }) => {
+            // Only trigger if the swipe was intentional
+            if (intentional && Math.abs(mx) > 30) {
                 xDir > 0 ? handlePreviousImage() : handleNextImage();
                 cancel();
             }
         },
+        onDragEnd: () => {
+            // Optional: Reset any visual feedback
+        }
     },
     {
         drag: {
             axis: 'x',
-            threshold: 20, // Reducing threshold for faster swipe recognition
+            threshold: 10,  // Reduced threshold for more sensitive swipes
             preventDefault: true,
+            touchAction: 'none'  // Completely disable browser's touch handling
         },
     }
 );
