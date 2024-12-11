@@ -130,56 +130,87 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   z-index: 2;
 }
 
-/* General Topbar Styling */
-/* General Topbar Styling */
+/* General topbar styling */
 .topbar {
   display: flex;
-  justify-content: space-between; /* Space between logo and buttons */
-  align-items: center;           /* Vertical alignment */
-  padding: 0;                    /* Remove padding */
+  justify-content: space-between;  /* Space between the logo and buttons */
+  align-items: center;            /* Vertical alignment */
+  padding: 0 20px;                /* Padding for consistency */
   background-color: #fff;
   position: sticky;
   top: 0;
   z-index: 10;
-  height: 60px;                  /* Fixed height */
+  height: 60px;                   /* Fixed height */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;              /* Prevent overflow */
+  overflow: hidden;               /* Prevent overflow */
 }
 
 /* Adjust logo positioning for responsiveness */
 .topbar-logo {
-  max-height: 50px;              /* Restrict logo height */
+  position: absolute;
+  left: 50%;                      /* Center the logo horizontally */
+  transform: translateX(-50%);    /* Center-align relative to its new left position */
+  max-height: 50px;               /* Restrict logo height */
   object-fit: contain;
-  margin: 0;                     /* Remove default margins */
-  padding: 0;                    /* Remove default padding */
-  position: absolute;            /* Absolute positioning for flexibility */
-  left: 50%;                     /* Center logo horizontally */
-  transform: translateX(-50%);   /* Center-align relative to its new left position */
+  margin: 0;
+  padding: 0;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1100px) {
+/* Adjust for smaller screen sizes */
+@media (max-width: 1000px) {
+  /* Shift the logo to the left */
   .topbar-logo {
-    left: 10%;                    /* Shift logo to the left on smaller screens */
-    transform: translateX(0);     /* Reset transform */
-    max-height: 40px;             /* Smaller logo for compact viewports */
+    left: 10% !important;         /* Shift logo to the left */
+    transform: translateX(0);     /* Remove centering */
+    max-height: 40px;             /* Smaller logo size */
+  }
+
+  /* Prevent the left-section from being visible on small screens */
+  .left-section {
+    display: none !important;
+    position: absolute;
+    top: -9999px;
+  }
+
+  .button-group {
+    margin-left: auto;            /* Align the buttons to the far-right */
+    display: flex;
+    gap: 10px;
   }
 }
 
+/* Further adjustments for even smaller screens */
+@media (max-width: 768px) {
+  .topbar-logo {
+    left: 10% !important;         /* Keep logo left-aligned */
+    transform: translateX(0);     /* No centering */
+    max-height: 35px;             /* Slightly smaller logo */
+  }
+
+  .topbar {
+    justify-content: space-between;  /* Ensure topbar content is spaced correctly */
+    padding: 0 10px;                 /* Reduce padding for smaller screens */
+  }
+
+  .button-group {
+    gap: 5px;                      /* Reduce button spacing */
+  }
+}
+
+/* For even smaller screens (like mobile phones) */
 @media (max-width: 480px) {
   .topbar-logo {
-    left: 10%;                    /* Maintain left position even on very small screens */
-    max-height: 35px;             /* Further reduce size for tiny viewports */
+    left: 10%;                      /* Maintain left position */
+    max-height: 30px;               /* Reduce logo size further */
   }
 }
 
 
-/* Button Group Styling */
-.button-group {
-  display: flex;
-  gap: 20px;                     /* Space between buttons */
-  margin-left: auto;             /* Push buttons to the far-right */
-  align-items: center;           /* Vertical alignment */
+/* For improved topbar styling and to avoid excessive height: */
+.topbar {
+  padding: 0 20px;  /* Added some padding to avoid too much empty space */
+  height: 50px;     /* Reduced height */
+  box-sizing: border-box; /* Ensure padding doesn't increase height */
 }
 
 .topbar-button {

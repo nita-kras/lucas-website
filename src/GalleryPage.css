@@ -3,40 +3,38 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     font-family: Arial, sans-serif;
     color: black;
     text-transform: uppercase;
-  }
+}
 
+/* Homepage container settings */
 .homepage {
     display: flex;
     flex-direction: column;
     background-color: white;
-    height: 100%; /* Allow for full height of content */
-    overflow-y: auto; /* Enable vertical scrolling */
+    height: 100%;
+    overflow-y: auto;
 }
 
-.image-description .material-info {
-    color: gray !important;
-}
-
-
-/* Topbar styling */
+/* Unified Topbar styling */
 .topbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    justify-content: space-between; /* Space out the elements in the topbar */
+    align-items: center; /* Vertically center content */
+    padding: 10px 20px; /* Adjusted padding for consistency */
     background-color: #f8f8f8;
     border-bottom: 1px solid #ccc;
-    position: relative; /* Keep the original positioning for the logo */
-    z-index: 10; /* Ensure the topbar stays above the content */
+    z-index: 10;
+    height: 60px; /* Fixed height */
+    position: sticky; /* Keep the topbar sticky */
+    top: 0;
+    width: 100%; /* Ensure the topbar stretches across the page */
 }
 
-/* Topbar logo styling */
+/* Logo styling (using flex for centering) */
 .topbar-logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px; /* Adjust this size as needed */
+    max-width: 50px; /* Set a max width for the logo */
     height: auto;
+    flex-grow: 0;
+    margin: 0 auto; /* Centers the logo in its container */
 }
 
 /* Info button and other topbar button styling */
@@ -55,17 +53,39 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     background-color: #e0e0e0;
 }
 
-/* Info button positioned on the right */
 .info-button {
-    margin-left: auto;
+    margin-left: auto; /* Pushes info button to the far right */
 }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .topbar-logo {
+        width: 40px; /* Resize logo for smaller screens */
+    }
+
+    /* Ensure topbar buttons and layout adjust for small screens */
+    .topbar-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    /* Adjust the logo for better spacing */
+    .topbar-logo {
+        width: 40px; /* Smaller logo for mobile */
+    }
+
+    .topbar {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+}
+
 
 /* Card container for each item */
 .card-container {
     position: relative;
     overflow: hidden;
-    border-radius: 0; /* Keep sharp edges */
-    box-shadow: none; /* Ensure no shadow */
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* Card image styling */
@@ -73,8 +93,8 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     width: 100%;
     height: auto;
     object-fit: cover;
-    aspect-ratio: 3/2; /* Maintain 2:3 aspect ratio */
-    border-radius: 0; /* Keep sharp edges */
+    aspect-ratio: 3/2;
+    border-radius: 0;
 }
 
 /* Overlay that appears when hovering over the card */
@@ -96,7 +116,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     transition: opacity 0.3s ease;
     pointer-events: none;
     font-weight: bold;
-    color: black;
 }
 
 .card-container:hover .card-overlay {
@@ -106,41 +125,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 /* Container for the grid of cards */
 .grid-container {
     padding: 10px;
-    flex-grow: 1; /* Allow the grid to take up the remaining space */
-    margin: 0 auto; /* Center the grid on larger screens */
-    max-width: 1200px; /* Set a maximum width for larger screens */
-}
-
-/* Ensure scrolling is possible on smaller screens */
-@media (max-width: 600px) {
-    .grid-container {
-        padding: 10px;
-        flex-grow: 1; /* Allow the grid to take up the remaining space */
-        margin: 0; /* Remove side margins on smaller screens */
-        max-width: none; /* Allow full width */
-    }
-}
-
-/* Ensure scrolling is possible on smaller screens */
-@media (max-width: 600px) {
-    .homepage {
-        height: auto; /* Allow for automatic height on small screens */
-    }
-
-    /* Ensure the grid fits nicely on smaller screens */
-    .grid-container {
-        padding: 10px;
-        flex-grow: 1; /* Allow the grid to take up the remaining space */
-        margin-top: 0
-    }
-
-    /* Resize the logo on smaller screens */
-    .topbar-logo {
-        width: 40px; /* Smaller logo size */
-    }
-
-    /* Adjust card image aspect ratio for better mobile layout */
-    .card-image {
-        aspect-ratio: 3/2; /* Use square images for a better fit */
-    }
+    flex-grow: 1;
+    margin: 0 auto;
+    max-width: 1200px;
 }

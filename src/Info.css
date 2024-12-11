@@ -1,32 +1,38 @@
+/* General Styling */
 html, body, .topbar, .folder-link, .image-description, .work-date, .material-info {
   font-family: Arial, sans-serif;
   color: black;
   text-transform: uppercase;
+  margin: 0;
+  padding: 0;
 }
 
+/* Info Page Styling */
 .info-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   background-color: white;
+  height: 100%; /* Allow for full height of content */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
+/* Topbar Styling */
 .topbar {
   display: flex;
-  justify-content: center; /* Keep the content centered */
+  justify-content: space-between; /* Align items to both sides */
   align-items: center;
-  padding: 10px;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ccc;
-  position: relative; /* For absolute positioning of the logo */
-  width: 100%;
+  padding: 10px 20px; /* Adjust padding for consistent layout */
+  background-color: #f8f8f8; /* Light background similar to gallery */
+  border-bottom: 1px solid #ccc; /* Border for separation */
+  position: relative;
+  z-index: 10; /* Ensure the topbar stays above the content */
 }
 
 .topbar-logo {
-  position: absolute; /* Keep the logo centered */
+  position: absolute;
   left: 50%;
-  transform: translateX(-50%); /* Center logo horizontally */
-  width: 50px; /* Adjust this size as needed */
+  transform: translateX(-50%);
+  width: 50px; /* Adjusted size */
   height: auto;
 }
 
@@ -35,6 +41,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   border: none;
   font-size: 16px;
   cursor: pointer;
+  margin: 0 10px; /* Space between buttons */
   padding: 10px 20px;
   border-radius: 5px;
   transition: background-color 0.3s;
@@ -44,116 +51,131 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   background-color: #e0e0e0;
 }
 
-.topbar {
-  display: flex;
-  justify-content: flex-end; /* Align the buttons to the right */
-  align-items: center;
-  width: 100%;
-  position: relative;
-}
-
-.gallery-button {
-  margin-left: 1px; /* Add spacing between the buttons */
-}
-
-.info-button {
-  margin-left: 1px; /* Add spacing between the buttons */
-}
-
 /* Info Content Styling */
 .info-content {
   flex: 1;
   display: flex;
-  flex-direction: column; /* Stack content vertically */
-  justify-content: flex-start; /* Align content to the top */
+  flex-direction: column;
+  justify-content: flex-start;
   padding: 20px;
   background-color: white;
-  margin-top: 20px; /* Adds space below the topbar */
+  margin-top: 80px; /* Ensure there's space for the topbar */
 }
 
 .info-text p {
   font-size: 16px;
-  margin: 5px 0; /* Reduce space between each line */
+  margin: 5px 0;
 }
 
-/* Titles for Education and Past Employment (not indented) */
 .info-text p strong {
-  font-size: 18px; /* Slightly larger font for titles */
-  margin-bottom: 10px; /* Adds space below the titles */
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
-/* Indentation for the rows under Education and Past Employment */
+/* Indentation for Education and Employment */
 .info-text p:nth-of-type(2), 
 .info-text p:nth-of-type(3),
 .employment-list li {
-  margin-left: 100px; /* Add indentation to the education and employment rows */
+  margin-left: 100px;
 }
 
 .employment-list {
-  list-style-type: none; /* Remove bullets */
-  padding-left: 0; /* Remove default padding */
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .employment-list li {
-  font-size: 14px; /* Normal small text */
-  margin-bottom: 5px; /* Space between each item */
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .employment-list a {
-  text-decoration: none; /* Remove underline */
-  color: blue; /* Link color */
+  text-decoration: none;
+  color: blue;
 }
 
 .employment-list a:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
 }
 
-/* Space between Education and Past Employment sections */
+/* Space Between Sections */
 .space-between {
-  margin-top: 20px; /* Space between Education and Past Employment */
+  margin-top: 20px;
 }
 
 /* Email Styling */
 .email-link {
   color: black;
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
 }
 
 .email-link:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
 }
 
+/* Footer Styling */
 .footer {
-  font-size: 14px; /* Slightly smaller font size */
+  font-size: 14px;
   text-align: center;
   padding: 10px;
   background-color: #f8f8f8;
   color: black;
-  position: fixed; /* Stick to the bottom */
+  position: fixed;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #ccc; /* Optional border for separation */
+  border-top: 1px solid #ccc;
 }
+
 .credits {
-  font-size: 14px; /* Slightly smaller than the default text size */
-  color: #777; /* Grey color */
-  margin-top: 30px; /* Add space from the previous content */
-  text-align: left; /* Center the text */
+  font-size: 14px;
+  color: #777;
+  margin-top: 30px;
+  text-align: left;
   padding-top: 140px;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .info-page {
+    height: auto; /* Allow for automatic height on small screens */
+  }
 
-/* Responsive adjustments */
-@media (min-width: 768px) {
+  .grid-container {
+    padding: 10px;
+    flex-grow: 1;
+    margin-top: 0;
+  }
+
+  .topbar-logo {
+    width: 40px; /* Smaller logo on mobile */
+  }
+
+  /* Adjust text size and spacing on small screens */
   .info-text p {
-    font-size: 18px; /* Slightly larger text for bigger screens */
+    font-size: 14px; /* Slightly smaller text */
+  }
+
+  .info-content {
+    padding: 15px; /* Reduced padding for mobile */
+  }
+}
+
+@media (min-width: 768px) {
+  /* Increase font size for larger screens */
+  .info-text p {
+    font-size: 18px;
   }
 
   .employment-list li {
-    font-size: 16px; /* Slightly larger text for bigger screens */
+    font-size: 16px;
   }
 
   .employment-list {
-    margin-left: 130px; /* Increase indentation on larger screens */
+    margin-left: 130px; /* Increased indentation */
+  }
+
+  /* Topbar adjustments for larger screens */
+  .topbar {
+    justify-content: space-between;
   }
 }
