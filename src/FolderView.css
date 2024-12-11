@@ -18,6 +18,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   align-items: flex-start;
   margin-left: auto;
   margin-right: auto; /* Center the container */
+  margin-bottom: 100px;
 }
 
 .image-description h2 {

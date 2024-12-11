@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useGesture } from 'react-use-gesture';
 import './FolderView.css';
-
-
 const FolderView = () => {
   const { folderName } = useParams();
   const [images, setImages] = useState([]);
@@ -13,6 +11,7 @@ const FolderView = () => {
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0);
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchTitleMapping = async () => {
@@ -72,21 +71,21 @@ const FolderView = () => {
 );
 
 
-  const handleNextImage = () => {
-    setCurrentIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % images.length;
-      if (newIndex >= thumbnailStartIndex + 3) setThumbnailStartIndex(newIndex - 2); // Shift right
-      return newIndex;
-    });
-  };
+const handleNextImage = useCallback(() => {
+  setCurrentIndex((prevIndex) => {
+    const newIndex = (prevIndex + 1) % images.length;
+    if (newIndex >= thumbnailStartIndex + 3) setThumbnailStartIndex(newIndex - 2);
+    return newIndex;
+  });
+}, [images.length, thumbnailStartIndex]);
 
-  const handlePreviousImage = () => {
-    setCurrentIndex((prevIndex) => {
-      const newIndex = (prevIndex - 1 + images.length) % images.length;
-      if (newIndex <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(newIndex - 1, 0)); // Shift left
-      return newIndex;
-    });
-  };
+const handlePreviousImage = useCallback(() => {
+  setCurrentIndex((prevIndex) => {
+    const newIndex = (prevIndex - 1 + images.length) % images.length;
+    if (newIndex <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(newIndex - 1, 0));
+    return newIndex;
+  });
+}, [images.length, thumbnailStartIndex]);
 
   const handleThumbnailClick = (index) => {
     setCurrentIndex(index);
@@ -127,6 +126,39 @@ const FolderView = () => {
       <p key={index}>{str}</p>
     ));
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (!isLargeImageView) {
+        switch(event.key) {
+          case 'ArrowRight':
+            event.preventDefault();
+            handleNextImage();
+            break;
+          case 'ArrowLeft':
+            event.preventDefault();
+            handlePreviousImage();
+            break;
+          default:
+            // No action for other keys
+            break;
+        }
+      }
+    };
+  
+    window.addEventListener('keydown', handleKeyDown);
+  
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [
+    isLargeImageView, 
+    images, 
+    currentIndex, 
+    thumbnailStartIndex, 
+    handleNextImage,  // Add these two
+    handlePreviousImage  // to resolve the second warning
+  ]);
 
   return (
     <div className="folder-view-page">

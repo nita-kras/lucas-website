@@ -50,10 +50,15 @@ const Info = () => {
           <p>
             <a href="mailto:kastaberna@gmail.com" className="email-link">kastaberna@gmail.com</a>
           </p>
+
+          {/* Additional Text */}
+          <p className="credits">Website made by Nita Krasniqi</p>
         </div>
       </div>
     </div>
   );
 };
+
+
 
 export default Info;

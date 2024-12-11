@@ -1,5 +1,5 @@
 /* General homepage container */
-html, body, .topbar, .folder-link, .image-description, .work-date, .material-info {
+html, body, .topbar, .folder-link, .image-description, .work-date {
     font-family: Arial, sans-serif;
     color: black;
     text-transform: uppercase;
@@ -12,6 +12,11 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
     height: 100%; /* Allow for full height of content */
     overflow-y: auto; /* Enable vertical scrolling */
 }
+
+.image-description .material-info {
+    color: gray !important;
+}
+
 
 /* Topbar styling */
 .topbar {

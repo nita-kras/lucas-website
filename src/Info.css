@@ -123,6 +123,26 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   text-decoration: underline; /* Underline on hover */
 }
 
+.footer {
+  font-size: 14px; /* Slightly smaller font size */
+  text-align: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+  color: black;
+  position: fixed; /* Stick to the bottom */
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #ccc; /* Optional border for separation */
+}
+.credits {
+  font-size: 14px; /* Slightly smaller than the default text size */
+  color: #777; /* Grey color */
+  margin-top: 30px; /* Add space from the previous content */
+  text-align: left; /* Center the text */
+  padding-top: 140px;
+}
+
+
 /* Responsive adjustments */
 @media (min-width: 768px) {
   .info-text p {
