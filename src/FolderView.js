@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useGesture } from 'react-use-gesture';
 import './FolderView.css';
+
+
 const FolderView = () => {
   const { folderName } = useParams();
   const [images, setImages] = useState([]);
@@ -164,20 +166,21 @@ const handlePreviousImage = useCallback(() => {
     <div className="folder-view-page">
     {!isLargeImageView && (
       <div className="topbar">
-        <div></div>
+      <div className="logo-container">
         <img 
-  src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
-  alt="Logo" 
-  className="topbar-logo" 
-  onClick={() => navigate('/gallery')}
-  style={{ cursor: 'pointer' }} 
-/>
-
-        <div className="button-group">
-          <Link to="/gallery" className="topbar-button">Works</Link>
-          <Link to="/info" className="topbar-button">Info</Link>
-        </div>
+          src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
+          alt="Logo" 
+          className="topbar-logo" 
+          onClick={() => navigate('/gallery')}
+          style={{ cursor: 'pointer' }} 
+        />
       </div>
+      <div className="button-group">
+        <Link to="/gallery" className="topbar-button">Works</Link>
+        <Link to="/info" className="topbar-button">Info</Link>
+      </div>
+    </div>
+    
     )}
 
     <div className="folder-view">

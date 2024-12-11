@@ -66,9 +66,9 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 @media (max-width: 480px) {
-  .image-description {
-    padding-left: 5px;
-    padding-right: 5px;
+  .image-description, .center-section {
+      max-width: 100%; /* Adjust for smaller devices */
+      padding: 5px;
   }
 }
   
@@ -130,57 +130,71 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   z-index: 2;
 }
 
-/* General styles for the topbar */
+/* General Topbar Styling */
+/* General Topbar Styling */
 .topbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 100%;
+  justify-content: space-between; /* Space between logo and buttons */
+  align-items: center;           /* Vertical alignment */
+  padding: 0;                    /* Remove padding */
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 60px;                  /* Fixed height */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;              /* Prevent overflow */
 }
 
+/* Adjust logo positioning for responsiveness */
 .topbar-logo {
-  width: 50px;
-  height: auto;
+  max-height: 50px;              /* Restrict logo height */
+  object-fit: contain;
+  margin: 0;                     /* Remove default margins */
+  padding: 0;                    /* Remove default padding */
+  position: absolute;            /* Absolute positioning for flexibility */
+  left: 50%;                     /* Center logo horizontally */
+  transform: translateX(-50%);   /* Center-align relative to its new left position */
 }
 
-/* Adjustments for smaller screens */
-@media (max-width: 768px) {
-  .topbar {
-    justify-content: flex-start; /* Align all items to the left */
-    padding-left: 0; /* Remove extra padding */
-  }
-
+/* Responsive Adjustments */
+@media (max-width: 1100px) {
   .topbar-logo {
-    position: relative; /* Ensure natural flow */
-    margin: 0; /* Align logo flush to the left */
-    transform: none; /* Remove centering transforms */
+    left: 10%;                    /* Shift logo to the left on smaller screens */
+    transform: translateX(0);     /* Reset transform */
+    max-height: 40px;             /* Smaller logo for compact viewports */
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-logo {
+    left: 10%;                    /* Maintain left position even on very small screens */
+    max-height: 35px;             /* Further reduce size for tiny viewports */
   }
 }
 
 
-
-
+/* Button Group Styling */
 .button-group {
-  margin-left: auto;
   display: flex;
+  gap: 20px;                     /* Space between buttons */
+  margin-left: auto;             /* Push buttons to the far-right */
+  align-items: center;           /* Vertical alignment */
 }
 
 .topbar-button {
-  background-color: transparent;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 0 5px;
-  margin: 0;
-  border-radius: 0px;
-  transition: background-color 0.3s;
   text-decoration: none;
-  color: inherit;
+  color: #000;
+  font-size: 16px;
+  padding: 5px 10px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  border: none;
+  background: transparent;
 }
 
 .topbar-button:hover {
-  background-color: #e0e0e0;
+  color: #555;
+  background-color: #f0f0f0;     /* Subtle hover effect */
 }
 
 .folder-view {
@@ -259,13 +273,10 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .arrow {
+  z-index: 10; /* Ensure above other elements */
   position: absolute;
-  top: 50%;
-  cursor: pointer;
-  opacity: 0.8;
-  transform: translateY(-50%);
-  transition: opacity 0.3s ease;
 }
+
 
 .arrow-left {
   left: 5px;
@@ -286,12 +297,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .thumbnails-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(75px, 0fr));
-  gap: 10px;
-  margin-top: 10px;
-  width: 100%;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
 }
 
 .thumbnail {
