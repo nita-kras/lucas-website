@@ -179,8 +179,7 @@ const handlePreviousImage = useCallback(() => {
         <Link to="/gallery" className="topbar-button">Works</Link>
         <Link to="/info" className="topbar-button">Info</Link>
       </div>
-    </div>
-    
+    </div>    
     )}
 
     <div className="folder-view">
@@ -201,17 +200,21 @@ const handlePreviousImage = useCallback(() => {
       ) : (
         <>
           <div className="left-section">
-            <div className="folder-list">
-              <ul>
-                {formattedFolderNames.map((folderTitle, index) => (
-                  <li key={index}>
-                    <Link to={`/folder/${folderNames[index]}`} className="folder-link">
-                      {folderTitle}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="folder-list">
+  <ul>
+    {formattedFolderNames.map((folderTitle, index) => (
+      <li key={index}>
+        <Link 
+          to={`/folder/${folderNames[index]}`} 
+          className={`folder-link ${folderNames[index] === folderName ? 'active' : ''}`}
+        >
+          {folderTitle}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</div>
+
             <div className="folder-navigation-buttons">
               <button 
                 className="folder-nav-button prev-work" 
