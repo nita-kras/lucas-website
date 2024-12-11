@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useGesture } from 'react-use-gesture';
 import './FolderView.css';
-
 
 const FolderView = () => {
   const { folderName } = useParams();
@@ -12,8 +11,14 @@ const FolderView = () => {
   const [titleMapping, setTitleMapping] = useState({});
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0);
 
+  const canSwipeRef = useRef(true);
+  const swipeTimeoutRef = useRef(null);
+
   const navigate = useNavigate();
 
+  const resetSwipeCapability = useCallback(() => {
+    canSwipeRef.current = true;
+  }, []);
 
   useEffect(() => {
     const fetchTitleMapping = async () => {
@@ -54,48 +59,69 @@ const FolderView = () => {
     fetchImages();
   }, [folderName]);
 
-  const carouselGesture = useGesture(
+ const carouselGesture = useGesture(
     {
-        onDragStart: () => {
-            // Optional: Add visual feedback when drag starts
-        },
-        onDrag: ({ movement: [mx], direction: [xDir], cancel, intentional }) => {
-            // Only trigger if the swipe was intentional
-            if (intentional && Math.abs(mx) > 30) {
-                xDir > 0 ? handlePreviousImage() : handleNextImage();
-                cancel();
-            }
-        },
-        onDragEnd: () => {
-            // Optional: Reset any visual feedback
+      onDragStart: () => {
+        // Reset any previous timeout
+        if (swipeTimeoutRef.current) {
+          clearTimeout(swipeTimeoutRef.current);
         }
+      },
+      onDrag: ({ movement: [mx], direction: [xDir], cancel, intentional }) => {
+        // Only trigger if swipe is allowed, intentional, and meets threshold
+        if (
+          canSwipeRef.current && 
+          intentional && 
+          Math.abs(mx) > 50  // Increased threshold to prevent accidental swipes
+        ) {
+          // Prevent further swipes immediately
+          canSwipeRef.current = false;
+
+          // Perform the swipe
+          xDir > 0 ? handlePreviousImage() : handleNextImage();
+
+          // Set a timeout to re-enable swiping
+          swipeTimeoutRef.current = setTimeout(resetSwipeCapability, 300);
+
+          // Cancel the gesture to prevent multiple triggers
+          cancel();
+        }
+      },
+      onDragEnd: () => {
+        // Ensure swipe capability is reset
+        if (swipeTimeoutRef.current) {
+          clearTimeout(swipeTimeoutRef.current);
+        }
+        swipeTimeoutRef.current = setTimeout(resetSwipeCapability, 300);
+      }
     },
     {
-        drag: {
-            axis: 'x',
-            threshold: 10,  // Reduced threshold for more sensitive swipes
-            preventDefault: true,
-            touchAction: 'none'  // Completely disable browser's touch handling
-        },
+      drag: {
+        axis: 'x',
+        threshold: 10,
+        preventDefault: true,
+        touchAction: 'none'
+      },
     }
-);
+  );
 
 
-const handleNextImage = useCallback(() => {
-  setCurrentIndex((prevIndex) => {
-    const newIndex = (prevIndex + 1) % images.length;
-    if (newIndex >= thumbnailStartIndex + 3) setThumbnailStartIndex(newIndex - 2);
-    return newIndex;
-  });
-}, [images.length, thumbnailStartIndex]);
+  const handleNextImage = useCallback(() => {
+    setCurrentIndex((prevIndex) => {
+      const newIndex = (prevIndex + 1) % images.length;
+      if (newIndex >= thumbnailStartIndex + 3) setThumbnailStartIndex(newIndex - 2);
+      return newIndex;
+    });
+  }, [images.length, thumbnailStartIndex]);
 
-const handlePreviousImage = useCallback(() => {
-  setCurrentIndex((prevIndex) => {
-    const newIndex = (prevIndex - 1 + images.length) % images.length;
-    if (newIndex <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(newIndex - 1, 0));
-    return newIndex;
-  });
-}, [images.length, thumbnailStartIndex]);
+  const handlePreviousImage = useCallback(() => {
+    setCurrentIndex((prevIndex) => {
+      const newIndex = (prevIndex - 1 + images.length) % images.length;
+      if (newIndex <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(newIndex - 1, 0));
+      return newIndex;
+    });
+  }, [images.length, thumbnailStartIndex]);
+
 
   const handleThumbnailClick = (index) => {
     setCurrentIndex(index);
