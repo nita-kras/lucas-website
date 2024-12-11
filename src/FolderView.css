@@ -10,15 +10,17 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   max-width: 1100px;
   margin-top: 20px;
   padding-left: 10px;
-  padding-right: 10px; /* Added right padding for balance */
+  padding-right: 10px;
   text-align: left;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-left: auto;
-  margin-right: auto; /* Center the container */
+  margin-right: auto;
   margin-bottom: 100px;
+  word-wrap: break-word; /* Ensure text wraps */
+  word-break: break-word; /* Break words if needed */
 }
 
 .image-description h2 {
@@ -26,6 +28,17 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   margin: 0;
   padding-left: 0; /* Remove extra left padding */
   text-align: left;
+  width: 100%; /* Ensure full width */
+  font-size: 2.5rem; /* Default large size for the title */
+  line-height: 1.2;
+}
+
+/* Slightly smaller font for the materials and description */
+.material-info {
+  font-size: 1.2rem; /* Slightly smaller than the title */
+  color: gray;
+  margin-top: 10px;
+  padding-left: 0; /* Maintain alignment */
   width: 100%; /* Ensure full width */
 }
 
@@ -35,14 +48,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   padding-left: 0; /* Consistent alignment */
   text-align: left;
   width: 100%; /* Ensure full width */
-}
-
-.material-info {
-  font-size: 1rem;
-  color: gray;
-  margin-top: 10px;
-  padding-left: 0; /* Maintain alignment */
-  width: 100%; /* Ensure full width */
+  font-size: 1.2rem; /* Adjust font size for work date */
 }
 
 /* Responsive adjustments */
@@ -52,6 +58,14 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     padding-right: 15px;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  .image-description h2 {
+    font-size: 2rem; /* Title size for smaller screens */
+  }
+
+  .material-info, .work-date {
+    font-size: 1.1rem; /* Adjust font size for smaller screens */
   }
 }
 
@@ -63,15 +77,30 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     margin-left: 0;
     margin-right: 0;
   }
+
+  .image-description h2 {
+    font-size: 1.8rem; /* Title size for mobile */
+  }
+
+  .material-info, .work-date {
+    font-size: 1rem; /* Slightly smaller font for materials and work date */
+  }
 }
 
 @media (max-width: 480px) {
   .image-description, .center-section {
-      max-width: 100%; /* Adjust for smaller devices */
-      padding: 5px;
+    max-width: 100%; /* Adjust for smaller devices */
+    padding: 5px;
+  }
+
+  .image-description h2 {
+    font-size: 1.5rem; /* Further reduce title size for very small screens */
+  }
+
+  .material-info, .work-date {
+    font-size: 0.9rem; /* Reduce material and work date font size for small screens */
   }
 }
-  
 
 @media (min-width: 1100px) {
   .folder-navigation-buttons {
