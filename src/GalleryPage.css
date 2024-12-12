@@ -92,6 +92,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     box-shadow: none;
     grid-gap: 0; /* Remove gap between grid items */
     gap: 0; 
+    
 }
 
 /* Card image styling */
@@ -120,7 +121,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     color: black;
     font-size: 20px;
     font-weight: normal;
-    transition: opacity 0.3s ease;
     pointer-events: none;
     font-weight: bold;
 }
@@ -128,6 +128,8 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 .card-container:hover .card-overlay {
     opacity: 1;
 }
+
+
 
 /* Container for the grid of cards */
 .grid-container {
