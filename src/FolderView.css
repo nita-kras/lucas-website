@@ -159,20 +159,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   z-index: 2;
 }
 
-/* General topbar styling */
-.topbar {
-  display: flex;
-  justify-content: space-between;  /* Space between the logo and buttons */
-  align-items: center;            /* Vertical alignment */
-  padding: 0 20px;                /* Padding for consistency */
-  background-color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: 60px;                   /* Fixed height */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;               /* Prevent overflow */
-}
 
 /* Adjust logo positioning for responsiveness */
 .topbar-logo {
@@ -415,7 +401,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .carousel-content .click-to-enlarge {
-  font-size: calc(8px + 0.1vw);
+  font-size: calc(13px + 0.1vw);
   text-align: right;
   margin-top: 2px;
   margin-right: 10px;

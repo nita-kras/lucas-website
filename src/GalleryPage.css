@@ -20,21 +20,32 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     justify-content: space-between; /* Space out the elements in the topbar */
     align-items: center; /* Vertically center content */
     padding: 10px 20px; /* Adjusted padding for consistency */
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ccc;
+    background-color: transparent;
     z-index: 10;
     height: 60px; /* Fixed height */
-    position: sticky; /* Keep the topbar sticky */
     top: 0;
     width: 100%; /* Ensure the topbar stretches across the page */
+    border-bottom: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 /* Logo styling (using flex for centering) */
 .topbar-logo {
-    max-width: 50px; /* Set a max width for the logo */
-    height: auto;
+    width: 200px; /* Maximum width constraint */
+    height: auto; /* Take up 80% of the topbar height */
+    object-fit: contain; /* Maintain aspect ratio */
     flex-grow: 0;
     margin: 0 auto; /* Centers the logo in its container */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .topbar-logo {
+        width: 120px; /* Smaller max width for mobile */
+        height: auto; /* Slightly adjusted height for mobile */
+    }
 }
 
 /* Info button and other topbar button styling */
@@ -45,12 +56,12 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     cursor: pointer;
     margin: 0 10px;
     padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+ 
+
 }
 
 .topbar-button:hover {
-    background-color: #e0e0e0;
+    background-color: transparent
 }
 
 .info-button {
@@ -59,19 +70,12 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-    .topbar-logo {
-        width: 40px; /* Resize logo for smaller screens */
-    }
+
 
     /* Ensure topbar buttons and layout adjust for small screens */
     .topbar-button {
         font-size: 14px;
         padding: 8px 16px;
-    }
-
-    /* Adjust the logo for better spacing */
-    .topbar-logo {
-        width: 40px; /* Smaller logo for mobile */
     }
 
     .topbar {
@@ -86,6 +90,8 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     overflow: hidden;
     border-radius: 0;
     box-shadow: none;
+    grid-gap: 0; /* Remove gap between grid items */
+    gap: 0; 
 }
 
 /* Card image styling */
@@ -95,6 +101,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     object-fit: cover;
     aspect-ratio: 3/2;
     border-radius: 0;
+    margin: 0;
 }
 
 /* Overlay that appears when hovering over the card */
@@ -105,7 +112,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.847);
     opacity: 0;
     display: flex;
     justify-content: center;
@@ -128,4 +135,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     flex-grow: 1;
     margin: 0 auto;
     max-width: 1200px;
+    grid-gap: 0 !important; /* Remove gap between grid items */
+    gap: 0; 
 }
