@@ -136,7 +136,7 @@ const FolderView = () => {
     setIsLargeImageView((prev) => !prev); 
   };
 
-  const folderNames = [    'touch_is_love_2024',
+  const folderNames = [  
     'ilatd_tshirts_',
     'clown_2024',
     'stare_2024',
@@ -149,6 +149,7 @@ const FolderView = () => {
     'warhammer_2024',
     'the_mystery_of_the_blood-bath_bath_house_2024',
     'iron_man_tshirts_',
+    'touch_is_love_2024',
     'ring_',
     'name_2023',
     'refined_slag_2023',
