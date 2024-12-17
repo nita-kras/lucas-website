@@ -190,7 +190,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 /* Adjust for smaller screen sizes */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   /* Shift the logo to the left */
   .topbar-logo {
     left: 10% !important;         /* Shift logo to the left */
