@@ -29,6 +29,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     border-top: none;
     border-left: none;
     border-right: none;
+    font-weight: bold;
 }
 
 /* Logo styling (using flex for centering) */

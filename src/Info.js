@@ -43,6 +43,7 @@ const Info = () => {
             <li><a href="https://www.speters.co.uk/sourcing-production" target="_blank" rel="noopener noreferrer">Stuart Peters</a></li>
             <li><a href="https://www.paulsmith.com/uk/discover" target="_blank" rel="noopener noreferrer">Paul Smith</a></li>
             <li><a href="https://thefootsoldiers.com" target="_blank" rel="noopener noreferrer">The Foot Soldiers</a></li>
+            <li><a href="https://www.thesetstylist.com" target="_blank" rel="noopener noreferrer">Lee Flude</a></li>
           </ul>
 
           {/* Email Section */}
