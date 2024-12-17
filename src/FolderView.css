@@ -165,6 +165,9 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     box-sizing: border-box;
   }
 }
+.folder-navigation-buttons{
+  margin-top: 20px;
+}
 
 .prev-work {
   margin-right: auto;
