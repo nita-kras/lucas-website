@@ -53,7 +53,16 @@ const Info = () => {
           </p>
 
           {/* Additional Text */}
-          <p className="credits">Website made by Nita Krasniqi</p>
+          <p 
+  className="credits"
+  style={{ fontSize: '14px', marginTop: '30px' }}
+>
+  <a href="mailto:nk.nitakrasniqi@gmail.com" style={{ color: '#e872c5', textDecoration: 'none' }}>
+    Website made by Nita Krasniqi
+  </a>
+</p>
+
+
         </div>
       </div>
     </div>
