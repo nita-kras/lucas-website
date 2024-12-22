@@ -33,6 +33,7 @@ const Info = () => {
           {/* Past Employment Section */}
           <p><strong>PAST EMPLOYMENT:</strong></p>
           <ul className="employment-list">
+            <li><a href="https://www.thesetstylist.com" target="_blank" rel="noopener noreferrer">Lee Flude</a></li>
             <li><a href="https://www.timur-celikdag.com/#all" target="_blank" rel="noopener noreferrer">Timur Celikdag</a></li>
             <li><a href="https://samuelpidgen.com" target="_blank" rel="noopener noreferrer">Samuel Pidgeon</a></li>
             <li><a href="https://www.elena-isolini.com" target="_blank" rel="noopener noreferrer">Elena Isolini</a></li>
@@ -43,7 +44,6 @@ const Info = () => {
             <li><a href="https://www.speters.co.uk/sourcing-production" target="_blank" rel="noopener noreferrer">Stuart Peters</a></li>
             <li><a href="https://www.paulsmith.com/uk/discover" target="_blank" rel="noopener noreferrer">Paul Smith</a></li>
             <li><a href="https://thefootsoldiers.com" target="_blank" rel="noopener noreferrer">The Foot Soldiers</a></li>
-            <li><a href="https://www.thesetstylist.com" target="_blank" rel="noopener noreferrer">Lee Flude</a></li>
           </ul>
 
           {/* Email Section */}
