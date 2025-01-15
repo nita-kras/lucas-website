@@ -33,6 +33,9 @@ const Info = () => {
           {/* Past Employment Section */}
           <p><strong>PAST EMPLOYMENT:</strong></p>
           <ul className="employment-list">
+          <li><a href="https://paulinapiipponen.com" target="_blank" rel="noopener noreferrer">Paulina Piipponen</a></li>
+          <li><a href="https://www.phoebeshakespeare.com" target="_blank" rel="noopener noreferrer">Phoebe Shakespeare</a></li>
+          <li><a href="https://www.lisajahovic.com" target="_blank" rel="noopener noreferrer">Lisa Jahovic</a></li>
             <li><a href="https://www.thesetstylist.com" target="_blank" rel="noopener noreferrer">Lee Flude</a></li>
             <li><a href="https://www.timur-celikdag.com/#all" target="_blank" rel="noopener noreferrer">Timur Celikdag</a></li>
             <li><a href="https://samuelpidgen.com" target="_blank" rel="noopener noreferrer">Samuel Pidgeon</a></li>
