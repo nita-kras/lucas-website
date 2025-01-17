@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/lucas-website/static/css/main.429c6785.css",
-    "main.js": "/lucas-website/static/js/main.0d8a3a73.js",
-    "index.html": "/lucas-website/index.html",
-    "main.429c6785.css.map": "/lucas-website/static/css/main.429c6785.css.map",
-    "main.0d8a3a73.js.map": "/lucas-website/static/js/main.0d8a3a73.js.map"
+    "main.css": "/static/css/main.1dc91651.css",
+    "main.js": "/static/js/main.5602d5fe.js",
+    "index.html": "/index.html",
+    "main.1dc91651.css.map": "/static/css/main.1dc91651.css.map",
+    "main.5602d5fe.js.map": "/static/js/main.5602d5fe.js.map"
   },
   "entrypoints": [
-    "static/css/main.429c6785.css",
-    "static/js/main.0d8a3a73.js"
+    "static/css/main.1dc91651.css",
+    "static/js/main.5602d5fe.js"
   ]
 }
