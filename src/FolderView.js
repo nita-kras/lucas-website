@@ -137,6 +137,7 @@ const FolderView = () => {
   };
 
   const folderNames = [  
+    'weed_drawing_',
     'ilatd_tshirts_',
     'clown_2024',
     'stare_2024',
@@ -165,6 +166,7 @@ const FolderView = () => {
     'synthesis_2022',
     'insert_me,_a_perfect_coupling_2022',
     'fever_2022',
+    'my_feelings_inside_','sweet_', 
     'shredding_out_of_me_2021',];
   const formattedFolderNames = folderNames.map((folder) => titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()));
 
