@@ -24,7 +24,7 @@ const Info = () => {
         <div className="info-text">
           {/* Education Section */}
           <p><strong>EDUCATION:</strong></p>
-          <p>BA (HONS), GOLDSMITHS UNIVERSITY, TO GRADUATE IN 2026</p>
+          <p>BA (HONS), GOLDSMITHS UNIVERSITY</p>
           <p>DISTINCTION, FOUNDATION DIPLOMA, KINGSTON UNIVERSITY</p>
 
           {/* Space between Education and Past Employment */}
@@ -33,21 +33,27 @@ const Info = () => {
           {/* Past Employment Section */}
           <p><strong>PAST EMPLOYMENT:</strong></p>
           <ul className="employment-list">
-          <li><a href="https://paulinapiipponen.com" target="_blank" rel="noopener noreferrer">Paulina Piipponen</a></li>
-          <li><a href="https://www.phoebeshakespeare.com" target="_blank" rel="noopener noreferrer">Phoebe Shakespeare</a></li>
-          <li><a href="https://www.lisajahovic.com" target="_blank" rel="noopener noreferrer">Lisa Jahovic</a></li>
-            <li><a href="https://www.thesetstylist.com" target="_blank" rel="noopener noreferrer">Lee Flude</a></li>
-            <li><a href="https://www.timur-celikdag.com/#all" target="_blank" rel="noopener noreferrer">Timur Celikdag</a></li>
-            <li><a href="https://samuelpidgen.com" target="_blank" rel="noopener noreferrer">Samuel Pidgeon</a></li>
-            <li><a href="https://www.elena-isolini.com" target="_blank" rel="noopener noreferrer">Elena Isolini</a></li>
-            <li><a href="http://renway.net" target="_blank" rel="noopener noreferrer">Carbon Way</a></li>
-            <li><a href="https://www.archbronze.com" target="_blank" rel="noopener noreferrer">Arch Bronze</a></li>
-            <li><a href="https://www.pep-ltd.co.uk" target="_blank" rel="noopener noreferrer">PEP</a></li>
-            <li><a href="http://www.taoh.es" target="_blank" rel="noopener noreferrer">Taoh Motorecambios</a></li>
-            <li><a href="https://www.speters.co.uk/sourcing-production" target="_blank" rel="noopener noreferrer">Stuart Peters</a></li>
-            <li><a href="https://www.paulsmith.com/uk/discover" target="_blank" rel="noopener noreferrer">Paul Smith</a></li>
-            <li><a href="https://thefootsoldiers.com" target="_blank" rel="noopener noreferrer">The Foot Soldiers</a></li>
-          </ul>
+  <li><a href="https://www.charlottewales.com/projects/re-edition-magazine" target="_blank" rel="noopener noreferrer">Charlotte Wales</a></li>
+  <li><a href="https://paulinapiipponen.com" target="_blank" rel="noopener noreferrer">Paulina Piipponen</a></li>
+  <li><a href="https://www.phoebeshakespeare.com" target="_blank" rel="noopener noreferrer">Phoebe Shakespeare</a></li>
+  <li><a href="https://www.lisajahovic.com" target="_blank" rel="noopener noreferrer">Lisa Jahovic</a></li>
+  <li><a href="https://www.thesetstylist.com" target="_blank" rel="noopener noreferrer">Lee Flude</a></li>
+  <li><a href="https://www.timur-celikdag.com/#all" target="_blank" rel="noopener noreferrer">Timur Celikdag</a></li>
+  <li><a href="https://samuelpidgen.com" target="_blank" rel="noopener noreferrer">Samuel Pidgen</a></li>
+  <li><a href="https://www.elena-isolini.com" target="_blank" rel="noopener noreferrer">Elena Isolini</a></li>
+
+  {/* Spacer */}
+  <li className="employment-spacer"></li>
+
+  <li><a href="http://renway.net" target="_blank" rel="noopener noreferrer">Carbon Way</a></li>
+  <li><a href="https://www.archbronze.com" target="_blank" rel="noopener noreferrer">Arch Bronze</a></li>
+  <li><a href="https://www.pep-ltd.co.uk" target="_blank" rel="noopener noreferrer">PEP</a></li>
+  <li><a href="http://www.taoh.es" target="_blank" rel="noopener noreferrer">Taoh Motorecambios</a></li>
+  <li><a href="https://www.speters.co.uk/sourcing-production" target="_blank" rel="noopener noreferrer">Stuart Peters</a></li>
+  <li><a href="https://www.paulsmith.com/uk/discover" target="_blank" rel="noopener noreferrer">Paul Smith</a></li>
+  <li><a href="https://thefootsoldiers.com" target="_blank" rel="noopener noreferrer">The Foot Soldiers</a></li>
+</ul>
+
 
           {/* Email Section */}
           <p><strong>EMAIL:</strong></p>

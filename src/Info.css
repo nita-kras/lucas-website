@@ -134,6 +134,12 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   padding-top: 30px;
 }
 
+.employment-spacer {
+  list-style: none;
+  margin: 40px 0; /* Adjust the space size as needed */
+}
+
+
 /* Responsive Adjustments */
 @media (max-width: 600px) {
   .info-page {
