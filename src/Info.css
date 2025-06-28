@@ -182,6 +182,17 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   padding-top: 30px;
 }
 
+.credits a {
+  color: #ef8ed2 !important;
+  text-decoration: none;
+  transition: text-decoration 0.3s;
+}
+
+.credits a:hover {
+  text-decoration: underline;
+}
+
+
 .employment-spacer {
   list-style: none;
   margin: 40px 0;

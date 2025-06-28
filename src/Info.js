@@ -90,10 +90,12 @@ const Info = () => {
 
           {/* Credits */}
           <p className="credits">
-            <a href="mailto:nk.nitakrasniqi@gmail.com" style={{ color: '#e872c5', textDecoration: 'none' }}>
-              Website made by Nita Krasniqi
-            </a>
-          </p>
+  <a href="https://www.linkedin.com/in/nita-krasniqi/" target="_blank" rel="noopener noreferrer">
+    Website made by Nita Krasniqi
+  </a>
+</p>
+
+
         </div>
       </div>
     </div>

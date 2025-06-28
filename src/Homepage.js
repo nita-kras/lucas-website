@@ -39,6 +39,21 @@ const Homepage = () => {
     }
   }, [titleMapping, showGallery]);
 
+  // Handle key press to enter gallery
+  useEffect(() => {
+    if (!showGallery) {
+      const handleKeyDown = () => {
+        setShowGallery(true);
+        navigate('/gallery', { replace: true });
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
+      // Cleanup on unmount or when showGallery changes
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [showGallery, navigate]);
+
   const handleImageClick = () => {
     setShowGallery(true); // Show the gallery after clicking the logo
     navigate('/gallery', { replace: true }); // Navigate to /gallery and replace the history entry

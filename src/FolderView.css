@@ -4,6 +4,25 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   text-transform: uppercase;
 }
 
+.click-to-exit {
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  color: grey !important;
+  font-size: 14px;
+  opacity: 0.8;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .click-to-exit {
+    top: 6px;
+    font-size: 13px;
+  }
+}
+
+
 /* Unified approach for image description responsiveness */
 .image-description {
   width: 100%;

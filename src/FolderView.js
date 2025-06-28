@@ -122,6 +122,17 @@ const FolderView = () => {
     });
   }, [images.length, thumbnailStartIndex]);
 
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === 'Escape' && isLargeImageView) {
+        setIsLargeImageView(false);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [isLargeImageView]);
+  
+
 
   const handleThumbnailClick = (index) => {
     setCurrentIndex(index);
@@ -244,25 +255,29 @@ const FolderView = () => {
         <Link to="/gallery" className="topbar-button">Works</Link>
         <Link to="/info" className="topbar-button">Info</Link>
       </div>
-    </div>    
+    </div> 
+       
     )}
 
     <div className="folder-view">
-      {isLargeImageView ? (
-        <div className="center-section full-width">
-          <div className="large-image-container">
-            {images.map((img) => (
-              <img
-                key={img.id}
-                src={img.image}
-                alt={`Large view of ${img.id}`}
-                className="large-image"
-                onClick={handleImageClick}
-              />
-            ))}
-          </div>
-        </div>
-      ) : (
+    {isLargeImageView ? (
+  <div className="center-section full-width">
+    <p className="click-to-exit">click image to exit</p>
+    <div className="large-image-container">
+      {images.map((img) => (
+        <img
+          key={img.id}
+          src={img.image}
+          alt={`Large view of ${img.id}`}
+          className="large-image"
+          onClick={handleImageClick}
+        />
+      ))}
+    </div>
+  </div>
+) : (
+
+
         <>
           <div className="left-section">
           <div className="folder-list">
@@ -317,7 +332,7 @@ const FolderView = () => {
                     />
                     <div className="arrow arrow-right" onClick={handleNextImage} />
                   </div>
-                  <p className="click-to-enlarge">Click to expand</p>
+                  <p className="click-to-enlarge">Click image to expand</p>
 
                   <div className="thumbnails-container">
   {images.map((img, index) => (
