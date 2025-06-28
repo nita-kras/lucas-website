@@ -41,7 +41,10 @@ const GalleryPage = () => {
   return (
     <div className="homepage">
       <div className="topbar">
-        <img src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} alt="Logo" className="topbar-logo" />
+      <Link to="/" className="topbar-logo-link">
+  <img src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} alt="Logo" className="topbar-logo" />
+</Link>
+
         <Link to="/info" className="topbar-button info-button">Info</Link>
       </div>
       <Box className="grid-container" sx={{ flexGrow: 1 }}>

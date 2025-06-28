@@ -7,13 +7,61 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   padding: 0;
 }
 
+/* Style the dropdown header: blue text and underline on hover */
+.dropdown-header {
+  color: blue;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: text-decoration 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between arrow and text */
+}
+
+.dropdown-header:hover {
+  text-decoration: underline;
+}
+
+
+/* Nested list for assistants */
+.nested-list {
+  list-style-type: none;
+  padding-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.nested-list li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.nested-list a {
+  text-decoration: none;
+  color: blue;
+}
+
+.nested-list a:hover {
+  text-decoration: underline;
+}
+
+/* Specific styling for "Assisting Set and Production Designers" */
+.nested-list a:has(> span.special-assisting-link) {
+  color: blue;
+}
+
+.nested-list a:has(> span.special-assisting-link):hover {
+  color: grey;
+}
+
 /* Info Page Styling */
 .info-page {
   display: flex;
   flex-direction: column;
   background-color: white;
-  height: 100%; /* Allow for full height of content */
-  overflow-y: auto; /* Enable vertical scrolling */
+  height: 100%;
+  overflow-y: auto;
 }
 
 /* Topbar Styling */
@@ -28,13 +76,13 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   z-index: 10; /* Ensure the topbar stays above the content */
 }
 
-.topbar-logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px; /* Adjusted size */
-  height: auto;
+
+@media (max-width: 600px) {
+  .topbar-logo {
+    width: 40px;
+  }
 }
+
 
 .topbar-button {
   background-color: transparent;
@@ -59,7 +107,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   justify-content: flex-start;
   padding: 20px;
   background-color: white;
-  margin-top: 80px; /* Ensure there's space for the topbar */
+  margin-top: 80px;
 }
 
 .info-text p {
@@ -136,14 +184,13 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 
 .employment-spacer {
   list-style: none;
-  margin: 40px 0; /* Adjust the space size as needed */
+  margin: 40px 0;
 }
-
 
 /* Responsive Adjustments */
 @media (max-width: 600px) {
   .info-page {
-    height: auto; /* Allow for automatic height on small screens */
+    height: auto;
   }
 
   .grid-container {
@@ -153,21 +200,19 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   }
 
   .topbar-logo {
-    width: 40px; /* Smaller logo on mobile */
+    width: 40px;
   }
 
-  /* Adjust text size and spacing on small screens */
   .info-text p {
-    font-size: 14px; /* Slightly smaller text */
+    font-size: 14px;
   }
 
   .info-content {
-    padding: 15px; /* Reduced padding for mobile */
+    padding: 15px;
   }
 }
 
 @media (min-width: 768px) {
-  /* Increase font size for larger screens */
   .info-text p {
     font-size: 18px;
   }
@@ -177,10 +222,9 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
   }
 
   .employment-list {
-    margin-left: 130px; /* Increased indentation */
+    margin-left: 130px;
   }
 
-  /* Topbar adjustments for larger screens */
   .topbar {
     justify-content: space-between;
   }
