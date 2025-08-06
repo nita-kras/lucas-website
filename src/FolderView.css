@@ -458,3 +458,12 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 .click-to-enlarge:hover {
   opacity: 1;
 }
+
+@media (min-width: 1200px) {
+  .thumbnails-container {
+    display: grid !important;
+    grid-template-columns: repeat(9, 1fr);
+    justify-content: center;
+    gap: 10px;
+  }
+}

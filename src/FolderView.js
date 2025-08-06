@@ -148,6 +148,7 @@ const FolderView = () => {
   };
 
   const folderNames = [  
+    'hidden_away_2025',
     'weed_drawing_',
     'ilatd_tshirts_',
     'clown_2024',
