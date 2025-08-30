@@ -214,23 +214,23 @@ const FolderView = () => {
 
     return description.split("\n").map((str, index) => {
       // Handle credits formatting - check if line contains role and name
-      if (str.includes('\t') && str.startsWith('- ')) {
-        const parts = str.split('\t');
-        const role = parts[0];
-        const names = parts.slice(1); // one or many
-      
-        return (
-          <div key={index} className="credit-line">
-            <span>{role}</span>
-            <div className="names">
-              {names.map((n, i) => (
-                <div key={i}>{n}</div>
-              ))}
-            </div>
-          </div>
-        );
-      }
-      
+     if (str.includes('\t') && str.startsWith('- ')) {
+  const parts = str.split('\t');
+  const role = parts[0];
+  const names = parts.slice(1); // one or many
+
+  return (
+    <div key={index} className="credit-line">
+      <span>{role}</span>
+      <div className="names">
+        {names.map((n, i) => (
+          <div key={i}>{n}</div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
          
       
       // Handle actor names and production assistants (lines that don't start with -)
