@@ -216,16 +216,16 @@ const FolderView = () => {
       // Handle credits formatting - check if line contains role and name
       if (str.includes('\t') && str.startsWith('- ')) {
         const parts = str.split('\t');
-        const role = parts[0]; // e.g., "- Written & Directed"
-        const name = parts[parts.length - 1]; // Last part is the name
-        
+        const role = parts[0];
+        const name = parts[parts.length - 1];
+      
         return (
           <p key={index} className="credit-line">
             <span>{role}</span>
             <span>{name}</span>
           </p>
-        );        
-      }
+        );
+      }      
       
       // Handle actor names and production assistants (lines that don't start with -)
       if (str.trim() && !str.startsWith('-') && index > 2) {

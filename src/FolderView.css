@@ -471,10 +471,23 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   display: flex;
   justify-content: space-between;
   margin: 0.2em 0;
-  white-space: nowrap;     /* prevent breaking inside */
 }
 
 .credit-line span:last-child {
-  margin-left: auto;       /* push name fully to the right */
+  margin-left: auto;
   text-align: right;
 }
+
+/* On smaller screens, stack instead of side by side */
+@media (max-width: 768px) {
+  .credit-line {
+    flex-direction: column;   /* stack vertically */
+    align-items: flex-start;  /* left align text */
+  }
+
+  .credit-line span:last-child {
+    margin-left: 0;           /* reset auto spacing */
+    text-align: left;         /* align names left */
+  }
+}
+
