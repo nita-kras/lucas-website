@@ -470,7 +470,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 .credit-line {
   display: flex;
   justify-content: space-between;
-  margin: 0.2em 0;
+  margin: 0.4em 0;   /* space between blocks */
 }
 
 .credit-line span:last-child {
@@ -478,16 +478,16 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   text-align: right;
 }
 
-/* On smaller screens, stack instead of side by side */
+/* Small screen override */
 @media (max-width: 768px) {
   .credit-line {
     flex-direction: column;   /* stack vertically */
-    align-items: flex-start;  /* left align text */
+    align-items: flex-start;  /* left align everything */
+    margin: 0 0 1em 0;        /* add bigger bottom spacing */
   }
 
   .credit-line span:last-child {
-    margin-left: 0;           /* reset auto spacing */
-    text-align: left;         /* align names left */
+    margin-left: 0;           /* reset spacing */
+    text-align: left;         /* ensure names are left aligned */
   }
 }
-

@@ -217,15 +217,20 @@ const FolderView = () => {
       if (str.includes('\t') && str.startsWith('- ')) {
         const parts = str.split('\t');
         const role = parts[0];
-        const name = parts[parts.length - 1];
+        const names = parts.slice(1); // could be 1 or many
       
         return (
-          <p key={index} className="credit-line">
+          <div key={index} className="credit-line">
             <span>{role}</span>
-            <span>{name}</span>
-          </p>
+            <div>
+              {names.map((n, i) => (
+                <div key={i}>{n}</div>
+              ))}
+            </div>
+          </div>
         );
-      }      
+      }
+         
       
       // Handle actor names and production assistants (lines that don't start with -)
       if (str.trim() && !str.startsWith('-') && index > 2) {
