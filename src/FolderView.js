@@ -220,11 +220,11 @@ const FolderView = () => {
         const name = parts[parts.length - 1]; // Last part is the name
         
         return (
-          <p key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '0.2em 0' }}>
+          <p key={index} className="credit-line">
             <span>{role}</span>
             <span>{name}</span>
           </p>
-        );
+        );        
       }
       
       // Handle actor names and production assistants (lines that don't start with -)

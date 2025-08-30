@@ -467,3 +467,14 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     gap: 10px;
   }
 }
+.credit-line {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.2em 0;
+  white-space: nowrap;     /* prevent breaking inside */
+}
+
+.credit-line span:last-child {
+  margin-left: auto;       /* push name fully to the right */
+  text-align: right;
+}
