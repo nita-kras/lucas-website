@@ -42,13 +42,21 @@ const FolderView = () => {
         const response = await fetch(`${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/images.json`);
         if (!response.ok) return;
         const imagesData = await response.json();
-        const formattedImages = imagesData.map((img) => ({
-          id: img.id,
-          image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${img[folderName]}`,
-          thumbnail: `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${img[folderName]}`,
-          description: img.description || "No description available",
-          materials: img.materials || "No materials listed",
-        }));
+        const formattedImages = imagesData.map((img) => {
+          const isVideo = img.type === "video";
+          const fileName = img[folderName];
+          return {
+            id: img.id,
+            type: isVideo ? "video" : "image",
+            image: `${process.env.PUBLIC_URL}/works/worksLarge/${folderName}/${fileName}`,
+            thumbnail: isVideo
+              ? `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${img.thumbnail}`
+              : `${process.env.PUBLIC_URL}/works/worksThumbnails/${folderName}/${fileName}`,
+            description: img.description || "No description available",
+            materials: img.materials || "No materials listed",
+          };
+        });
+        
         setImages(formattedImages);
         setCurrentIndex(0);
         setThumbnailStartIndex(0);
@@ -133,7 +141,6 @@ const FolderView = () => {
   }, [isLargeImageView]);
   
 
-
   const handleThumbnailClick = (index) => {
     setCurrentIndex(index);
     if (index >= thumbnailStartIndex + 3) {
@@ -144,10 +151,14 @@ const FolderView = () => {
   };
 
   const handleImageClick = () => {
-    setIsLargeImageView((prev) => !prev); 
+    if (images[currentIndex]?.type !== 'video') {
+      setIsLargeImageView((prev) => !prev);
+    }
   };
+  
 
   const folderNames = [  
+    'a_thousand_deaths_2025',
     'hidden_away_2025',
     'weed_drawing_',
     'ilatd_tshirts_',
@@ -201,9 +212,33 @@ const FolderView = () => {
       return <p>No description available</p>;
     }
 
-    return description.split("\n").map((str, index) => (
-      <p key={index}>{str}</p>
-    ));
+    return description.split("\n").map((str, index) => {
+      // Handle credits formatting - check if line contains role and name
+      if (str.includes('\t') && str.startsWith('- ')) {
+        const parts = str.split('\t');
+        const role = parts[0]; // e.g., "- Written & Directed"
+        const name = parts[parts.length - 1]; // Last part is the name
+        
+        return (
+          <p key={index} style={{ display: 'flex', justifyContent: 'space-between', margin: '0.2em 0' }}>
+            <span>{role}</span>
+            <span>{name}</span>
+          </p>
+        );
+      }
+      
+      // Handle actor names and production assistants (lines that don't start with -)
+      if (str.trim() && !str.startsWith('-') && index > 2) {
+        return (
+          <p key={index} style={{ textAlign: 'right', margin: '0.2em 0', paddingRight: '0' }}>
+            {str.replace(/\t/g, '')}
+          </p>
+        );
+      }
+      
+      // Regular paragraphs
+      return <p key={index} style={{ margin: '0.5em 0' }}>{str.replace(/\t/g, '')}</p>;
+    });
   };
 
   useEffect(() => {
@@ -261,24 +296,21 @@ const FolderView = () => {
     )}
 
     <div className="folder-view">
-    {isLargeImageView ? (
-  <div className="center-section full-width">
-    <p className="click-to-exit">click image to exit</p>
-    <div className="large-image-container">
-      {images.map((img) => (
-        <img
-          key={img.id}
-          src={img.image}
-          alt={`Large view of ${img.id}`}
-          className="large-image"
-          onClick={handleImageClick}
-        />
-      ))}
-    </div>
-  </div>
-) : (
-
-
+      {isLargeImageView ? (
+        <div className="center-section full-width">
+          <div className="large-image-container">
+            {images.filter(img => img.type !== "video").map((img) => (
+              <img
+                key={img.id}
+                src={img.image}
+                alt={`Large view of ${img.id}`}
+                className="large-image"
+                onClick={handleImageClick}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
         <>
           <div className="left-section">
           <div className="folder-list">
@@ -325,27 +357,43 @@ const FolderView = () => {
                     {...carouselGesture()}
                   >
                     <div className="arrow arrow-left" onClick={handlePreviousImage} />
-                    <img
-                      src={images[currentIndex]?.image}
-                      alt="Selected"
-                      className="carousel-image"
-                      onClick={handleImageClick}
-                    />
+                    {images[currentIndex]?.type === "video" ? (
+                      <video
+                        src={images[currentIndex].image}
+                        poster={images[currentIndex].thumbnail}
+                        className="carousel-image"
+                        controls
+                        preload="metadata"
+                        style={{ 
+                          objectFit: 'contain'
+                        }}
+                        // No onClick here to prevent enlargement
+                      />
+                    ) : (
+                      <img
+                        src={images[currentIndex]?.image}
+                        alt="Selected"
+                        className="carousel-image"
+                        onClick={handleImageClick}
+                      />
+                    )}
                     <div className="arrow arrow-right" onClick={handleNextImage} />
                   </div>
-                  <p className="click-to-enlarge">Click image to expand</p>
+                  {images[currentIndex]?.type !== "video" && (
+                    <p className="click-to-enlarge">Click image to expand</p>
+                  )}
 
                   <div className="thumbnails-container">
-  {images.map((img, index) => (
-    <img
-      key={img.id}
-      src={img.thumbnail}
-      alt={`Thumbnail ${index}`}
-      onClick={() => handleThumbnailClick(index)}
-      className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-    />
-  ))}
-</div>
+                    {images.map((img, index) => (
+                      <img
+                        key={img.id}
+                        src={img.thumbnail}
+                        alt={`Thumbnail ${index}`}
+                        onClick={() => handleThumbnailClick(index)}
+                        className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+                      />
+                    ))}
+                  </div>
 
                   {/* Navigation buttons now have the same styling as in the left section */}
                   <div className="folder-navigation-buttons">
@@ -359,7 +407,7 @@ const FolderView = () => {
                     <button 
                       className="folder-nav-button next-work" 
                       onClick={handleNextWork} 
-                      disabled={folderNames.indexOf(folderName) === folderNames.length - 1}
+                      disabled={folderNames.indexOf(folderNames.length - 1)}
                     >
                       Next Work
                     </button>
