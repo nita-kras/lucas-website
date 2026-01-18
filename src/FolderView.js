@@ -158,6 +158,7 @@ const FolderView = () => {
   
 
   const folderNames = [  
+     'set_for_the_tension_held_2025',
     'a_thousand_deaths_2025',
     'hidden_away_2025',
     'weed_drawing_',
