@@ -262,6 +262,8 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   }
 }
 
+
+
 /* For even smaller screens (like mobile phones) */
 @media (max-width: 480px) {
   .topbar-logo {

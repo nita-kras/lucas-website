@@ -433,12 +433,13 @@ const FolderView = () => {
                       Prev Work
                     </button>
                     <button 
-                      className="folder-nav-button next-work" 
-                      onClick={handleNextWork} 
-                      disabled={folderNames.indexOf(folderNames.length - 1)}
-                    >
-                      Next Work
-                    </button>
+  className="folder-nav-button next-work" 
+  onClick={handleNextWork} 
+  disabled={folderNames.indexOf(folderName) === folderNames.length - 1}
+>
+  Next Work
+</button>
+
                   </div>
                 </div>
               )}
