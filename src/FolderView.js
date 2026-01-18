@@ -169,7 +169,6 @@ const FolderView = () => {
     'crash_landed_2024',
     'chain_2024_',
     'light_the_way_2024',
-    'unfinished_crash_2024',
     'warhammer_2024',
     'the_mystery_of_the_blood-bath_bath_house_2024',
     'iron_man_tshirts_',
