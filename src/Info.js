@@ -50,6 +50,7 @@ const Info = () => {
 
 {showAssistants && (
   <ul className="nested-list">
+     <li><a href="https://tomschneider.info/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnghySnyGVIB8jgyvvMmvSOIYzON1CKIc8r7Xo19_kfhkDIyoCCdsG0tmQ9IM_aem_TqioAraK_eJ7T9X1jmTEWw" target="_blank" rel="noopener noreferrer">Tom Schneider </a></li>
     <li><a href="https://www.timur-celikdag.com/#all" target="_blank" rel="noopener noreferrer">Timur Celikdag</a></li>
     <li><a href="https://thomasdanbury.com" target="_blank" rel="noopener noreferrer">Thomas Danbury</a></li>
     <li><a href="https://ranafadavi.com" target="_blank" rel="noopener noreferrer">Rana Fadavi</a></li>
