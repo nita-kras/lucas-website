@@ -129,7 +129,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 
     /* Adaptive black/white text */
     color: white;
-    mix-blend-mode: difference; /* Switches text between black & white depending on background */
+
 }
 
 .card-container:hover .card-overlay {
