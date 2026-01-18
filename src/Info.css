@@ -1,17 +1,17 @@
-/* General Styling */
-html, body, .topbar, .folder-link, .image-description, .work-date, .material-info {
-  font-family: Arial, sans-serif;
+html, body, .topbar, .folder-link, .image-description, .work-date {
+  font-family: Verdana, sans-serif;
+  font-size: 11px;
   color: black;
   text-transform: uppercase;
-  margin: 0;
-  padding: 0;
 }
-
+* {
+  font-family: Verdana, sans-serif;
+  font-weight: normal;
+}
 /* Style the dropdown header: blue text and underline on hover */
 .dropdown-header {
   color: blue;
   cursor: pointer;
-  font-size: 14px;
   text-transform: uppercase;
   transition: text-decoration 0.3s;
   display: flex;
@@ -33,7 +33,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 }
 
 .nested-list li {
-  font-size: 14px;
   margin-bottom: 5px;
 }
 
@@ -87,7 +86,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 .topbar-button {
   background-color: transparent;
   border: none;
-  font-size: 16px;
   cursor: pointer;
   margin: 0 10px; /* Space between buttons */
   padding: 10px 20px;
@@ -111,12 +109,10 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 }
 
 .info-text p {
-  font-size: 16px;
   margin: 5px 0;
 }
 
 .info-text p strong {
-  font-size: 18px;
   margin-bottom: 10px;
 }
 
@@ -133,7 +129,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 }
 
 .employment-list li {
-  font-size: 14px;
   margin-bottom: 5px;
 }
 
@@ -163,7 +158,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 
 /* Footer Styling */
 .footer {
-  font-size: 14px;
   text-align: center;
   padding: 10px;
   background-color: #f8f8f8;
@@ -175,7 +169,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 }
 
 .credits {
-  font-size: 14px;
   color: #ef8ed2 !important;
   margin-top: 30px;
   text-align: left;
@@ -214,9 +207,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
     width: 40px;
   }
 
-  .info-text p {
-    font-size: 14px;
-  }
 
   .info-content {
     padding: 15px;
@@ -224,13 +214,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date, .material-inf
 }
 
 @media (min-width: 768px) {
-  .info-text p {
-    font-size: 18px;
-  }
 
-  .employment-list li {
-    font-size: 16px;
-  }
 
   .employment-list {
     margin-left: 130px;
