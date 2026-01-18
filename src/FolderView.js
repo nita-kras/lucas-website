@@ -165,6 +165,7 @@ const FolderView = () => {
     'ilatd_tshirts_',
     'clown_2024',
     'stare_2024',
+    'grim_reaper_2024',
     'mother_and_child_2024',
     'lets_fuck_2024',
     'crash_landed_2024',
