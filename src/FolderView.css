@@ -422,7 +422,7 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .carousel-content .click-to-enlarge {
-  font-size: calc(13px + 0.1vw);
+  font-size: 11px;
   text-align: right;
   margin-top: 2px;
   margin-right: 10px;
