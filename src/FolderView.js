@@ -20,6 +20,15 @@ const FolderView = () => {
     canSwipeRef.current = true;
   }, []);
 
+  const linkify = (text) => {
+    if (!text) return text;
+    return text.replace(
+      /(https?:\/\/[^\s]+)/g,
+      '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+    );
+  };
+  
+
   useEffect(() => {
     const fetchTitleMapping = async () => {
       try {
@@ -212,41 +221,53 @@ const FolderView = () => {
     if (!description) {
       return <p>No description available</p>;
     }
-
+  
     return description.split("\n").map((str, index) => {
-      // Handle credits formatting - check if line contains role and name
-     if (str.includes('\t') && str.startsWith('- ')) {
-  const parts = str.split('\t');
-  const role = parts[0];
-  const names = parts.slice(1); // one or many
-
-  return (
-    <div key={index} className="credit-line">
-      <span>{role}</span>
-      <div className="names">
-        {names.map((n, i) => (
-          <div key={i}>{n}</div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-         
-      
-      // Handle actor names and production assistants (lines that don't start with -)
+  
+      if (str.includes('\t') && str.startsWith('- ')) {
+        const parts = str.split('\t');
+        const role = parts[0];
+        const names = parts.slice(1);
+  
+        return (
+          <div key={index} className="credit-line">
+            <span dangerouslySetInnerHTML={{ __html: linkify(role) }} />
+            <div className="names">
+              {names.map((n, i) => (
+                <div
+                  key={i}
+                  dangerouslySetInnerHTML={{ __html: linkify(n) }}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      }
+  
       if (str.trim() && !str.startsWith('-') && index > 2) {
         return (
           <p key={index} style={{ textAlign: 'right', margin: '0.2em 0', paddingRight: '0' }}>
-            {str.replace(/\t/g, '')}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: linkify(str.replace(/\t/g, ''))
+              }}
+            />
           </p>
         );
       }
-      
-      // Regular paragraphs
-      return <p key={index} style={{ margin: '0.5em 0' }}>{str.replace(/\t/g, '')}</p>;
+  
+      return (
+        <p key={index} style={{ margin: '0.5em 0' }}>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: linkify(str.replace(/\t/g, ''))
+            }}
+          />
+        </p>
+      );
     });
   };
+  
 
   useEffect(() => {
     const handleKeyDown = (event) => {
