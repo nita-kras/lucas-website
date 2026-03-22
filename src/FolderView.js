@@ -10,10 +10,28 @@ const FolderView = () => {
   const [isLargeImageView, setIsLargeImageView] = useState(false);
   const [titleMapping, setTitleMapping] = useState({});
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(null); // null = no track selected
+  const audioRef = useRef(null);
+
+  const tracks = [
+    { title: "Dark State", file: "1_Dark_State.mp3", duration: "4:34" },
+    { title: "Weaponised", file: "2_Weaponised.mp3", duration: "2:44" },
+    { title: "Exiting the Dark Cave", file: "3_Exiting_the_dark_cave.mp3", duration: "2:15" },
+    { title: "An Empty City", file: "4_An_empty_city.mp3", duration: "3:13" },
+    { title: "Trying to Hide", file: "5_Trying_to_hide.mp3", duration: "4:09" }
+  ];
+
+  const handleTrackChange = (index) => {
+    setCurrentTrackIndex(index);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.load();
+      audioRef.current.play().catch(() => {});
+    }
+  };
 
   const canSwipeRef = useRef(true);
   const swipeTimeoutRef = useRef(null);
-
   const navigate = useNavigate();
 
   const resetSwipeCapability = useCallback(() => {
@@ -27,7 +45,6 @@ const FolderView = () => {
       '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
     );
   };
-  
 
   useEffect(() => {
     const fetchTitleMapping = async () => {
@@ -65,7 +82,6 @@ const FolderView = () => {
             materials: img.materials || "No materials listed",
           };
         });
-        
         setImages(formattedImages);
         setCurrentIndex(0);
         setThumbnailStartIndex(0);
@@ -76,52 +92,26 @@ const FolderView = () => {
     fetchImages();
   }, [folderName]);
 
- const carouselGesture = useGesture(
+  const carouselGesture = useGesture(
     {
       onDragStart: () => {
-        // Reset any previous timeout
-        if (swipeTimeoutRef.current) {
-          clearTimeout(swipeTimeoutRef.current);
-        }
+        if (swipeTimeoutRef.current) clearTimeout(swipeTimeoutRef.current);
       },
       onDrag: ({ movement: [mx], direction: [xDir], cancel, intentional }) => {
-        // Only trigger if swipe is allowed, intentional, and meets threshold
-        if (
-          canSwipeRef.current && 
-          intentional && 
-          Math.abs(mx) > 50  // Increased threshold to prevent accidental swipes
-        ) {
-          // Prevent further swipes immediately
+        if (canSwipeRef.current && intentional && Math.abs(mx) > 50) {
           canSwipeRef.current = false;
-
-          // Perform the swipe
           xDir > 0 ? handlePreviousImage() : handleNextImage();
-
-          // Set a timeout to re-enable swiping
           swipeTimeoutRef.current = setTimeout(resetSwipeCapability, 300);
-
-          // Cancel the gesture to prevent multiple triggers
           cancel();
         }
       },
       onDragEnd: () => {
-        // Ensure swipe capability is reset
-        if (swipeTimeoutRef.current) {
-          clearTimeout(swipeTimeoutRef.current);
-        }
+        if (swipeTimeoutRef.current) clearTimeout(swipeTimeoutRef.current);
         swipeTimeoutRef.current = setTimeout(resetSwipeCapability, 300);
       }
     },
-    {
-      drag: {
-        axis: 'x',
-        threshold: 10,
-        preventDefault: true,
-        touchAction: 'none'
-      },
-    }
+    { drag: { axis: 'x', threshold: 10, preventDefault: true, touchAction: 'none' } }
   );
-
 
   const handleNextImage = useCallback(() => {
     setCurrentIndex((prevIndex) => {
@@ -139,35 +129,18 @@ const FolderView = () => {
     });
   }, [images.length, thumbnailStartIndex]);
 
-  useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.key === 'Escape' && isLargeImageView) {
-        setIsLargeImageView(false);
-      }
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, [isLargeImageView]);
-  
-
   const handleThumbnailClick = (index) => {
     setCurrentIndex(index);
-    if (index >= thumbnailStartIndex + 3) {
-      setThumbnailStartIndex(index - 2); // Adjust start if clicking far right thumbnail
-    } else if (index <= thumbnailStartIndex) {
-      setThumbnailStartIndex(Math.max(index - 1, 0)); // Adjust start if clicking far left thumbnail
-    }
+    if (index >= thumbnailStartIndex + 3) setThumbnailStartIndex(index - 2);
+    else if (index <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(index - 1, 0));
   };
 
   const handleImageClick = () => {
-    if (images[currentIndex]?.type !== 'video') {
-      setIsLargeImageView((prev) => !prev);
-    }
+    if (images[currentIndex]?.type !== 'video') setIsLargeImageView((prev) => !prev);
   };
-  
 
   const folderNames = [  
-     'set_for_the_tension_held_2025',
+    'set_for_the_tension_held_2025',
     'a_thousand_deaths_2025',
     'hidden_away_2025',
     'weed_drawing_',
@@ -200,161 +173,161 @@ const FolderView = () => {
     'insert_me,_a_perfect_coupling_2022',
     'fever_2022',
     'my_feelings_inside_','sweet_', 
-    'shredding_out_of_me_2021',];
-  const formattedFolderNames = folderNames.map((folder) => titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase()));
+    'shredding_out_of_me_2021',
+  ];
+
+  const formattedFolderNames = folderNames.map((folder) =>
+    titleMapping[folder] || folder.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+  );
 
   const handleNextWork = () => {
     const currentFolderIndex = folderNames.indexOf(folderName);
-    if (currentFolderIndex < folderNames.length - 1) {
-      navigate(`/folder/${folderNames[currentFolderIndex + 1]}`);
-    }
+    if (currentFolderIndex < folderNames.length - 1) navigate(`/folder/${folderNames[currentFolderIndex + 1]}`);
   };
 
   const handlePrevWork = () => {
     const currentFolderIndex = folderNames.indexOf(folderName);
-    if (currentFolderIndex > 0) {
-      navigate(`/folder/${folderNames[currentFolderIndex - 1]}`);
-    }
+    if (currentFolderIndex > 0) navigate(`/folder/${folderNames[currentFolderIndex - 1]}`);
   };
 
   const formatDescription = (description) => {
-    if (!description) {
-      return <p>No description available</p>;
-    }
-  
-    return description.split("\n").map((str, index) => {
-  
-      if (str.includes('\t') && str.startsWith('- ')) {
-        const parts = str.split('\t');
-        const role = parts[0];
-        const names = parts.slice(1);
-  
-        return (
-          <div key={index} className="credit-line">
-            <span dangerouslySetInnerHTML={{ __html: linkify(role) }} />
-            <div className="names">
-              {names.map((n, i) => (
+    if (!description) return <p>No description available</p>;
+
+    const splitIndex = description.search(/\n- /);
+    const narrative = splitIndex >= 0 ? description.slice(0, splitIndex).trim() : description.trim();
+    const creditsText = splitIndex >= 0 ? description.slice(splitIndex).trim() : '';
+
+    return (
+      <>
+        <div className="description-section" style={{ marginBottom: '2em' }}>
+          {narrative.split("\n").map((line, i) => (
+            <p key={i}><span dangerouslySetInnerHTML={{ __html: linkify(line) }} /></p>
+          ))}
+        </div>
+
+        {/* Soundtrack Section */}
+        {folderName === "a_thousand_deaths_2025" && (
+          <div className="soundtrack-section" style={{ marginBottom: '2em' }}>
+            <div className="original-soundtrack">Original Soundtrack</div>
+
+            {/* Main Player only visible if a track is selected */}
+            {currentTrackIndex !== null && (
+              <div className="main-player" style={{ marginTop: '1em', marginBottom: '1em' }}>
+                <div className="player-header">{tracks[currentTrackIndex].title}</div>
+                <div className="audio-wrapper">
+                  <audio
+                    ref={audioRef}
+                    controls
+                    controlsList="noplaybackrate noremoteplayback nodownload"
+                    disablePictureInPicture
+                    preload="metadata"
+                    className="clean-audio"
+                  >
+                    <source
+                      src={`${process.env.PUBLIC_URL}/works/worksLarge/a_thousand_deaths_2025/${tracks[currentTrackIndex].file}`}
+                      type="audio/mpeg"
+                    />
+                  </audio>
+                  <button
+                    className="download-button"
+                    onClick={() => {
+                      const a = document.createElement("a");
+                      a.href = `${process.env.PUBLIC_URL}/works/worksLarge/a_thousand_deaths_2025/${tracks[currentTrackIndex].file}`;
+                      a.download = tracks[currentTrackIndex].file;
+                      a.click();
+                    }}
+                    aria-label="Download"
+                  >
+                    ⬇
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="tracklist">
+              {tracks.map((track, index) => (
                 <div
-                  key={i}
-                  dangerouslySetInnerHTML={{ __html: linkify(n) }}
-                />
+                  key={index}
+                  className={`track ${index === currentTrackIndex ? "active" : ""}`}
+                  onClick={() => handleTrackChange(index)}
+                >
+                  <span className="track-title">{index + 1}. {track.title}</span>
+                  <span className="track-duration">{track.duration}</span>
+                </div>
               ))}
             </div>
           </div>
-        );
-      }
-  
-      if (str.trim() && !str.startsWith('-') && index > 2) {
-        return (
-          <p key={index} style={{ textAlign: 'right', margin: '0.2em 0', paddingRight: '0' }}>
-            <span
-              dangerouslySetInnerHTML={{
-                __html: linkify(str.replace(/\t/g, ''))
-              }}
-            />
-          </p>
-        );
-      }
-  
-      return (
-        <p key={index} style={{ margin: '0.5em 0' }}>
-          <span
-            dangerouslySetInnerHTML={{
-              __html: linkify(str.replace(/\t/g, ''))
-            }}
-          />
-        </p>
-      );
-    });
-  };
-  
+        )}
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (!isLargeImageView) {
-        switch(event.key) {
-          case 'ArrowRight':
-            event.preventDefault();
-            handleNextImage();
-            break;
-          case 'ArrowLeft':
-            event.preventDefault();
-            handlePreviousImage();
-            break;
-          default:
-            // No action for other keys
-            break;
-        }
-      }
-    };
-  
-    window.addEventListener('keydown', handleKeyDown);
-  
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [
-    isLargeImageView, 
-    images, 
-    currentIndex, 
-    thumbnailStartIndex, 
-    handleNextImage,  // Add these two
-    handlePreviousImage  // to resolve the second warning
-  ]);
+        {/* Credits */}
+        <div className="credits-section" style={{ marginTop: '2em' }}>
+          {creditsText.split("\n").map((line, i) => {
+            if (!line.trim()) return null;
+            if (line.includes('\t') && line.startsWith('- ')) {
+              const parts = line.split('\t').filter(Boolean);
+              const role = parts[0];
+              const names = parts.slice(1);
+              return (
+                <div key={i} className="credit-line">
+                  <span dangerouslySetInnerHTML={{ __html: linkify(role) }} />
+                  <div className="names">
+                    {names.map((n, j) => (
+                      <div key={j} dangerouslySetInnerHTML={{ __html: linkify(n) }} />
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <p key={i} style={{ margin: '0.2em 0', textAlign: 'right' }}>
+                <span dangerouslySetInnerHTML={{ __html: linkify(line.replace(/\t/g, '')) }} />
+              </p>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="folder-view-page">
-    {!isLargeImageView && (
-      <div className="topbar">
-      <div className="logo-container">
-        <img 
-          src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
-          alt="Logo" 
-          className="topbar-logo" 
-          onClick={() => navigate('/gallery')}
-          style={{ cursor: 'pointer' }} 
-        />
-      </div>
-      <div className="button-group">
-        <Link to="/gallery" className="topbar-button">Works</Link>
-        <Link to="/info" className="topbar-button">Info</Link>
-      </div>
-    </div> 
-       
-    )}
-
-    <div className="folder-view">
-      {isLargeImageView ? (
-        <div className="center-section full-width">
-          <div className="large-image-container">
-            {images.filter(img => img.type !== "video").map((img) => (
-              <img
-                key={img.id}
-                src={img.image}
-                alt={`Large view of ${img.id}`}
-                className="large-image"
-                onClick={handleImageClick}
-              />
-            ))}
+      {/* Topbar */}
+      {!isLargeImageView && (
+        <div className="topbar">
+          <div className="logo-container">
+            <img 
+              src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
+              alt="Logo" 
+              className="topbar-logo" 
+              onClick={() => navigate('/gallery')}
+              style={{ cursor: 'pointer' }} 
+            />
+          </div>
+          <div className="button-group">
+            <Link to="/gallery" className="topbar-button">Works</Link>
+            <Link to="/info" className="topbar-button">Info</Link>
           </div>
         </div>
-      ) : (
-        <>
+      )}
+
+      <div className="folder-view">
+        {/* Left Column */}
+        {!isLargeImageView && (
           <div className="left-section">
-          <div className="folder-list">
-  <ul>
-    {formattedFolderNames.map((folderTitle, index) => (
-      <li key={index}>
-        <Link 
-          to={`/folder/${folderNames[index]}`} 
-          className={`folder-link ${folderNames[index] === folderName ? 'active' : ''}`}
-        >
-          {folderTitle}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</div>
+            <div className="folder-list">
+              <ul>
+                {formattedFolderNames.map((folderTitle, index) => (
+                  <li key={index}>
+                    <Link 
+                      to={`/folder/${folderNames[index]}`} 
+                      className={`folder-link ${folderNames[index] === folderName ? 'active' : ''}`}
+                    >
+                      {folderTitle}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div className="folder-navigation-buttons">
               <button 
@@ -373,90 +346,67 @@ const FolderView = () => {
               </button>
             </div>
           </div>
+        )}
 
-          <div className="center-section">
-            <div className="carousel-container">
-              {images.length === 0 ? (
-                <div>Loading images...</div>
-              ) : (
-                <div className="carousel-content">
-                  <div 
-                    className="carousel-image-wrapper" 
-                    {...carouselGesture()}
-                  >
-                    <div className="arrow arrow-left" onClick={handlePreviousImage} />
-                    {images[currentIndex]?.type === "video" ? (
-                      <video
-                        src={images[currentIndex].image}
-                        poster={images[currentIndex].thumbnail}
-                        className="carousel-image"
-                        controls
-                        preload="metadata"
-                        style={{ 
-                          objectFit: 'contain'
-                        }}
-                        // No onClick here to prevent enlargement
-                      />
-                    ) : (
-                      <img
-                        src={images[currentIndex]?.image}
-                        alt="Selected"
-                        className="carousel-image"
-                        onClick={handleImageClick}
-                      />
-                    )}
-                    <div className="arrow arrow-right" onClick={handleNextImage} />
-                  </div>
-                  {images[currentIndex]?.type !== "video" && (
-                    <p className="click-to-enlarge">Click image to expand</p>
+        {/* Center Column */}
+        <div className="center-section">
+          {/* Carousel */}
+          <div className="carousel-container">
+            {images.length === 0 ? (
+              <div>Loading images...</div>
+            ) : (
+              <div className="carousel-content">
+                <div className="carousel-image-wrapper" {...carouselGesture()}>
+                  <div className="arrow arrow-left" onClick={handlePreviousImage} />
+                  {images[currentIndex]?.type === "video" ? (
+                    <video
+                      src={images[currentIndex].image}
+                      poster={images[currentIndex].thumbnail}
+                      className="carousel-image"
+                      controls
+                      preload="metadata"
+                    />
+                  ) : (
+                    <img
+                      src={images[currentIndex]?.image}
+                      alt="Selected"
+                      className="carousel-image"
+                      onClick={handleImageClick}
+                    />
                   )}
-
-                  <div className="thumbnails-container">
-                    {images.map((img, index) => (
-                      <img
-                        key={img.id}
-                        src={img.thumbnail}
-                        alt={`Thumbnail ${index}`}
-                        onClick={() => handleThumbnailClick(index)}
-                        className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Navigation buttons now have the same styling as in the left section */}
-                  <div className="folder-navigation-buttons">
-                    <button 
-                      className="folder-nav-button prev-work" 
-                      onClick={handlePrevWork} 
-                      disabled={folderNames.indexOf(folderName) === 0}
-                    >
-                      Prev Work
-                    </button>
-                    <button 
-  className="folder-nav-button next-work" 
-  onClick={handleNextWork} 
-  disabled={folderNames.indexOf(folderName) === folderNames.length - 1}
->
-  Next Work
-</button>
-
-                  </div>
+                  <div className="arrow arrow-right" onClick={handleNextImage} />
                 </div>
-              )}
-            </div>
 
-            <div className="image-description">
-              <h2>{formattedFolderName}</h2>
-              <p className="work-date">{workDate}</p>
-              <p className="material-info">{images[currentIndex]?.materials}</p>
-              <div>{formatDescription(images[currentIndex]?.description)}</div>
-            </div>
+                {images[currentIndex]?.type !== "video" && (
+                  <p className="click-to-enlarge">Click image to expand</p>
+                )}
+
+                <div className="thumbnails-container">
+                  {images.map((img, index) => (
+                    <img
+                      key={img.id}
+                      src={img.thumbnail}
+                      alt={`Thumbnail ${index}`}
+                      onClick={() => handleThumbnailClick(index)}
+                      className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        </>
-      )}
+
+          {/* Description + Soundtrack + Credits */}
+          <div className="image-description">
+            <h2>{formattedFolderName}</h2>
+            <p className="work-date">{workDate}</p>
+            <p className="material-info">{images[currentIndex]?.materials}</p>
+            <div>{formatDescription(images[currentIndex]?.description)}</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default FolderView;

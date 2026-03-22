@@ -478,27 +478,197 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
     gap: 10px;
   }
 }
+
 .credit-line {
   display: flex;
   justify-content: space-between;
-  margin: 0.4em 0;   /* space between blocks */
+  align-items: flex-start;
 }
 
-.credit-line span:last-child {
-  margin-left: auto;
+.credit-line span:first-child {
+  padding-right: 20px;
+}
+
+.names {
   text-align: right;
 }
 
-/* Small screen override */
-@media (max-width: 768px) {
-  .credit-line {
-    flex-direction: column;   /* stack vertically */
-    align-items: flex-start;  /* left align everything */
-    margin: 0 0 1em 0;        /* add bigger bottom spacing */
-  }
+/* ===== SOUNDTRACK SECTION (COMPACT LIKE ORIGINAL) ===== */
 
-  .credit-line span:last-child {
-    margin-left: 0;           /* reset spacing */
-    text-align: left;         /* ensure names are left aligned */
-  }
+.soundtrack-section {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 500px; /* keep it tight like before */
+}
+
+/* Original Soundtrack Label */
+.original-soundtrack {
+  font-size: 14px;        /* slightly bigger than track titles */
+  font-weight: 600;       /* semi-bold */
+  color: #222;            /* slightly darker for contrast */
+  margin-bottom: 6px;     /* spacing before player */
+  text-transform: uppercase; /* subtle emphasis */
+  letter-spacing: 0.5px;    /* small spacing to refine look */
+}
+
+/* ===== MAIN PLAYER ===== */
+.main-player {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
+  border: 1px solid #999; /* border */
+  background-color: #e0e0e0; /* solid grey */
+  padding: 6px; /* optional padding inside */
+  color: #000; /* text color for title */
+}
+
+/* remove the separate header styling */
+.player-header {
+  padding: 0; /* remove extra padding */
+  border-bottom: none; /* remove line under title */
+  font-size: 12px; /* adjust as needed */
+  margin-bottom: 4px; /* small spacing from audio */
+}
+
+/* AUDIO PLAYER STAYS GREY INSIDE */
+.clean-audio {
+  width: 100%;
+  display: block;
+  border-radius: 0 !important;
+  overflow: hidden;
+  background-color: #e0e0e0; /* match main player */
+}
+
+/* Optional: remove hover/focus outlines on audio controls for cleaner look */
+.clean-audio:focus {
+  outline: none;
+}
+
+/* ===== DOWNLOAD BUTTON ===== */
+.download-button {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 8px;
+  background-color: #ccc;
+  color: #000;
+  cursor: pointer;
+  font-size: 11px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.download-button:hover {
+  background-color: #bbb;
+}
+
+/* ===== MAIN PLAYER ===== */
+.main-player {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 0px;
+  border: 1px solid #999;
+  background-color: #e0e0e0;
+  padding: 0; /* remove all extra padding */
+  box-sizing: border-box;
+  color: #000;
+}
+
+/* Title */
+.player-header {
+  padding: 0px 0px; /* minimal padding */
+  margin: 0;
+  font-size: 12px;
+  border-bottom: none;
+  background-color: #e0e0e0;
+}
+
+/* Audio + Download inline wrapper */
+.audio-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #e0e0e0;
+  padding: 0 0px; /* minimal horizontal padding */
+  box-sizing: border-box;
+  gap: 4px; /* small space between audio & download icon */
+}
+
+/* Audio takes remaining space and is thinner */
+.audio-wrapper audio.clean-audio {
+  flex: 1;
+  height: 28px; /* slightly thinner */
+}
+
+/* Download icon — inline with audio */
+.download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: #000;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.download-button:hover {
+  color: #555;
+}
+
+/* Native audio controls panel (compact) */
+.clean-audio::-webkit-media-controls-panel,
+.clean-audio::-webkit-media-controls-enclosure {
+  background-color: #e0e0e0 !important;
+  border-radius: 0 !important;
+  height: 28px; /* match thinner height */
+}
+
+.clean-audio::-webkit-media-controls-volume-slider,
+.clean-audio::-webkit-media-controls-mute-button,
+.clean-audio::-webkit-media-controls-playback-rate-button {
+  display: none !important;
+}
+
+.clean-audio::-webkit-media-controls-panel {
+  justify-content: flex-start;
+  padding: 0;
+}
+/* ===== TRACKLIST (ALIGNED LIKE ORIGINAL) ===== */
+
+.tracklist {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 500px;
+  font-variant-numeric: tabular-nums; /* clean number alignment */
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 1fr 40px;
+  align-items: center;
+  cursor: pointer;
+  padding: 3px 0;
+  border-bottom: 1px solid #ccc; /* 👈 line */
+}
+
+.track:first-child {
+  border-top: 1px solid #ccc; /* top line */
+}
+
+.track-title {
+  text-align: left;
+}
+
+.track-duration {
+  text-align: right;
+}
+
+.track:hover {
+  opacity: 0.6;
+}
+
+.track.active {
+  color: gray;
 }

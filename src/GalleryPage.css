@@ -72,8 +72,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-
-
     /* Ensure topbar buttons and layout adjust for small screens */
     .topbar-button {
         font-size: 14px;

@@ -50,7 +50,6 @@ const Info = () => {
 
 {showAssistants && (
   <ul className="nested-list">
-     <li><a href="https://tomschneider.info/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnghySnyGVIB8jgyvvMmvSOIYzON1CKIc8r7Xo19_kfhkDIyoCCdsG0tmQ9IM_aem_TqioAraK_eJ7T9X1jmTEWw" target="_blank" rel="noopener noreferrer">Tom Schneider </a></li>
     <li><a href="https://www.timur-celikdag.com/#all" target="_blank" rel="noopener noreferrer">Timur Celikdag</a></li>
     <li><a href="https://thomasdanbury.com" target="_blank" rel="noopener noreferrer">Thomas Danbury</a></li>
     <li><a href="https://ranafadavi.com" target="_blank" rel="noopener noreferrer">Rana Fadavi</a></li>
@@ -63,6 +62,7 @@ const Info = () => {
     <li><a href="https://annalomax.com" target="_blank" rel="noopener noreferrer">Anna Lomax</a></li>
     <li><a href="https://samuelpidgen.com" target="_blank" rel="noopener noreferrer">Samuel Pidgen</a></li>
     <li><a href="https://paulinapiipponen.com" target="_blank" rel="noopener noreferrer">Paulina Piipponen</a></li>
+    <li><a href="https://tomschneider.info/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnghySnyGVIB8jgyvvMmvSOIYzON1CKIc8r7Xo19_kfhkDIyoCCdsG0tmQ9IM_aem_TqioAraK_eJ7T9X1jmTEWw" target="_blank" rel="noopener noreferrer">Tom Schneider </a></li>
     <li><a href="https://www.maxwell-randall.com" target="_blank" rel="noopener noreferrer">Max Randall</a></li>
     <li><a href="https://www.phoebeshakespeare.com" target="_blank" rel="noopener noreferrer">Phoebe Shakespeare</a></li>
     <li><a href="https://www.joshstovell.com" target="_blank" rel="noopener noreferrer">Josh Stovell</a></li>
