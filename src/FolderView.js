@@ -263,26 +263,40 @@ const FolderView = () => {
         <div className="credits-section" style={{ marginTop: '2em' }}>
           {creditsText.split("\n").map((line, i) => {
             if (!line.trim()) return null;
-            if (line.includes('\t') && line.startsWith('- ')) {
-              const parts = line.split('\t').filter(Boolean);
-              const role = parts[0];
-              const names = parts.slice(1);
-              return (
-                <div key={i} className="credit-line">
-                  <span dangerouslySetInnerHTML={{ __html: linkify(role) }} />
-                  <div className="names">
-                    {names.map((n, j) => (
-                      <div key={j} dangerouslySetInnerHTML={{ __html: linkify(n) }} />
-                    ))}
-                  </div>
-                </div>
-              );
-            }
+            if (folderName === "a_thousand_deaths_2025" && (line.startsWith('- ') || line.startsWith('\t'))) {
+  // Split ONLY on first tab group
+  const [rolePart, namePart] = line.split(/\t+/);
+
+  const role = rolePart.replace('- ', '').trim();
+
+  return (
+    <div key={i} className="credit-line">
+      <span className="role" dangerouslySetInnerHTML={{ __html: linkify(role) }} />
+      {namePart && (
+        <div className="names">
+          <div dangerouslySetInnerHTML={{ __html: linkify(namePart.trim()) }} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Handle continuation lines (names under previous role)
+if (line.startsWith('\t')) {
+  return (
+    <div key={i} className="credit-line continuation">
+      <span className="role" /> 
+      <div className="names">
+        <div dangerouslySetInnerHTML={{ __html: linkify(line.trim()) }} />
+      </div>
+    </div>
+  );
+}
             return (
-              <p key={i} style={{ margin: '0.2em 0', textAlign: 'right' }}>
-                <span dangerouslySetInnerHTML={{ __html: linkify(line.replace(/\t/g, '')) }} />
-              </p>
-            );
+  <p key={i} style={{ margin: '0.2em 0' }}>
+    <span dangerouslySetInnerHTML={{ __html: linkify(line.replace(/\t/g, '')) }} />
+  </p>
+);
           })}
         </div>
       </>
@@ -291,25 +305,21 @@ const FolderView = () => {
 
   return (
     <div className="folder-view-page">
-      {/* Topbar */}
-      {!isLargeImageView && (
-        <div className="topbar">
-          <div className="logo-container">
-            <img 
-              src={`${process.env.PUBLIC_URL}/NameLogo.jpg`} 
-              alt="Logo" 
-              className="topbar-logo" 
-              onClick={() => navigate('/gallery')}
-              style={{ cursor: 'pointer' }} 
-            />
-          </div>
-          <div className="button-group">
-            <Link to="/gallery" className="topbar-button">Works</Link>
-            <Link to="/info" className="topbar-button">Info</Link>
-          </div>
-        </div>
-      )}
+      <div className="topbar">
+  <div></div>
 
+  <img
+    src={`${process.env.PUBLIC_URL}/NameLogo.jpg`}
+    alt="Logo"
+    className="topbar-logo"
+    onClick={() => navigate('/gallery')}
+    style={{ cursor: 'pointer' }}
+  />
+
+  <Link to="/gallery" className="topbar-button gallery-button">
+    Works
+  </Link>
+</div>
       <div className="folder-view">
         {/* Left Column */}
         {!isLargeImageView && (
@@ -349,61 +359,93 @@ const FolderView = () => {
         )}
 
         {/* Center Column */}
-        <div className="center-section">
-          {/* Carousel */}
-          <div className="carousel-container">
-            {images.length === 0 ? (
-              <div>Loading images...</div>
-            ) : (
-              <div className="carousel-content">
-                <div className="carousel-image-wrapper" {...carouselGesture()}>
-                  <div className="arrow arrow-left" onClick={handlePreviousImage} />
-                  {images[currentIndex]?.type === "video" ? (
-                    <video
-                      src={images[currentIndex].image}
-                      poster={images[currentIndex].thumbnail}
-                      className="carousel-image"
-                      controls
-                      preload="metadata"
-                    />
-                  ) : (
-                    <img
-                      src={images[currentIndex]?.image}
-                      alt="Selected"
-                      className="carousel-image"
-                      onClick={handleImageClick}
-                    />
-                  )}
-                  <div className="arrow arrow-right" onClick={handleNextImage} />
-                </div>
+<div className={`center-section ${isLargeImageView ? "full-width" : ""}`}>
+  
+{isLargeImageView ? (
+  <div className="expanded-scroll-view" onClick={handleImageClick}>
+    
+    <p className="click-to-exit">Click anywhere to exit</p>
 
-                {images[currentIndex]?.type !== "video" && (
-                  <p className="click-to-enlarge">Click image to expand</p>
-                )}
+    {images.map((img, index) => (
+      img.type === "video" ? (
+        <video
+          key={index}
+          src={img.image}
+          controls
+          className="expanded-media"
+          onClick={(e) => e.stopPropagation()} // prevent exit when interacting
+        />
+      ) : (
+        <img
+          key={index}
+          src={img.image}
+          alt=""
+          className="expanded-media"
+        />
+      )
+    ))}
 
-                <div className="thumbnails-container">
-                  {images.map((img, index) => (
-                    <img
-                      key={img.id}
-                      src={img.thumbnail}
-                      alt={`Thumbnail ${index}`}
-                      onClick={() => handleThumbnailClick(index)}
-                      className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
-                    />
-                  ))}
-                </div>
-              </div>
+  </div>
+) : (
+    <>
+      {/* NORMAL CAROUSEL */}
+      <div className="carousel-container">
+        {images.length === 0 ? (
+          <div>Loading images...</div>
+        ) : (
+          <div className="carousel-content">
+            <div className="carousel-image-wrapper" {...carouselGesture()}>
+              <div className="arrow arrow-left" onClick={handlePreviousImage} />
+
+              {images[currentIndex]?.type === "video" ? (
+                <video
+                  src={images[currentIndex].image}
+                  poster={images[currentIndex].thumbnail}
+                  className="carousel-image"
+                  controls
+                  preload="metadata"
+                />
+              ) : (
+                <img
+                  src={images[currentIndex]?.image}
+                  alt="Selected"
+                  className="carousel-image"
+                  onClick={handleImageClick}
+                />
+              )}
+
+              <div className="arrow arrow-right" onClick={handleNextImage} />
+            </div>
+
+            {images[currentIndex]?.type !== "video" && (
+              <p className="click-to-enlarge">Click image to expand</p>
             )}
-          </div>
 
-          {/* Description + Soundtrack + Credits */}
-          <div className="image-description">
-            <h2>{formattedFolderName}</h2>
-            <p className="work-date">{workDate}</p>
-            <p className="material-info">{images[currentIndex]?.materials}</p>
-            <div>{formatDescription(images[currentIndex]?.description)}</div>
+            <div className="thumbnails-container">
+              {images.map((img, index) => (
+                <img
+                  key={img.id}
+                  src={img.thumbnail}
+                  alt={`Thumbnail ${index}`}
+                  onClick={() => handleThumbnailClick(index)}
+                  className={`thumbnail ${index === currentIndex ? 'selected' : ''}`}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+      </div>
+
+      {/* DESCRIPTION */}
+      <div className={`image-description ${folderName === "a_thousand_deaths_2025" ? "tight" : ""}`}>
+        <h2>{formattedFolderName}</h2>
+        <p className="work-date">{workDate}</p>
+        <p className="material-info">{images[currentIndex]?.materials}</p>
+        <div>{formatDescription(images[currentIndex]?.description)}</div>
+      </div>
+    </>
+  )}
+</div>
       </div>
     </div>
   );

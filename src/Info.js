@@ -78,7 +78,6 @@ const Info = () => {
             <li><a href="https://www.archbronze.com" target="_blank" rel="noopener noreferrer">Arch Bronze</a></li>
             <li><a href="https://www.pep-ltd.co.uk" target="_blank" rel="noopener noreferrer">PEP</a></li>
             <li><a href="http://www.taoh.es" target="_blank" rel="noopener noreferrer">Taoh Motorecambios</a></li>
-            <li><a href="https://www.speters.co.uk/sourcing-production" target="_blank" rel="noopener noreferrer">Stuart Peters</a></li>
             <li><a href="https://www.paulsmith.com/uk/discover" target="_blank" rel="noopener noreferrer">Paul Smith</a></li>
             <li><a href="https://thefootsoldiers.com" target="_blank" rel="noopener noreferrer">The Foot Soldiers</a></li>
           </ul>
