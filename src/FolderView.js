@@ -114,32 +114,60 @@ const FolderView = () => {
   );
 
   const handleNextImage = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      const newIndex = (prevIndex + 1) % images.length;
-      if (newIndex >= thumbnailStartIndex + 3) setThumbnailStartIndex(newIndex - 2);
-      return newIndex;
-    });
-  }, [images.length, thumbnailStartIndex]);
+  setCurrentIndex((prevIndex) => {
+    const newIndex = (prevIndex + 1) % images.length;
+    if (newIndex >= thumbnailStartIndex + 3) {
+      setThumbnailStartIndex(newIndex - 2);
+    }
+    return newIndex;
+  });
+}, [images.length, thumbnailStartIndex]);
 
-  const handlePreviousImage = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      const newIndex = (prevIndex - 1 + images.length) % images.length;
-      if (newIndex <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(newIndex - 1, 0));
-      return newIndex;
-    });
-  }, [images.length, thumbnailStartIndex]);
+const handlePreviousImage = useCallback(() => {
+  setCurrentIndex((prevIndex) => {
+    const newIndex = (prevIndex - 1 + images.length) % images.length;
+    if (newIndex <= thumbnailStartIndex) {
+      setThumbnailStartIndex(Math.max(newIndex - 1, 0));
+    }
+    return newIndex;
+  });
+}, [images.length, thumbnailStartIndex]);
 
-  const handleThumbnailClick = (index) => {
-    setCurrentIndex(index);
-    if (index >= thumbnailStartIndex + 3) setThumbnailStartIndex(index - 2);
-    else if (index <= thumbnailStartIndex) setThumbnailStartIndex(Math.max(index - 1, 0));
+useEffect(() => {
+  const handleKeyNavigation = (e) => {
+    if (isLargeImageView) return;
+
+    if (e.key === 'ArrowLeft') {
+      handlePreviousImage();
+    }
+
+    if (e.key === 'ArrowRight') {
+      handleNextImage();
+    }
   };
+
+  window.addEventListener('keydown', handleKeyNavigation);
+
+  return () => {
+    window.removeEventListener('keydown', handleKeyNavigation);
+  };
+}, [handleNextImage, handlePreviousImage, isLargeImageView]);
+
+const handleThumbnailClick = (index) => {
+  setCurrentIndex(index);
+
+  if (index >= thumbnailStartIndex + 3) {
+    setThumbnailStartIndex(index - 2);
+  } else if (index <= thumbnailStartIndex) {
+    setThumbnailStartIndex(Math.max(index - 1, 0));
+  }
+};
 
   const handleImageClick = () => {
     if (images[currentIndex]?.type !== 'video') setIsLargeImageView((prev) => !prev);
   };
 
-  const folderNames = [  
+  const folderNames = [  'warmth_2026',
     'set_for_the_tension_held_2025',
     'a_thousand_deaths_2025',
     'hidden_away_2025',
@@ -415,7 +443,10 @@ if (line.startsWith('\t')) {
               )}
 
               <div className="arrow arrow-right" onClick={handleNextImage} />
+              
             </div>
+
+            
 
             {images[currentIndex]?.type !== "video" && (
               <p className="click-to-enlarge">Click image to expand</p>
@@ -434,7 +465,11 @@ if (line.startsWith('\t')) {
             </div>
           </div>
         )}
+
+        
       </div>
+
+      
 
       {/* DESCRIPTION */}
       <div className={`image-description ${folderName === "a_thousand_deaths_2025" ? "tight" : ""}`}>

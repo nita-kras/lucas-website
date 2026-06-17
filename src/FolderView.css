@@ -193,9 +193,11 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 
 .carousel-image-wrapper {
   position: relative;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .carousel-image {
@@ -408,24 +410,37 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
 }
 
 .arrow {
-  z-index: 10; /* Ensure above other elements */
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  cursor: pointer;
+  z-index: 100;
+  opacity: 0.75;
+  background: none;
+  border-radius: 0;
+  transition: opacity 0.2s ease;
 }
 
+
+
 .arrow-left {
-  left: 5px;
-  border-style: solid;
-  border-color: transparent rgba(255, 255, 255, 0.8) transparent transparent;
+  left: 20px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 12px solid rgba(255, 255, 255, 0.75);
 }
 
 .arrow-right {
-  right: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+  right: 20px;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid rgba(255, 255, 255, 0.75);
 }
 
 .arrow:hover {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 .thumbnails-container {
@@ -490,31 +505,6 @@ html, body, .topbar, .folder-link, .image-description, .work-date {
   display: block;
 }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.arrow-left {
-  left: 20px;
-  border-right: 8px solid white;
-}
-
-.arrow-right {
-  right: 20px;
-  border-left: 8px solid white;
-}
-
-.arrow:hover {
-  opacity: 0.7;
-}
 
 .click-to-enlarge {
   text-align: center;
